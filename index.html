@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Organizador Financeiro</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
@@ -514,7 +514,6 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 /* Evita auto-zoom do iOS ao focar formulários */
 @media(max-width:760px){
-  input,select,textarea{font-size:16px!important}
   #screen-dashboard{width:100%;max-width:100vw;overflow-x:hidden}
   #screen-dashboard .dash-shell,#screen-dashboard .dash-main,#screen-dashboard .dash-content{width:100%;max-width:100%;min-width:0}
   #screen-dashboard .dash-content{padding-left:12px!important;padding-right:12px!important}
@@ -535,6 +534,152 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   .category-settings-add{grid-template-columns:minmax(0,1fr)}
   .category-settings-add .dash-primary-btn{width:100%}
   .category-settings-row{grid-template-columns:minmax(0,1fr) auto}
+}
+
+
+/* ===== v9: tabelas alinhadas e mobile com viewport natural ===== */
+
+/* Tabelas: larguras previsíveis e conteúdo verticalmente alinhado */
+#screen-dashboard .original-table-wrap{
+  width:100%;
+  overflow-x:auto;
+  overflow-y:auto;
+  border:1px solid #E9E1DF;
+  border-radius:12px;
+  background:#fff;
+}
+#screen-dashboard .original-table{
+  width:100%;
+  min-width:760px;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+#screen-dashboard .original-table thead th,
+#screen-dashboard .original-table tbody td{
+  box-sizing:border-box;
+  vertical-align:middle!important;
+  padding:10px 12px!important;
+  line-height:1.25;
+}
+#screen-dashboard .original-table thead th{
+  height:40px;
+  white-space:nowrap;
+}
+#screen-dashboard .original-table tbody td{
+  min-height:48px;
+}
+#screen-dashboard .original-table th.num,
+#screen-dashboard .original-table td.num{
+  text-align:right!important;
+}
+
+/* Fixas: distribui as 6 colunas de forma estável */
+#dashFixedPane .original-table th:nth-child(1),
+#dashFixedPane .original-table td:nth-child(1){width:22%}
+#dashFixedPane .original-table th:nth-child(2),
+#dashFixedPane .original-table td:nth-child(2){width:18%}
+#dashFixedPane .original-table th:nth-child(3),
+#dashFixedPane .original-table td:nth-child(3){width:15%}
+#dashFixedPane .original-table th:nth-child(4),
+#dashFixedPane .original-table td:nth-child(4){width:14%;text-align:right!important}
+#dashFixedPane .original-table th:nth-child(5),
+#dashFixedPane .original-table td:nth-child(5){width:13%}
+#dashFixedPane .original-table th:nth-child(6),
+#dashFixedPane .original-table td:nth-child(6){width:18%;text-align:right!important}
+
+/* Variáveis: 5 colunas */
+#dashVariablePane .original-table th:nth-child(1),
+#dashVariablePane .original-table td:nth-child(1){width:15%}
+#dashVariablePane .original-table th:nth-child(2),
+#dashVariablePane .original-table td:nth-child(2){width:28%}
+#dashVariablePane .original-table th:nth-child(3),
+#dashVariablePane .original-table td:nth-child(3){width:23%}
+#dashVariablePane .original-table th:nth-child(4),
+#dashVariablePane .original-table td:nth-child(4){width:16%;text-align:right!important}
+#dashVariablePane .original-table th:nth-child(5),
+#dashVariablePane .original-table td:nth-child(5){width:18%;text-align:right!important}
+
+/* Demais tabelas */
+#screen-dashboard .reference-table-card .original-table td:last-child,
+#screen-dashboard .reference-table-card .original-table th:last-child{
+  text-align:right!important;
+}
+
+#screen-dashboard .row-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:6px!important;
+  width:100%;
+  white-space:nowrap;
+}
+#screen-dashboard .icon-action,
+#screen-dashboard .pay-action{
+  flex:0 0 auto;
+}
+#screen-dashboard .pay-status{
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+#screen-dashboard .fixed-due{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:5px;
+}
+#screen-dashboard .fixed-due input{
+  width:54px!important;
+  min-width:54px!important;
+}
+
+/* No desktop, evita que ações/valor pareçam "subir" para o cabeçalho */
+#screen-dashboard .original-table tbody tr{
+  height:50px;
+}
+
+/* Mobile: tabela continua horizontalmente rolável, sem deformar as colunas */
+@media(max-width:760px){
+  #screen-dashboard .original-table{min-width:720px}
+  #screen-dashboard .original-table thead th,
+  #screen-dashboard .original-table tbody td{padding:9px 10px!important}
+  #screen-dashboard .original-table-wrap{-webkit-overflow-scrolling:touch}
+}
+
+
+@media(max-width:760px){
+  .screen:not(#screen-dashboard) input,
+  .screen:not(#screen-dashboard) select,
+  .screen:not(#screen-dashboard) textarea,
+  #screen-dashboard .dash-inline-editor input,
+  #screen-dashboard .dash-inline-editor select,
+  #screen-dashboard .category-settings-add input{
+    font-size:16px!important;
+  }
+
+  /* Dashboard volta a ter proporção normal e navegação fluida */
+  #screen-dashboard{
+    min-height:100dvh;
+    height:auto;
+    overflow-x:hidden;
+    overflow-y:auto;
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+  }
+  #screen-dashboard .dash-shell{
+    min-height:100dvh;
+    height:auto;
+  }
+  #screen-dashboard .dash-main{
+    min-height:100dvh;
+    height:auto;
+    overflow:visible;
+  }
+  #screen-dashboard .dash-content{
+    min-height:calc(100dvh - 56px);
+    overflow:visible;
+  }
 }
 
 </style>
@@ -1135,13 +1280,14 @@ function showScreen(name){
  const el=document.getElementById('screen-'+name);
  if(el){
    el.classList.remove('hidden');
+   window.scrollTo(0,0);
    if(name==='dashboard'){
-     const viewport=document.querySelector('meta[name="viewport"]');
-     if(viewport)viewport.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
-     window.scrollTo(0,0);
-     setTimeout(()=>{window.scrollTo(0,0);drawDashboardCharts()},80);
-   }else{
-     window.scrollTo({top:0,behavior:'instant'});
+     // Não alteramos a viewport aqui: o navegador mantém o zoom natural.
+     // Apenas fechamos teclado/foco e redesenhamos os gráficos depois do layout estabilizar.
+     requestAnimationFrame(()=>{
+       window.scrollTo(0,0);
+       setTimeout(drawDashboardCharts,120);
+     });
    }
  }
 }
