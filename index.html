@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Organizador Financeiro</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
@@ -1653,6 +1653,355 @@ body.dashboard-open{
   }
 }
 
+
+/* ==========================================================
+   v23 — Android com a mesma leitura visual do iPhone
+   ========================================================== */
+
+/*
+ * O iPhone já estava renderizando corretamente.
+ * No Android forçamos o mesmo "modo mobile" por classe,
+ * em vez de depender somente da largura retornada pelo navegador.
+ */
+html.android-mobile,
+html.android-mobile body{
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+
+/* Tipografia: compensa a renderização visual menor do Chrome/Android. */
+html.android-mobile body{
+  font-size:16px;
+}
+html.android-mobile #screen-dashboard{
+  font-size:15px!important;
+}
+
+/* Dashboard: mesma estrutura móvel usada no iPhone */
+html.android-mobile #screen-dashboard{
+  display:block;
+  width:100%!important;
+  max-width:100%!important;
+  min-height:100svh!important;
+  height:auto!important;
+  overflow:visible!important;
+  touch-action:auto;
+}
+html.android-mobile #screen-dashboard.hidden{display:none!important}
+
+html.android-mobile #screen-dashboard .dash-shell,
+html.android-mobile #screen-dashboard .dash-main{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  overflow:visible!important;
+}
+
+html.android-mobile #screen-dashboard .sidebar{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:9px 12px!important;
+  overflow:visible!important;
+}
+html.android-mobile #screen-dashboard .side-logo{
+  padding:2px 4px!important;
+  min-height:40px;
+}
+html.android-mobile #screen-dashboard .sidebar .side-section-label,
+html.android-mobile #screen-dashboard .sidebar .nav,
+html.android-mobile #screen-dashboard .sidebar .side-bottom{
+  display:none!important;
+}
+
+html.android-mobile #screen-dashboard .dash-top{
+  position:relative!important;
+  top:auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  padding:9px 12px 12px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:9px!important;
+  background:rgba(255,255,255,.98)!important;
+  overflow:visible!important;
+}
+html.android-mobile #screen-dashboard .dash-title{display:none!important}
+html.android-mobile #screen-dashboard .dash-user{
+  width:100%;
+  min-width:0;
+  justify-content:flex-end;
+}
+
+/* Navegação como seletor, igual à experiência aprovada no iPhone */
+html.android-mobile .mobile-dashboard-nav{
+  display:grid!important;
+  grid-template-columns:68px minmax(0,1fr);
+  align-items:center;
+  gap:8px;
+  width:100%;
+  min-width:0;
+}
+html.android-mobile .mobile-dashboard-nav label{
+  font-size:12px!important;
+  font-weight:850;
+  color:#695F63;
+}
+html.android-mobile .mobile-dashboard-nav select{
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  height:46px!important;
+  padding:0 40px 0 12px!important;
+  border:1px solid #DED4D1!important;
+  border-radius:11px!important;
+  background-color:#FFFDFC!important;
+  color:#382E32!important;
+  font-family:inherit!important;
+  font-size:16px!important;
+  line-height:1.2!important;
+  font-weight:750!important;
+}
+
+/* Área de conteúdo com leitura confortável */
+html.android-mobile #screen-dashboard .dash-content{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:17px 12px max(42px,env(safe-area-inset-bottom))!important;
+  overflow:visible!important;
+}
+html.android-mobile #screen-dashboard .dash-section{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:visible!important;
+}
+
+html.android-mobile #screen-dashboard .dash-heading h1{
+  font-size:24px!important;
+  line-height:1.1!important;
+}
+html.android-mobile #screen-dashboard .dash-heading p{
+  font-size:12.5px!important;
+  line-height:1.5!important;
+}
+html.android-mobile #screen-dashboard .dash-card h3,
+html.android-mobile #screen-dashboard .original-chart-head h3{
+  font-size:14px!important;
+  line-height:1.25!important;
+}
+html.android-mobile #screen-dashboard .dash-card .sub,
+html.android-mobile #screen-dashboard .original-chart-head p{
+  font-size:11.5px!important;
+  line-height:1.45!important;
+}
+
+/* KPIs: mesma organização 2x2 vista no iPhone */
+html.android-mobile #screen-dashboard .dash-kpis,
+html.android-mobile #screen-dashboard .original-grid4{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+html.android-mobile #screen-dashboard .original-grid3{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:9px!important;
+}
+html.android-mobile #screen-dashboard .dash-kpi{
+  min-height:108px!important;
+  padding:14px 13px!important;
+}
+html.android-mobile #screen-dashboard .dash-kpi small{
+  font-size:10.5px!important;
+  line-height:1.3!important;
+}
+html.android-mobile #screen-dashboard .dash-kpi strong{
+  font-size:20px!important;
+  line-height:1.15!important;
+}
+html.android-mobile #screen-dashboard .dash-kpi em{
+  font-size:9.5px!important;
+  line-height:1.35!important;
+}
+
+/* Gráficos: uma coluna, largura integral */
+html.android-mobile #screen-dashboard .balanced-chart-grid,
+html.android-mobile #screen-dashboard .chart-grid,
+html.android-mobile #screen-dashboard .reference-chart-grid,
+html.android-mobile #screen-dashboard .overview-two-charts,
+html.android-mobile #screen-dashboard .split-2{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+html.android-mobile #screen-dashboard .dash-card,
+html.android-mobile #screen-dashboard .dash-kpi{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+html.android-mobile #screen-dashboard canvas.chart-canvas{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:250px!important;
+  min-height:250px!important;
+  max-height:250px!important;
+}
+html.android-mobile #screen-dashboard canvas.chart-canvas.original-tall-chart{
+  height:270px!important;
+  min-height:270px!important;
+  max-height:270px!important;
+}
+
+/*
+ * Tabelas: NÃO viram cards.
+ * Mantêm cabeçalho, linhas e colunas do desktop, com scroll horizontal.
+ */
+html.android-mobile #screen-dashboard .table-container,
+html.android-mobile #screen-dashboard .original-table-wrap{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:auto!important;
+  overflow-y:auto!important;
+  border:1px solid #E7DDDB!important;
+  border-radius:12px!important;
+  background:#FFFDFC!important;
+  -webkit-overflow-scrolling:touch;
+}
+html.android-mobile #screen-dashboard .financial-table{
+  display:table!important;
+  width:100%!important;
+  border-collapse:separate!important;
+  border-spacing:0!important;
+  table-layout:fixed!important;
+}
+html.android-mobile #screen-dashboard .financial-table thead{display:table-header-group!important}
+html.android-mobile #screen-dashboard .financial-table tbody{display:table-row-group!important}
+html.android-mobile #screen-dashboard .financial-table tr{
+  display:table-row!important;
+  height:auto!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+html.android-mobile #screen-dashboard .financial-table th,
+html.android-mobile #screen-dashboard .financial-table td{
+  display:table-cell!important;
+  width:auto!important;
+  height:52px!important;
+  padding:11px 12px!important;
+  vertical-align:middle!important;
+  font-size:11.5px!important;
+}
+html.android-mobile #screen-dashboard .financial-table th{
+  height:42px!important;
+  background:#F5E8EB!important;
+  color:#6E3542!important;
+  font-size:10px!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+}
+html.android-mobile #screen-dashboard .financial-table td::before{
+  content:none!important;
+  display:none!important;
+}
+html.android-mobile #screen-dashboard .financial-table .num,
+html.android-mobile #screen-dashboard .financial-table .money-cell{
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+html.android-mobile #screen-dashboard .financial-table .cell-description{
+  display:block!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  -webkit-line-clamp:unset!important;
+}
+html.android-mobile #screen-dashboard .financial-table .row-actions{
+  display:flex!important;
+  justify-content:flex-end!important;
+  flex-wrap:nowrap!important;
+}
+
+html.android-mobile #screen-dashboard .fixed-table{min-width:760px!important}
+html.android-mobile #screen-dashboard .variable-table{min-width:700px!important}
+html.android-mobile #screen-dashboard .revenue-table{min-width:820px!important}
+html.android-mobile #screen-dashboard .installment-table{min-width:980px!important}
+html.android-mobile #screen-dashboard .investment-table{min-width:820px!important}
+
+/* Formulários do onboarding: mesma tabela horizontal aprovada no iPhone */
+html.android-mobile .screen:not(#screen-dashboard) .rows{
+  width:100%!important;
+  max-width:100%!important;
+  overflow-x:auto!important;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:4px;
+}
+html.android-mobile .screen:not(#screen-dashboard) .data-row{
+  display:grid!important;
+  width:auto!important;
+  max-width:none!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  gap:8px!important;
+}
+html.android-mobile .screen:not(#screen-dashboard) .data-row:not(.income):not(.invest):not(.asset){
+  grid-template-columns:minmax(150px,1fr) minmax(220px,1.4fr) minmax(150px,.8fr) 36px!important;
+  min-width:700px!important;
+}
+html.android-mobile .screen:not(#screen-dashboard) .data-row.income{
+  grid-template-columns:minmax(150px,1fr) minmax(160px,1fr) minmax(220px,1.4fr) minmax(150px,.8fr) 36px!important;
+  min-width:860px!important;
+}
+html.android-mobile .screen:not(#screen-dashboard) .data-row.invest{
+  grid-template-columns:minmax(170px,1fr) minmax(220px,1.3fr) minmax(150px,.8fr) minmax(150px,.9fr) 36px!important;
+  min-width:850px!important;
+}
+html.android-mobile .screen:not(#screen-dashboard) .row-head{display:grid!important}
+html.android-mobile .screen:not(#screen-dashboard) input,
+html.android-mobile .screen:not(#screen-dashboard) select,
+html.android-mobile #screen-dashboard input,
+html.android-mobile #screen-dashboard select{
+  font-size:16px!important;
+}
+
+/* Telas Android muito estreitas */
+@media(max-width:420px){
+  html.android-mobile #screen-dashboard .dash-content{
+    padding-left:10px!important;
+    padding-right:10px!important;
+  }
+  html.android-mobile .mobile-dashboard-nav{
+    grid-template-columns:1fr;
+    gap:5px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2335,6 +2684,11 @@ body.dashboard-open{
  </div>
 </section>
 <script>
+const IS_ANDROID=/Android/i.test(navigator.userAgent);
+const IS_MOBILE_TOUCH=(navigator.maxTouchPoints||0)>0;
+if(IS_ANDROID && IS_MOBILE_TOUCH){
+  document.documentElement.classList.add('android-mobile');
+}
 const AUTH_RETURN_DETECTED =
   /(?:^|[#?&])(code|error|error_description|state)=/i.test(location.hash + '&' + location.search);
 const STORE='cf_local_cache_dados_financeiros';
