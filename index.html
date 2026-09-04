@@ -1171,6 +1171,26 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
  .screen:not(#screen-dashboard) .data-row.income{grid-template-columns:minmax(0,1fr)!important}
 }
 
+
+/* ===== v18: pessoa/origem vinculada ao perfil ===== */
+.screen:not(#screen-dashboard) .incomePerson:disabled,
+#screen-dashboard #dashRevenuePerson:disabled{
+  opacity:1!important;
+  color:#4B4044!important;
+  background:#F5F3F2!important;
+  border-color:#DDD6D4!important;
+  cursor:default;
+  -webkit-text-fill-color:#4B4044;
+}
+
+
+/* ===== v19: exemplos iniciais + consolidado ===== */
+.screen:not(#screen-dashboard) #incomeRows .data:first-of-type,
+.screen:not(#screen-dashboard) #fixedRows .data:first-of-type,
+.screen:not(#screen-dashboard) #investmentRows .data:first-of-type{
+  position:relative;
+}
+
 </style>
 </head>
 <body>
@@ -1429,8 +1449,8 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
    <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Agora cadastre suas receitas mensais</h3><p class="desc">Informe quem recebe, a categoria, uma descrição e o valor mensal.</p></div><span class="badge">PREENCHA AGORA</span></div>
    <div class="rows" id="incomeRows">
     <div class="data-row income row-head"><span>Quem / origem</span><span>Categoria</span><span>Descrição</span><span>Valor</span><span></span></div>
-    <div class="data-row income data"><input value="Laura"><select class="incomeCat"><option selected>Salário</option><option>Pró-labore</option><option>Comissão</option><option>Bônus</option><option>Aluguel</option><option>Freelance / serviços</option><option>Benefícios</option><option>Rendimentos</option><option>Outros</option></select><input value="Salário mensal"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="decimal" value="8.000"></div><button class="del">×</button></div>
-    <div class="data-row income data"><input value="Victor"><select class="incomeCat"><option selected>Salário</option><option>Pró-labore</option><option>Comissão</option><option>Bônus</option><option>Aluguel</option><option>Freelance / serviços</option><option>Benefícios</option><option>Rendimentos</option><option>Outros</option></select><input value="Salário mensal"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="decimal" value="6.000"></div><button class="del">×</button></div>
+    <div class="data-row income data"><select class="incomePerson"><option selected>Laura</option><option>Victor</option></select><select class="incomeCat"><option selected>Salário</option><option>Pró-labore</option><option>Comissão</option><option>Bônus</option><option>Aluguel</option><option>Freelance / serviços</option><option>Benefícios</option><option>Rendimentos</option><option>Outros</option></select><input value="Salário mensal"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="decimal" value="8.000"></div><button class="del">×</button></div>
+    <div class="data-row income data"><select class="incomePerson"><option>Laura</option><option selected>Victor</option></select><select class="incomeCat"><option selected>Salário</option><option>Pró-labore</option><option>Comissão</option><option>Bônus</option><option>Aluguel</option><option>Freelance / serviços</option><option>Benefícios</option><option>Rendimentos</option><option>Outros</option></select><input value="Salário mensal"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="decimal" value="6.000"></div><button class="del">×</button></div>
    </div>
    <button class="add" id="addIncome">+ Adicionar outra receita</button><div class="total-line">Receita mensal informada <strong id="incomeTotal">R$ 14.000</strong></div>
   </div>
@@ -2257,12 +2277,32 @@ function resetFirstAccessForms(){
  person2.value='';
  age.value='';retAge.value='';useYears.value='';
  retIncome.value='';retCurrent.value='';retMonthlyCurrent.value='';
+
  hydrateCategoryChecks('incomeCategories',['Salário','Pró-labore','Comissão','Bônus','Aluguel','Freelance / serviços']);
- clearDataRows('incomeRows');addIncomeHydrated({pessoa:person1.value,categoria:'Salário',descricao:'',valor:0});
+ clearDataRows('incomeRows');
+ addIncomeHydrated({
+   pessoa:person1.value,
+   categoria:'Salário',
+   descricao:'Salário principal',
+   valor:5000
+ });
+
  clearDataRows('fixedRows');
+ addFixedHydrated({
+   categoria:'Moradia',
+   descricao:'Condomínio',
+   valor:650
+ });
+
  clearDataRows('investmentRows');
- /* Mantém as categorias genéricas visíveis/pré-selecionadas na interface.
-    Elas só passam a fazer parte do JSON quando o usuário salva as etapas correspondentes. */
+ addInvestmentHydrated({
+   categoria:'Renda fixa',
+   descricao:'Tesouro IPCA+',
+   valor:10000,
+   aposentadoria:true
+ });
+
+ syncIncomePersonSelects();
  updateLive();
 }
 function resumeFromLoadedData(){
@@ -2373,6 +2413,35 @@ function setSelectOptions(select,names,preserveValue=true){
  unique.forEach(name=>{const op=document.createElement('option');op.value=name;op.textContent=name;select.appendChild(op)});
  if(previous && unique.includes(previous))select.value=previous;
 }
+function profilePeopleOptions(){
+ const type=document.getElementById('profileType')?.value || data?.perfil?.tipo || 'individual';
+ const p1=(document.getElementById('person1')?.value || data?.perfil?.pessoas?.[0] || '').trim();
+ const p2=(document.getElementById('person2')?.value || data?.perfil?.pessoas?.[1] || '').trim();
+ return type==='individual'?[p1].filter(Boolean):[p1,p2].filter(Boolean);
+}
+function setIncomePersonOptions(select,preferred=''){
+ if(!select)return;
+ const people=profilePeopleOptions();
+ const current=preferred||select.value;
+ select.innerHTML='';
+ people.forEach(name=>{
+   const op=document.createElement('option');
+   op.value=name;op.textContent=name;
+   select.appendChild(op);
+ });
+ if(current && people.includes(current))select.value=current;
+ else if(people.length)select.value=people[0];
+ select.disabled=people.length<=1;
+ select.title=people.length<=1?'Nome definido pelo perfil individual':'Selecione quem recebe esta receita';
+}
+function syncIncomePersonSelects(){
+ document.querySelectorAll('.incomePerson').forEach(select=>setIncomePersonOptions(select));
+ const dashPerson=document.getElementById('dashRevenuePerson');
+ if(dashPerson){
+   const current=dashPerson.value;
+   setIncomePersonOptions(dashPerson,current);
+ }
+}
 function syncCategorySelects(){
  const fixed=getCheckedLabels('fixedCategories');
  const variable=getCheckedLabels('variableCategories');
@@ -2396,6 +2465,7 @@ function syncCategorySelects(){
    names.forEach(name=>{const op=document.createElement('option');op.value=name;op.textContent=name;filter.appendChild(op)});
    if([...filter.options].some(o=>o.value===previous))filter.value=previous;
  }
+ syncIncomePersonSelects();
 }
 function bindCategoryCheckboxes(containerId){
  document.querySelectorAll('#'+containerId+' .cat input[type="checkbox"]').forEach(cb=>{
@@ -2438,15 +2508,21 @@ document.getElementById('loginBack').onclick=()=>{clearLoginIntent();showScreen(
 document.getElementById('microsoftLoginBtn').onclick=()=>startMicrosoftLogin(accessMode);
 
 document.querySelectorAll('[data-prev]').forEach(b=>b.onclick=()=>showScreen(b.dataset.prev));
-document.getElementById('profileType').onchange=e=>document.getElementById('person2Field').classList.toggle('hidden',e.target.value==='individual');
+document.getElementById('profileType').onchange=e=>{
+ document.getElementById('person2Field').classList.toggle('hidden',e.target.value==='individual');
+ syncIncomePersonSelects();
+};
 document.getElementById('currency').onchange=()=>syncCurrencyUI();
+document.getElementById('person1').addEventListener('input',syncIncomePersonSelects);
+document.getElementById('person2').addEventListener('input',syncIncomePersonSelects);
 document.getElementById('saveStep1').onclick=async()=>{
  const type=profileType.value,p1=person1.value.trim(),p2=person2.value.trim();
  if(!p1){alert('Informe seu nome para continuar.');return}
  if(type!=='individual'&&!p2){alert('Informe o nome da outra pessoa.');return}
  data.perfil={tipo:type,pessoas:type==='individual'?[p1]:[p1,p2],moeda:currency.value||'BRL'};
+ syncIncomePersonSelects();
  syncCurrencyUI();
- try{await saveDataAndWait(1);showScreen('step2')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
+ try{await saveDataAndWait(1);syncIncomePersonSelects();showScreen('step2')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 
 let calcAnnual=.10,calcInfl=.04,calcTax=.15;
@@ -2666,7 +2742,8 @@ function makeMoney(cls){
 }
 addIncome.onclick=()=>{
  const r=document.createElement('div');r.className='data-row income data';
- r.innerHTML='<input placeholder="Pessoa / origem"><select class="incomeCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ r.innerHTML='<select class="incomePerson"></select><select class="incomeCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ setIncomePersonOptions(r.querySelector('.incomePerson'));
  setSelectOptions(r.querySelector('.incomeCat'),getCheckedLabels('incomeCategories'),false);
  r.children[3].replaceWith(makeMoney('incomeValue'));
  bindDelete(r.querySelector('.del'));incomeRows.appendChild(r);
@@ -2823,14 +2900,14 @@ function inferIncomeCategory(item={}){
 }
 function addIncomeHydrated(item={}){
  const r=document.createElement('div');r.className='data-row income data';
- r.innerHTML='<input placeholder="Pessoa / origem"><select class="incomeCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ r.innerHTML='<select class="incomePerson"></select><select class="incomeCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
  const category=inferIncomeCategory(item),names=getCheckedLabels('incomeCategories');
+ setIncomePersonOptions(r.children[0],item.pessoa||'');
  setSelectOptions(r.children[1],[...names,category].filter(Boolean),false);
- r.children[0].value=item.pessoa||'';
  r.children[1].value=category;
  r.children[2].value=item.descricao||'';
  r.children[3].replaceWith(makeMoney('incomeValue'));
- r.querySelector('.incomeValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
+ r.querySelector('.incomeValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
  bindDelete(r.querySelector('.del'));incomeRows.appendChild(r);
 }
 function addFixedHydrated(item={}){
@@ -3421,7 +3498,7 @@ function renderDashboardRevenues(){
  </tr>`).join('')||'<tr><td colspan="6" class="empty-table">Nenhuma receita cadastrada.</td></tr>';
 
  const personSelect=document.getElementById('dashRevenuePerson');
- setSelectOptions(personSelect,people.length?people:['Você'],true);
+ setIncomePersonOptions(personSelect,personSelect?.value||'');
  setSelectOptions(document.getElementById('dashRevenueCat'),data.categorias?.receitas||[],true);
 
  document.querySelectorAll('[data-revenue-edit]').forEach(btn=>btn.onclick=()=>openRevenueEditor(btn.dataset.revenueEdit));
@@ -3440,7 +3517,7 @@ function openRevenueEditor(id=null){
  dashRevenueForm.classList.remove('hidden');
  dashRevenueFormTitle.textContent=rec?'Editar receita':'Adicionar receita';
  dashRevenueDate.value=rec?.data||todayIso();
- if(rec?.pessoa)setSelectOptions(dashRevenuePerson,[...(data.perfil?.pessoas||[]),rec.pessoa],false);
+ setIncomePersonOptions(dashRevenuePerson,rec?.pessoa||'');
  dashRevenuePerson.value=rec?.pessoa||dashRevenuePerson.options[0]?.value||'';
  const category=rec?.categoria||inferIncomeCategory(rec||{});
  setSelectOptions(dashRevenueCat,[...(data.categorias?.receitas||[]),category].filter(Boolean),false);
@@ -3820,6 +3897,59 @@ function retirementHistoryChart(id='retirementGoalHistory'){
    {label:'Meta patrimonial',data:hist.map(x=>x.target),color:'#111111',dash:[5,5],borderWidth:1.8,pointRadius:2}
  ],hist.map(x=>monthAxisLabel(x.month)),{temporal:true});
 }
+
+function consolidatedResultsChart(id,labels,revenues,expenses,available){
+ const el=document.getElementById(id);
+ if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
+ destroyDashChart(id);
+
+ dashCharts[id]=new Chart(el,{
+   data:{
+     labels,
+     datasets:[
+       {
+         type:'line',
+         label:'Receitas',
+         data:revenues,
+         borderColor:'#4566A9',
+         backgroundColor:'#4566A9',
+         borderWidth:2.5,
+         pointRadius:3,
+         pointHoverRadius:5,
+         tension:.2,
+         order:1
+       },
+       {
+         type:'line',
+         label:'Despesas',
+         data:expenses,
+         borderColor:'#CC092F',
+         backgroundColor:'#CC092F',
+         borderWidth:2.5,
+         pointRadius:3,
+         pointHoverRadius:5,
+         tension:.2,
+         order:1
+       },
+       {
+         type:'bar',
+         label:'Disponível',
+         data:available,
+         backgroundColor:'rgba(120,120,125,.26)',
+         borderColor:'rgba(105,105,110,.34)',
+         borderWidth:1,
+         borderRadius:5,
+         maxBarThickness:46,
+         order:2
+       }
+     ]
+   },
+   options:chartOpts({indexMode:true,legend:true,temporal:true})
+ });
+}
+function hideZeroChartValue(v){
+ return Math.abs(Number(v)||0)<0.000001?null:Number(v);
+}
 function drawDashboardCharts(){
  ensureDashboardMetadata();
  const current=currentMonthKey();
@@ -3835,11 +3965,13 @@ function drawDashboardCharts(){
  const availableByMonth=allMonths.map((m,i)=>revenuesByMonth[i]-expensesByMonth[i]);
 
  if(allMonths.some((m,i)=>revenuesByMonth[i]||expensesByMonth[i])){
-   lineChart('overviewChart',[
-     {label:'Receitas',data:revenuesByMonth,color:'#4566A9',pointRadius:3},
-     {label:'Despesas',data:expensesByMonth,color:'#CC092F',pointRadius:3},
-     {label:'Disponível',data:availableByMonth,color:'#8A7E82',pointRadius:3}
-   ],allMonths.map(monthAxisLabel),{temporal:true});
+   consolidatedResultsChart(
+     'overviewChart',
+     allMonths.map(monthAxisLabel),
+     revenuesByMonth,
+     expensesByMonth,
+     availableByMonth
+   );
  }else canvasMessage('overviewChart','Preencha receitas e despesas para visualizar o histórico.');
 
  // Visão Geral: evolução das despesas incluindo parcelas futuras
@@ -3849,9 +3981,9 @@ function drawDashboardCharts(){
  const overviewParcels=overviewExpenseMonths.map(m=>installmentScheduledTotal(m));
  if(overviewExpenseMonths.some((m,i)=>overviewFixed[i]||overviewVariable[i]||overviewParcels[i])){
    lineChart('overviewExpenseEvolutionChart',[
-     {label:'Gastos fixos',data:overviewFixed,color:'#8A7E82',pointRadius:2.5},
-     {label:'Gastos variáveis',data:overviewVariable,color:'#CC092F',pointRadius:2.5},
-     {label:'Parcelas',data:overviewParcels,color:'#B81570',pointRadius:2.5}
+     {label:'Gastos fixos',data:overviewFixed.map(hideZeroChartValue),color:'#8A7E82',pointRadius:2.5},
+     {label:'Gastos variáveis',data:overviewVariable.map(hideZeroChartValue),color:'#CC092F',pointRadius:2.5},
+     {label:'Parcelas',data:overviewParcels.map(hideZeroChartValue),color:'#B81570',pointRadius:2.5}
    ],overviewExpenseMonths.map(monthAxisLabel),{temporal:true});
  }else canvasMessage('overviewExpenseEvolutionChart','Ainda não há despesas registradas.');
 
