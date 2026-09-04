@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Organizador Financeiro</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
@@ -439,6 +439,104 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   .screen:not(#screen-dashboard) .logo{font-size:13px}
 }
 
+
+/* ===== v8: logo-meta, gráficos estáveis, categorias e mobile ===== */
+.brand-target{
+  width:36px;height:36px;min-width:36px;border-radius:11px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:#CC092F;background:#FFF4F6;border:1px solid #F0D3DA;
+}
+.brand-target svg{width:27px;height:27px;display:block}
+#screen-dashboard .sidebar .brand-target{
+  color:#fff;background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20);
+}
+#screen-dashboard .side-logo{gap:10px}
+.logo .brand-target{margin-right:9px;vertical-align:middle}
+
+/* Chart.js: o canvas nunca pode definir a altura do próprio card */
+#screen-dashboard .dash-card{min-width:0}
+#screen-dashboard canvas.chart-canvas{
+  display:block!important;
+  width:100%!important;
+  height:230px!important;
+  min-height:230px!important;
+  max-height:230px!important;
+  box-sizing:border-box;
+}
+#screen-dashboard canvas.chart-canvas.original-tall-chart{
+  height:290px!important;
+  min-height:290px!important;
+  max-height:290px!important;
+}
+#screen-dashboard .reference-chart-grid>.dash-card,
+#screen-dashboard .chart-grid>.dash-card,
+#screen-dashboard .original-invest-card{
+  overflow:hidden;
+}
+#screen-dashboard .dash-content,
+#screen-dashboard .dash-main,
+#screen-dashboard .dash-section{min-width:0}
+
+/* Editor de categorias */
+.category-settings-card{margin-bottom:12px}
+.category-settings-tabs{
+  display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px;
+  padding:4px;background:#F4EFEE;border-radius:12px;width:max-content;max-width:100%;
+}
+.category-settings-tabs button{
+  border:0;background:transparent;color:#776B70;border-radius:9px;
+  padding:8px 11px;font-size:9px;font-weight:800;cursor:pointer;
+}
+.category-settings-tabs button.active{background:#CC092F;color:#fff;box-shadow:0 4px 12px rgba(204,9,47,.14)}
+.category-settings-add{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin:10px 0 12px}
+.category-settings-add input{
+  width:100%;min-width:0;height:38px;border:1px solid #DED4D1;border-radius:9px;padding:0 11px
+}
+.category-settings-list{border:1px solid #EAE1DF;border-radius:12px;overflow:hidden;background:#fff}
+.category-settings-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;
+  padding:10px 12px;border-bottom:1px solid #F0E9E7;
+}
+.category-settings-row:last-child{border-bottom:0}
+.category-settings-name{font-size:10.5px;font-weight:720;color:#42393D;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.category-settings-actions{display:flex;gap:5px}
+.category-settings-actions button{
+  width:30px;height:30px;border:1px solid #E4DAD8;background:#FFFDFC;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;color:#6B5D62;cursor:pointer
+}
+.category-settings-actions button:hover{border-color:#CC092F;color:#CC092F}
+.category-settings-actions button.danger:hover{background:#FFF3F5}
+.category-settings-actions svg{width:14px;height:14px;fill:currentColor}
+.category-settings-note{
+  margin-top:10px;font-size:9px;line-height:1.5;color:#867A7E;
+  padding:9px 11px;background:#FAF6F5;border:1px solid #ECE2DF;border-radius:9px
+}
+
+/* Evita auto-zoom do iOS ao focar formulários */
+@media(max-width:760px){
+  input,select,textarea{font-size:16px!important}
+  #screen-dashboard{width:100%;max-width:100vw;overflow-x:hidden}
+  #screen-dashboard .dash-shell,#screen-dashboard .dash-main,#screen-dashboard .dash-content{width:100%;max-width:100%;min-width:0}
+  #screen-dashboard .dash-content{padding-left:12px!important;padding-right:12px!important}
+  #screen-dashboard .dash-kpis,
+  #screen-dashboard .reference-chart-grid,
+  #screen-dashboard .chart-grid,
+  #screen-dashboard .original-grid4,
+  #screen-dashboard .original-grid3,
+  #screen-dashboard .split-2{grid-template-columns:minmax(0,1fr)!important}
+  #screen-dashboard canvas.chart-canvas{
+    height:220px!important;min-height:220px!important;max-height:220px!important
+  }
+  #screen-dashboard canvas.chart-canvas.original-tall-chart{
+    height:250px!important;min-height:250px!important;max-height:250px!important
+  }
+  .category-settings-tabs{width:100%;display:grid;grid-template-columns:1fr}
+  .category-settings-tabs button{width:100%;text-align:left}
+  .category-settings-add{grid-template-columns:minmax(0,1fr)}
+  .category-settings-add .dash-primary-btn{width:100%}
+  .category-settings-row{grid-template-columns:minmax(0,1fr) auto}
+}
+
 </style>
 </head>
 <body>
@@ -448,7 +546,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <!-- TELA INICIAL -->
 <section id="screen-landing" class="screen landing">
   <div class="landing-box">
-    <div class="logo"><div class="mark">OF</div>Organizador Financeiro</div>
+    <div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div>
     <h1>Organize seu presente. Construa seu futuro.</h1>
     <p>Uma jornada simples para entender sua vida financeira, definir uma meta de aposentadoria e acompanhar sua evolução ao longo do tempo.</p>
     <div class="choice-grid">
@@ -470,7 +575,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <!-- ETAPA ZERO / LOGIN -->
 <section id="screen-login" class="screen login-shell hidden">
   <div class="login-card">
-    <div class="logo" style="margin-bottom:22px"><div class="mark">OF</div>Organizador Financeiro</div>
+    <div class="logo" style="margin-bottom:22px"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div>
     <div class="eyebrow">Conexão com seu OneDrive</div>
     <h1 id="loginTitle" style="font-size:28px">Vamos criar sua base financeira.</h1>
     <p class="lead" id="loginLead" style="font-size:13px;margin-bottom:20px">Sua conta Microsoft será usada para criar um arquivo privado <b>organizador_financeiro.json</b> no seu OneDrive. É esse arquivo que guardará as informações da aplicação.</p>
@@ -488,7 +600,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- ONBOARDING GENERIC HEADER HELPERS -->
 <section id="screen-step1" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Organizador Financeiro</div><div class="step-text"><b>Etapa 1</b> de 5 · Seu perfil</div></div><div class="progress"><div style="width:20%"></div></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 1</b> de 5 · Seu perfil</div></div><div class="progress"><div style="width:20%"></div></div>
  <div class="wrap">
   <div class="eyebrow">Pra começar</div><h1>Quem vai usar este controle?</h1>
   <p class="lead">Vamos personalizar a experiência. Você poderá acompanhar sua vida financeira sozinho(a) ou em conjunto com outra pessoa.</p>
@@ -508,7 +627,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- ETAPA 2 -->
 <section id="screen-step2" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Organizador Financeiro</div><div class="step-text"><b>Etapa 2</b> de 5 · Sua aposentadoria</div></div><div class="progress"><div style="width:40%"></div></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 2</b> de 5 · Sua aposentadoria</div></div><div class="progress"><div style="width:40%"></div></div>
  <div class="wrap">
   <div class="eyebrow">Onde você quer chegar</div><h1>Vamos transformar aposentadoria em uma meta concreta.</h1>
   <p class="lead">Defina quando gostaria de se aposentar, qual renda deseja ter e o que já construiu para esse objetivo. Os valores são apresentados em poder de compra de hoje.</p>
@@ -552,7 +678,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- DETALHE CÁLCULO -->
 <section id="screen-calc" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Como calculamos sua aposentadoria</div><button class="btn btn-secondary" id="backFromCalc">← Voltar para a meta</button></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Como calculamos sua aposentadoria</div><button class="btn btn-secondary" id="backFromCalc">← Voltar para a meta</button></div>
  <div class="wrap">
   <div class="eyebrow">Transparência do cálculo</div><h1>Veja seu dinheiro crescer — e depois financiar sua aposentadoria.</h1>
   <p class="lead">Primeiro calculamos o patrimônio necessário para pagar a renda desejada. Depois projetamos o que você já possui, calculamos os aportes necessários e simulamos a desacumulação depois da aposentadoria.</p>
@@ -612,7 +745,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- ETAPA 3 -->
 <section id="screen-step3" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Organizador Financeiro</div><div class="step-text"><b>Etapa 3</b> de 5 · Sua vida financeira hoje</div></div><div class="progress"><div style="width:60%"></div></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 3</b> de 5 · Sua vida financeira hoje</div></div><div class="progress"><div style="width:60%"></div></div>
  <div class="wrap">
   <div class="eyebrow">Agora vamos entender seu mês</div><h1>Como é sua vida financeira hoje?</h1>
   <p class="lead">Comece pelo que você já conhece. Informe suas receitas e gastos fixos. Os gastos variáveis podem ser preenchidos aos poucos — por enquanto, escolha apenas quais categorias quer acompanhar.</p>
@@ -653,7 +793,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- ETAPA 4 -->
 <section id="screen-step4" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Organizador Financeiro</div><div class="step-text"><b>Etapa 4</b> de 5 · Patrimônio e investimentos</div></div><div class="progress"><div style="width:80%"></div></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 4</b> de 5 · Patrimônio e investimentos</div></div><div class="progress"><div style="width:80%"></div></div>
  <div class="wrap">
   <div class="eyebrow">O que você já construiu</div><h1>Conte para nós o que você já tem hoje.</h1><p class="lead">Cadastre investimentos, reservas e outros patrimônios. Não precisa detalhar tudo perfeitamente agora — os valores poderão ser atualizados depois.</p>
   <div class="card">
@@ -689,7 +836,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
 <!-- ETAPA 5 -->
 <section id="screen-step5" class="screen hidden">
- <div class="topbar"><div class="logo"><div class="mark">OF</div>Organizador Financeiro</div><div class="step-text"><b>Etapa 5</b> de 5 · Seu plano</div></div><div class="progress"><div style="width:100%"></div></div>
+ <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 5</b> de 5 · Seu plano</div></div><div class="progress"><div style="width:100%"></div></div>
  <div class="wrap">
   <div class="eyebrow">Tudo pronto</div><h1>Seu plano financeiro começa aqui.</h1><p class="lead">Com as informações que você forneceu, já conseguimos montar uma primeira visão da sua vida financeira e transformar sua meta de aposentadoria em um plano acompanhável.</p>
   <div class="card hero-plan"><div><h2>Você definiu onde quer chegar.</h2><p class="desc">Agora o Organizador Financeiro compara sua evolução real com esse plano. Os números ficam mais precisos conforme você registra receitas, despesas e investimentos.</p></div><div class="goal-box"><small>Sua meta de aposentadoria</small><strong id="planIncome">R$ 8.000/mês</strong><span id="planRetAge">em poder de compra de hoje · aposentadoria aos 60 anos</span></div></div>
@@ -707,7 +861,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <section id="screen-dashboard" class="screen hidden">
  <div class="dash-shell">
   <aside class="sidebar">
-   <div class="side-logo"><span class="mark">OF</span><div><strong>Organizador Financeiro</strong><small>Organizador + Planejamento</small></div></div>
+   <div class="side-logo"><span class="brand-target" aria-hidden="true">
+<svg viewBox="0 0 40 40" role="img">
+  <circle cx="18" cy="22" r="12.5" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="6.2" fill="none" stroke="currentColor" stroke-width="2.6"/>
+  <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
+  <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</span><div><strong>Organizador Financeiro</strong><small>Organizador + Planejamento</small></div></div>
    <div class="side-section-label">Navegação</div>
    <nav class="nav">
     <button class="active" data-tab="overview">Visão Geral</button>
@@ -829,8 +990,40 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     </section>
 
     <section id="tab-settings" class="dash-section">
-     <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Controle da origem dos seus dados.</p></div></div>
-     <div class="split-2"><div class="dash-card"><h3>Microsoft OneDrive</h3><p class="sub">Origem principal: organizador_financeiro.json</p><div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div><button class="dash-secondary-btn" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button></div><div class="dash-card"><h3>Seu onboarding</h3><p class="sub">As etapas foram salvas progressivamente.</p><div class="callout" style="margin-top:0">Cada etapa é salva no OneDrive antes de avançar.</div><button class="dash-secondary-btn" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button></div></div>
+     <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Gerencie a origem dos dados e as categorias usadas em novos lançamentos.</p></div></div>
+
+     <div class="dash-card category-settings-card">
+      <div class="original-chart-head">
+       <div><h3>Categorias do organizador</h3><p>Edite, adicione ou remova as categorias que aparecem nos campos de cadastro.</p></div>
+       <span class="original-pill">Salvo no OneDrive</span>
+      </div>
+      <div class="category-settings-tabs">
+       <button class="active" data-settings-category="fixas" type="button">Despesas fixas</button>
+       <button data-settings-category="variaveis" type="button">Despesas variáveis</button>
+       <button data-settings-category="investimentos" type="button">Investimentos e reservas</button>
+      </div>
+      <div class="category-settings-add">
+       <input id="settingsCategoryInput" placeholder="Digite o nome da nova categoria">
+       <button class="dash-primary-btn" id="settingsAddCategory" type="button">+ Adicionar categoria</button>
+      </div>
+      <div id="settingsCategoryList" class="category-settings-list"></div>
+      <div class="category-settings-note">Alterar o nome de uma categoria também atualiza os lançamentos que usam essa categoria. Ao excluir uma categoria, os lançamentos antigos são preservados; ela apenas deixa de aparecer como opção para novos cadastros.</div>
+     </div>
+
+     <div class="split-2 settings-bottom-grid">
+      <div class="dash-card">
+       <h3>Microsoft OneDrive</h3>
+       <p class="sub">Origem principal: organizador_financeiro.json</p>
+       <div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div>
+       <button class="dash-secondary-btn" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button>
+      </div>
+      <div class="dash-card">
+       <h3>Seu onboarding</h3>
+       <p class="sub">As etapas foram salvas progressivamente.</p>
+       <div class="callout" style="margin-top:0">Cada etapa é salva no OneDrive antes de avançar.</div>
+       <button class="dash-secondary-btn" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button>
+      </div>
+     </div>
     </section>
    </div>
   </main>
@@ -937,9 +1130,20 @@ function showToast(msg){
  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),1900);
 }
 function showScreen(name){
+ if(document.activeElement && typeof document.activeElement.blur==='function')document.activeElement.blur();
  document.querySelectorAll('body > section.screen').forEach(s=>s.classList.add('hidden'));
- const el=document.getElementById('screen-'+name); if(el){el.classList.remove('hidden');window.scrollTo({top:0,behavior:'instant'});}
- if(name==='dashboard') setTimeout(drawDashboardCharts,50);
+ const el=document.getElementById('screen-'+name);
+ if(el){
+   el.classList.remove('hidden');
+   if(name==='dashboard'){
+     const viewport=document.querySelector('meta[name="viewport"]');
+     if(viewport)viewport.setAttribute('content','width=device-width, initial-scale=1, viewport-fit=cover');
+     window.scrollTo(0,0);
+     setTimeout(()=>{window.scrollTo(0,0);drawDashboardCharts()},80);
+   }else{
+     window.scrollTo({top:0,behavior:'instant'});
+   }
+ }
 }
 
 function isRegisteredHost(){
@@ -1844,6 +2048,7 @@ function prepareDashboard(){
  dashTaxLabel.textContent=(calcTax*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
  dashProjectionContributionLabel.textContent=projectedContribution?brl(projectedContribution)+'/mês':'—';
  renderDashboardInvestments();
+ renderSettingsCategories();
 }
 document.querySelectorAll('.nav button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.dash-section').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+btn.dataset.tab).classList.add('active');dashTitle.textContent=btn.textContent;setTimeout(drawDashboardCharts,30)});
 backToLanding.onclick=async()=>{
@@ -1852,7 +2057,11 @@ backToLanding.onclick=async()=>{
 downloadJson.onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='organizador_financeiro.json';a.click();URL.revokeObjectURL(a.href);showToast('Cópia local do JSON baixada')};
 
 const dashCharts={};
-function destroyDashChart(id){if(dashCharts[id]){dashCharts[id].destroy();delete dashCharts[id]}}
+function destroyDashChart(id){
+ if(dashCharts[id]){dashCharts[id].destroy();delete dashCharts[id]}
+ const el=document.getElementById(id);
+ if(el){el.removeAttribute('width');el.removeAttribute('height');el.style.width='100%';}
+}
 function axisMoney(v){
  const n=Number(v)||0;
  if(Math.abs(n)>=1_000_000)return 'R$ '+(n/1_000_000).toLocaleString('pt-BR',{maximumFractionDigits:1})+' mi';
@@ -1861,7 +2070,7 @@ function axisMoney(v){
 }
 function chartOpts({stacked=false,indexMode=true,legend=true}={}){
  return {
-   responsive:true,maintainAspectRatio:false,
+   responsive:true,maintainAspectRatio:false,resizeDelay:80,animation:false,
    interaction:{mode:indexMode?'index':'nearest',intersect:false},
    plugins:{
      legend:{display:legend,position:'bottom',labels:{color:'#6F6367',boxWidth:9,boxHeight:9,usePointStyle:true,padding:14,font:{size:9}}},
@@ -2070,6 +2279,83 @@ function renderDashboardInstallments(){
  dashInstallmentsMonth.textContent=brl(cur);dashInstallments3.textContent=brl(val3);dashInstallments6.textContent=brl(val6);dashInstallmentsFuture.textContent=brl(future);
  dashInstallmentBody.innerHTML=items.map(x=>`<tr><td>${escapeHtml(x.descricao||'—')}</td><td>${escapeHtml(x.categoria||'—')}</td><td>${escapeHtml(String(x.parcelasRestantes??x.numeroParcelas??'—'))}</td><td class="num">${brl(installmentValue(x))}</td></tr>`).join('')||'<tr><td colspan="4" class="empty-table">Nenhuma parcela cadastrada.</td></tr>';
 }
+
+
+let settingsCategoryType='fixas';
+const settingsCategoryMap={
+  fixas:{label:'Despesas fixas',records:'despesasFixas'},
+  variaveis:{label:'Despesas variáveis',records:'despesasVariaveis'},
+  investimentos:{label:'Investimentos e reservas',records:'investimentos'}
+};
+function settingsCategoryValues(type=settingsCategoryType){
+  if(!data.categorias)data.categorias={fixas:[],variaveis:[],investimentos:[]};
+  if(!Array.isArray(data.categorias[type]))data.categorias[type]=[];
+  return data.categorias[type];
+}
+function renderSettingsCategories(){
+  const list=document.getElementById('settingsCategoryList');
+  if(!list)return;
+  const values=settingsCategoryValues();
+  list.innerHTML=values.length?values.map((name,index)=>`
+    <div class="category-settings-row">
+      <div class="category-settings-name">${escapeHtml(name)}</div>
+      <div class="category-settings-actions">
+        <button data-settings-edit="${index}" title="Editar categoria" aria-label="Editar categoria">
+          <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg>
+        </button>
+        <button class="danger" data-settings-delete="${index}" title="Excluir categoria" aria-label="Excluir categoria">
+          <svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm9.5-15-1-1h-5l-1 1H5v2h14V4z"/></svg>
+        </button>
+      </div>
+    </div>`).join(''):'<div class="category-settings-row"><div class="category-settings-name" style="font-weight:500;color:#8A7E82">Nenhuma categoria cadastrada.</div></div>';
+
+  list.querySelectorAll('[data-settings-edit]').forEach(btn=>btn.onclick=()=>editSettingsCategory(Number(btn.dataset.settingsEdit)));
+  list.querySelectorAll('[data-settings-delete]').forEach(btn=>btn.onclick=()=>deleteSettingsCategory(Number(btn.dataset.settingsDelete)));
+}
+function updateCategoryReferences(type,oldName,newName){
+  const recordKey=settingsCategoryMap[type].records;
+  (data[recordKey]||[]).forEach(r=>{if(r.categoria===oldName)r.categoria=newName});
+}
+function editSettingsCategory(index){
+  const values=settingsCategoryValues(),oldName=values[index];
+  const next=prompt('Novo nome da categoria:',oldName);
+  if(next===null)return;
+  const clean=next.trim();
+  if(!clean||clean===oldName)return;
+  if(values.some((x,i)=>i!==index&&x.toLocaleLowerCase('pt-BR')===clean.toLocaleLowerCase('pt-BR'))){
+    alert('Já existe uma categoria com esse nome.');return;
+  }
+  values[index]=clean;
+  updateCategoryReferences(settingsCategoryType,oldName,clean);
+  saveData(undefined,true);hydrateCategoryChecks(settingsCategoryType==='fixas'?'fixedCategories':settingsCategoryType==='variaveis'?'variableCategories':'investmentCategories',values);
+  syncCategorySelects();renderSettingsCategories();prepareDashboard();showToast('Categoria atualizada');
+}
+function deleteSettingsCategory(index){
+  const values=settingsCategoryValues(),name=values[index];
+  if(!confirm(`Remover "${name}" das opções de novos lançamentos? Os lançamentos antigos serão preservados.`))return;
+  values.splice(index,1);
+  saveData(undefined,true);
+  hydrateCategoryChecks(settingsCategoryType==='fixas'?'fixedCategories':settingsCategoryType==='variaveis'?'variableCategories':'investmentCategories',values);
+  syncCategorySelects();renderSettingsCategories();showToast('Categoria removida das opções');
+}
+function addSettingsCategory(){
+  const input=document.getElementById('settingsCategoryInput'),name=input.value.trim();
+  if(!name)return;
+  const values=settingsCategoryValues();
+  if(values.some(x=>x.toLocaleLowerCase('pt-BR')===name.toLocaleLowerCase('pt-BR'))){showToast('Essa categoria já existe');return}
+  values.push(name);input.value='';
+  saveData(undefined,true);
+  hydrateCategoryChecks(settingsCategoryType==='fixas'?'fixedCategories':settingsCategoryType==='variaveis'?'variableCategories':'investmentCategories',values);
+  syncCategorySelects();renderSettingsCategories();showToast('Categoria adicionada');
+}
+document.querySelectorAll('[data-settings-category]').forEach(btn=>btn.onclick=()=>{
+  settingsCategoryType=btn.dataset.settingsCategory;
+  document.querySelectorAll('[data-settings-category]').forEach(x=>x.classList.toggle('active',x===btn));
+  document.getElementById('settingsCategoryInput').value='';
+  renderSettingsCategories();
+});
+document.getElementById('settingsAddCategory').onclick=addSettingsCategory;
+document.getElementById('settingsCategoryInput').addEventListener('keydown',e=>{if(e.key==='Enter')addSettingsCategory()});
 
 function renderDashboardInvestments(){
  syncCategorySelects();
