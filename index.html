@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Controle Financeiro — Protótipo integrado</title>
+<style>
+:root{
+  --brand:#c91545;--brand2:#a90f38;--brand-soft:#fff1f5;--bg:#f6f7fa;--card:#fff;
+  --text:#20232a;--muted:#717781;--line:#e5e7ec;--green:#16764b;--green-bg:#eef9f3;
+  --amber:#976500;--amber-bg:#fff8e8;--blue:#3f6fa3;--red:#cc3459;--nav:#22252b
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.screen{min-height:100vh}
+.topbar{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;position:sticky;top:0;z-index:20}
+.logo{display:flex;align-items:center;gap:11px;font-weight:850}.mark{width:36px;height:36px;border-radius:11px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:12px}
+.step-text{font-size:13px;color:var(--muted)}.step-text b{color:var(--brand)}
+.progress{height:4px;background:#eceef2}.progress>div{height:100%;background:var(--brand);transition:.25s}
+.wrap{max-width:1120px;margin:40px auto;padding:0 24px 64px}
+.eyebrow{font-size:12px;font-weight:850;color:var(--brand);letter-spacing:.05em;text-transform:uppercase}
+h1{font-size:34px;line-height:1.08;letter-spacing:-.035em;margin:8px 0 10px}
+.lead{max-width:850px;color:var(--muted);line-height:1.65;margin:0 0 28px}
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:27px;box-shadow:0 9px 28px rgba(30,35,50,.055);margin-bottom:20px}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.card h2{font-size:19px;margin:0 0 6px}.desc{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.badge{font-size:10px;font-weight:850;color:var(--brand);background:var(--brand-soft);padding:6px 9px;border-radius:999px;white-space:nowrap}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.field.full{grid-column:1/-1}
+label.field-label{display:block;font-size:12.5px;font-weight:750;margin-bottom:6px}
+input,select{width:100%;height:46px;border:1px solid #d9dce3;border-radius:11px;padding:0 11px;background:#fff;color:var(--text);outline:none;font-size:13.5px}
+input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201,21,69,.08)}
+.hint{display:block;font-size:11px;color:#8b9098;line-height:1.4;margin-top:6px}
+.money{display:flex;align-items:center;height:46px;border:1px solid #d9dce3;border-radius:11px;background:#fff;overflow:hidden}.money:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201,21,69,.08)}.money span{padding-left:11px;color:#777;font-size:12px;font-weight:750}.money input{border:0!important;box-shadow:none!important;height:44px;padding-left:7px;font-weight:750;font-size:15px;min-width:0}
+.actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:800;font-size:13px}.btn-primary{background:var(--brand);color:#fff}.btn-primary:hover{background:var(--brand2)}.btn-secondary{background:#fff;border:1px solid var(--line);color:#555}.btn-ghost{background:transparent;color:#666}.btn-dark{background:#24272d;color:#fff}
+.callout{background:#fafafb;border:1px solid var(--line);border-radius:14px;padding:14px 15px;font-size:12px;line-height:1.55;color:#626873;margin-top:16px}.callout.info{background:#f4f8fc;border-color:#dce7f2;color:#52677d}.callout.warn{background:var(--amber-bg);border-color:#f0dfae;color:#715d35}.callout.good{background:var(--green-bg);border-color:#d5eddf;color:#35694f}
+.divider{height:1px;background:var(--line);margin:24px 0 18px}
+.sync-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#68707a;background:#f6f7f9;border:1px solid var(--line);border-radius:999px;padding:6px 9px}.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+.toast{position:fixed;right:22px;bottom:22px;background:#25282e;color:#fff;border-radius:12px;padding:12px 15px;font-size:12px;box-shadow:0 12px 34px rgba(0,0,0,.18);z-index:100;opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}.toast.show{opacity:1;transform:translateY(0)}
+/* landing */
+.landing{display:grid;place-items:center;padding:30px 20px;background:linear-gradient(180deg,#fff 0,#f8f8fb 100%)}.landing-box{max-width:900px;width:100%;text-align:center}.landing .logo{justify-content:center;margin-bottom:34px}.landing h1{font-size:46px;max-width:760px;margin:0 auto 14px}.landing p{max-width:650px;margin:0 auto;color:var(--muted);font-size:15px;line-height:1.65}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px;text-align:left}.choice{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;cursor:pointer;transition:.18s;box-shadow:0 8px 26px rgba(30,35,50,.045)}.choice:hover{transform:translateY(-2px);border-color:#e4b7c4;box-shadow:0 12px 30px rgba(30,35,50,.08)}.choice .icon{width:42px;height:42px;border-radius:13px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:20px;margin-bottom:15px}.choice h3{margin:0 0 6px;font-size:17px}.choice p{font-size:12.5px;text-align:left;line-height:1.5}.landing-note{margin-top:22px!important;font-size:11.5px!important;color:#8a8f96!important}
+/* login */
+.login-shell{display:grid;place-items:center;padding:28px;background:#f8f8fb}.login-card{max-width:530px;width:100%;background:#fff;border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:0 12px 38px rgba(30,35,50,.08)}.ms-btn{width:100%;height:50px;border:1px solid #d5d9df;border-radius:12px;background:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;gap:11px}.ms-logo{display:grid;grid-template-columns:repeat(2,8px);gap:2px}.ms-logo i{width:8px;height:8px;background:#555;display:block}.login-status{margin-top:16px;padding:13px;border-radius:12px;background:#f8f9fb;border:1px solid var(--line);font-size:11.5px;line-height:1.5;color:#686e77}
+/* rows & categories */
+.rows{margin-top:20px;display:grid;gap:10px}.data-row{display:grid;grid-template-columns:1.05fr 1.3fr .75fr 38px;gap:10px;align-items:center}.data-row.invest{grid-template-columns:1fr 1.1fr .75fr .88fr 38px}.data-row.asset{grid-template-columns:1fr 1.2fr .8fr 38px}.row-head{font-size:10.5px;font-weight:850;color:#8a9099;text-transform:uppercase;letter-spacing:.03em;padding:0 3px}.del{width:38px;height:38px;border:0;border-radius:10px;background:#f5f5f6;color:#8a8f97}.del:hover{background:#fff0f3;color:var(--brand)}.add{margin-top:12px;border:1px dashed #d5d8df;background:#fff;color:#555;border-radius:11px;padding:10px 13px;font-weight:750;font-size:12px}.total-line{margin-top:16px;display:flex;justify-content:flex-end;align-items:baseline;gap:8px;color:var(--muted);font-size:12px}.total-line strong{font-size:19px;color:var(--text)}
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.cat{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px 10px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;cursor:pointer;min-height:48px}.cat input{width:16px;height:16px;accent-color:var(--brand)}.cat:has(input:checked){border-color:#efc5d1;background:#fff8fa}.custom-row{display:flex;gap:9px;margin-top:14px}.custom-row input{flex:1}.small-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:0 15px;font-weight:750}
+/* toggle */
+.toggle{display:flex;align-items:center;gap:8px;min-width:0}.switch{position:relative;width:44px;height:24px;display:inline-block;flex:0 0 auto}.switch input{opacity:0;width:0;height:0}.slider{position:absolute;inset:0;background:#d9dce3;border-radius:999px;transition:.2s}.slider:before{content:"";position:absolute;width:18px;height:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.18)}.switch input:checked+.slider{background:var(--brand)}.switch input:checked+.slider:before{transform:translateX(20px)}.toggle-label{font-size:10.5px;color:#666;line-height:1.25}
+/* retirement step */
+.onboard-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}.sticky{position:sticky;top:95px}.summary-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 9px 28px rgba(30,35,50,.055)}.summary-card h3{font-size:15px;margin:0 0 14px}.summary-item{padding:11px 0;border-bottom:1px solid #f0f1f4}.summary-item:last-child{border:0}.summary-item small{display:block;color:var(--muted);font-size:10.5px;margin-bottom:4px}.summary-item strong{font-size:15px}.summary-item.primary strong{color:var(--brand);font-size:20px}.premise-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin-top:14px}.pill-btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 11px;font-size:11.5px;font-weight:750;color:#555}
+/* plan */
+.hero-plan{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center}.goal-box{background:var(--brand-soft);border:1px solid #efccd6;border-radius:18px;padding:18px}.goal-box small{display:block;color:#8b5968;font-size:11px;margin-bottom:5px}.goal-box strong{font-size:27px;color:var(--brand)}.goal-box span{display:block;font-size:11px;color:#8b5968;margin-top:5px}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}.kpi small{display:block;color:var(--muted);font-size:10.5px;line-height:1.35;margin-bottom:6px}.kpi strong{font-size:19px}.kpi.primary{background:#fffafb;border-color:#efccd6}.kpi.primary strong{color:var(--brand)}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}.compare-box{border:1px solid var(--line);border-radius:14px;padding:13px}.compare-box small{display:block;color:var(--muted);font-size:10px;margin-bottom:5px}.compare-box strong{font-size:17px}.bar{height:11px;background:#eceef2;border-radius:999px;overflow:hidden;margin-top:7px}.bar>div{height:100%;background:var(--brand);border-radius:999px}.check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.check-item{border:1px solid var(--line);border-radius:15px;padding:15px;font-size:12px;line-height:1.5;color:#606670}.check-item b{display:block;color:var(--text);font-size:13px;margin-bottom:4px}.num{width:25px;height:25px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:850;margin-bottom:9px}
+/* dashboard */
+#screen-dashboard{background:#f4f5f7}.dash-shell{display:grid;grid-template-columns:225px minmax(0,1fr);min-height:100vh}.sidebar{background:var(--nav);color:#fff;padding:20px 14px;position:sticky;top:0;height:100vh}.side-logo{display:flex;align-items:center;gap:10px;font-weight:850;padding:5px 8px 22px}.side-logo .mark{background:var(--brand)}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;color:#bfc3ca;text-align:left;padding:11px 12px;border-radius:10px;font-size:12.5px;font-weight:700}.nav button.active,.nav button:hover{background:#34373e;color:#fff}.side-bottom{position:absolute;left:14px;right:14px;bottom:20px}.side-bottom button{width:100%;border:1px solid #454850;background:transparent;color:#c8cbd1;border-radius:10px;padding:10px;font-size:11.5px}.dash-main{min-width:0}.dash-top{height:64px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;z-index:15}.dash-title{font-weight:850}.dash-user{font-size:11.5px;color:var(--muted);display:flex;align-items:center;gap:9px}.avatar{width:30px;height:30px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:850}.dash-content{padding:24px 26px 50px;max-width:1450px;margin:0 auto}.dash-section{display:none}.dash-section.active{display:block}.dash-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:18px}.dash-heading h1{font-size:24px;margin:0 0 4px}.dash-heading p{font-size:12px;color:var(--muted);margin:0}.period{display:flex;gap:6px}.period button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 10px;font-size:10.5px;color:#666}.period button.active{background:#282b31;color:#fff;border-color:#282b31}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.dash-kpi{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.dash-kpi small{display:block;color:var(--muted);font-size:10px;margin-bottom:6px}.dash-kpi strong{font-size:20px}.dash-kpi em{display:block;font-style:normal;font-size:10px;color:#8c9199;margin-top:5px}.chart-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.dash-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px;min-width:0}.dash-card h3{font-size:13px;margin:0 0 3px}.dash-card .sub{font-size:10.5px;color:var(--muted);margin:0 0 12px}.chart-canvas{width:100%;height:250px;display:block}.table-wrap{overflow:auto;max-height:390px;border:1px solid var(--line);border-radius:12px;margin-top:13px}table{width:100%;border-collapse:collapse;font-size:11.5px;background:#fff}th{position:sticky;top:0;background:#f8f9fa;color:#717780;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;padding:10px;border-bottom:1px solid var(--line)}td{padding:10px;border-bottom:1px solid #f0f1f3}.pos{color:var(--green);font-weight:750}.neg{color:var(--brand);font-weight:750}.tag{display:inline-flex;padding:4px 7px;border-radius:999px;background:#f3f4f6;font-size:9.5px}.split-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.investment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.retire-focus{background:linear-gradient(135deg,#fff 0,#fff9fb 100%);border-color:#efd5dd}.retire-focus strong{color:var(--brand)}
+/* calc detail */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.assumption-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.assumption{background:#fafafb;border:1px solid var(--line);border-radius:13px;padding:12px}.assumption small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}.assumption strong{font-size:13.5px}.svg-chart{width:100%;height:auto;display:block}
+@media(max-width:980px){.onboard-layout{grid-template-columns:1fr}.sticky{position:static}.dash-shell{grid-template-columns:1fr}.sidebar{position:static;height:auto;padding:10px}.side-logo{padding-bottom:10px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.side-bottom{display:none}.dash-top{top:0}.chart-grid,.split-2,.calc-grid{grid-template-columns:1fr}}
+@media(max-width:760px){h1{font-size:29px}.choice-grid,.hero-plan,.two-col{grid-template-columns:1fr}.form-grid,.kpis,.dash-kpis,.investment-kpis,.check-grid{grid-template-columns:1fr 1fr}.data-row,.data-row.invest,.data-row.asset{grid-template-columns:1fr}.row-head{display:none}.category-grid{grid-template-columns:1fr 1fr}.del{justify-self:end}.custom-row{flex-direction:column}.small-btn{height:44px}.dash-content{padding:18px 14px}.dash-top{padding:0 14px}.landing h1{font-size:36px}}
+@media(max-width:520px){.choice-grid,.kpis,.dash-kpis,.investment-kpis,.check-grid,.category-grid,.compare,.assumption-grid{grid-template-columns:1fr}.card{padding:20px}.wrap{padding:0 16px 50px}.topbar{padding:0 16px}.step-text{font-size:11px}}
+
+/* v2 — refinamentos de onboarding */
+.subsection-title{font-size:15px;margin:0 0 5px}
+.premise-editor{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fafafb}
+.calc-table-wrap{margin-top:16px;overflow:auto;border:1px solid var(--line);border-radius:13px;max-height:430px}
+.calc-table{width:100%;border-collapse:collapse;min-width:700px}
+.calc-table th,.calc-table td{padding:11px 12px;border-bottom:1px solid #eef0f3;text-align:left;font-size:11.5px}
+.calc-table th{position:sticky;top:0;background:#f8f9fb;color:#747b85;font-size:10px;text-transform:uppercase;letter-spacing:.03em}
+.calc-table tr.highlight td{background:#fff8fa}
+.calc-table td:nth-child(3){font-weight:800;color:var(--brand)}
+
+/* Dashboard restaurado a partir da referência v8.27 */
+#screen-dashboard{--dash-blue:#2563eb;--dash-green:#059669;--dash-nav:#122643;--dash-nav2:#0b1931}
+#screen-dashboard .sidebar{background:linear-gradient(180deg,var(--dash-nav),var(--dash-nav2))}
+#screen-dashboard .nav button.active{background:#ffffff15;color:#fff;box-shadow:inset 3px 0 0 #20c997}
+#screen-dashboard .nav button:hover{background:#ffffff0b}
+#screen-dashboard .dash-content{background:#f4f7fb}
+#screen-dashboard .dash-card,#screen-dashboard .dash-kpi{border-radius:14px;border-color:#e3e8ef;box-shadow:0 2px 8px rgba(15,35,65,.025)}
+.dash-green-btn,.dash-secondary-btn{border:0;border-radius:9px;padding:8px 11px;min-height:36px;font-size:10px;font-weight:800}
+.dash-green-btn{background:#059669;color:#fff}
+.dash-secondary-btn{background:#fff;color:#2c3a50;border:1px solid #e3e8ef}
+.original-filterbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.original-filter-group{display:flex;gap:7px;flex-wrap:wrap}
+.original-filter-group select{border:1px solid #d8e0ea;background:#fff;border-radius:9px;padding:7px 9px;min-height:36px;color:#172033;font-size:10px}
+.expense-switcher{margin-top:14px}
+.expense-switcher-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:9px}
+.expense-switcher-head h3{font-size:13px;margin:0 0 3px}.expense-switcher-head p{font-size:10px;color:#65748a;margin:0}
+.expense-toggle{display:flex;gap:5px;background:#eef1f5;padding:4px;border-radius:10px}
+.expense-toggle button{border:0;background:transparent;color:#65748a;padding:7px 11px;border-radius:8px;font-size:10px;font-weight:800}
+.expense-toggle button.active{background:#dc2626;color:#fff}
+.original-expense-pane{padding:14px!important}
+.fixed-pane-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.fixed-pane-head h3{font-size:12px;margin:0 0 3px}.fixed-pane-head p{font-size:9px;color:#65748a;margin:0}
+.fixed-pane-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.month-nav{display:flex;gap:4px;align-items:center}.month-nav button{width:32px;height:34px;border:1px solid #d8e0ea;background:#fff;border-radius:8px}.month-nav input{height:34px;border:1px solid #d8e0ea;border-radius:8px;padding:0 8px;font-size:10px}
+.fixed-mini-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.fixed-mini{border:1px solid #edf0f4;background:#fafcfe;border-radius:10px;padding:10px}.fixed-mini span{display:block;font-size:8px;color:#65748a;text-transform:uppercase;font-weight:850}.fixed-mini strong{display:block;font-size:16px;margin-top:5px}.fixed-mini small{display:block;font-size:8px;color:#8793a3;margin-top:3px}.fixed-mini.paid strong{color:#059669}.fixed-mini.pending strong{color:#dc2626}
+.fixed-progress{margin-top:11px}.fixed-progress-line{display:flex;justify-content:space-between;font-size:9px;color:#65748a}.fixed-progress-track{height:7px;background:#edf0f4;border-radius:999px;overflow:hidden;margin-top:5px}.fixed-progress-track div{height:100%;width:0;background:#059669;border-radius:999px}
+.fixed-toolbar{display:flex;justify-content:space-between;align-items:center;margin:12px 0 7px;gap:10px}.fixed-status-tabs{display:flex;gap:5px}.fixed-status-tabs button{border:1px solid #e3e8ef;background:#fff;color:#65748a;border-radius:8px;padding:6px 9px;font-size:9px;font-weight:800}.fixed-status-tabs button.active{background:#172033;color:#fff;border-color:#172033}
+.original-table-wrap{overflow:auto;border:1px solid #edf0f4;border-radius:10px;max-height:390px}.original-table{width:100%;border-collapse:collapse;min-width:650px}.original-table th,.original-table td{padding:8px 9px;border-bottom:1px solid #edf0f4;font-size:10px;text-align:left;vertical-align:middle}.original-table th{background:#f8fafc;color:#65758b;text-transform:uppercase;font-size:8px;letter-spacing:.04em;font-weight:850;position:sticky;top:0;z-index:1}.original-table .num{text-align:right}
+.fixed-due{display:inline-flex;align-items:center;gap:4px}.fixed-due input{width:48px;height:28px;padding:0 5px;border:1px solid #d8e0ea;border-radius:7px;font-size:9px}
+.pay-status{display:inline-flex;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:800}.pay-status.paid{background:#e9f9f2;color:#087653}.pay-status.pending{background:#fff1f2;color:#b4233e}
+.row-actions{display:flex;gap:4px;justify-content:flex-end}.icon-action{width:28px;height:28px;padding:5px;border:1px solid #e3e8ef;background:#fff;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;color:#405067}.icon-action svg{width:14px;height:14px;fill:currentColor}.danger-icon{color:#b91c1c;border-color:#fecaca}.pay-action{height:28px;border:1px solid #d8e0ea;background:#fff;border-radius:7px;padding:0 7px;font-size:8px;font-weight:800;color:#405067}
+.dash-inline-editor{margin-top:11px;background:#fafcfe;border:1px solid #e3e8ef;border-radius:11px;padding:12px}.dash-inline-editor h4{font-size:11px;margin:0 0 10px}.dash-form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.dash-form-grid label{display:block;font-size:9px;color:#536277;font-weight:800;margin-bottom:4px}.dash-form-grid input,.dash-form-grid select{height:38px;border:1px solid #d8e0ea;border-radius:8px;padding:0 8px;font-size:10px}.dash-form-actions{display:flex;gap:7px;margin-top:10px;padding-top:10px;border-top:1px solid #e3e8ef}
+.original-grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.original-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:10px}.original-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}.original-invest-card{margin-top:10px}.original-chart-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}.original-chart-head h3{font-size:12px;margin:0 0 3px}.original-chart-head p{font-size:9px;color:#65748a;margin:0}.original-pill{font-size:8px;background:#eef3f8;color:#627086;padding:5px 7px;border-radius:999px;white-space:nowrap}.original-tall-chart{height:300px}.projection-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:9px;color:#65748a;margin-top:8px}.projection-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+@media(max-width:1000px){.original-grid5{grid-template-columns:repeat(3,1fr)}.fixed-mini-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.fixed-pane-head,.expense-switcher-head{display:block}.fixed-pane-actions,.expense-toggle{margin-top:10px}.original-grid5,.original-grid3,.original-grid4,.fixed-mini-grid{grid-template-columns:1fr 1fr}.dash-form-grid{grid-template-columns:1fr}}
+@media(max-width:500px){.original-grid5,.original-grid3,.original-grid4,.fixed-mini-grid{grid-template-columns:1fr}}
+
+
+/* Integração real Microsoft / OneDrive */
+.cloud-status{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#67717e}
+.cloud-status i{width:7px;height:7px;border-radius:50%;display:inline-block;background:#9ca3af}
+.cloud-status.connected i{background:#059669}
+.cloud-status.saving i{background:#d97706;animation:pulseCloud 1s infinite alternate}
+.cloud-status.error i{background:#dc2626}
+@keyframes pulseCloud{from{opacity:.35}to{opacity:1}}
+.login-status.success{background:#eef9f3;border-color:#d4edde;color:#35694f}
+.login-status.error{background:#fff1f2;border-color:#fecdd3;color:#9f1239}
+.login-status.working{background:#fff8e8;border-color:#f0dfae;color:#735d30}
+.host-warning{margin-top:12px;background:#fff8e8;border:1px solid #f0dfae;border-radius:12px;padding:11px 12px;font-size:11px;line-height:1.5;color:#735d30}
+
+</style>
+</head>
+<body>
+
+<div id="toast" class="toast">organizador_financeiro.json atualizado</div>
+
+<!-- TELA INICIAL -->
+<section id="screen-landing" class="screen landing">
+  <div class="landing-box">
+    <div class="logo"><div class="mark">CF</div>Controle Financeiro</div>
+    <h1>Organize seu presente. Construa seu futuro.</h1>
+    <p>Uma jornada simples para entender sua vida financeira, definir uma meta de aposentadoria e acompanhar sua evolução ao longo do tempo.</p>
+    <div class="choice-grid">
+      <div class="choice" id="firstAccessBtn">
+        <div class="icon">＋</div>
+        <h3>É meu primeiro acesso</h3>
+        <p>Conecte sua conta Microsoft, crie sua base de dados e monte seu primeiro plano financeiro.</p>
+      </div>
+      <div class="choice" id="existingAccessBtn">
+        <div class="icon">↗</div>
+        <h3>Já tenho uma conta</h3>
+        <p>Entre com a Microsoft para carregar seu arquivo e continuar de onde parou.</p>
+      </div>
+    </div>
+    <p class="landing-note">Versão inicial conectada ao Microsoft OneDrive. Para o login real funcionar, publique este arquivo como <b>index.html</b> no endereço cadastrado no Microsoft Entra.</p>
+  </div>
+</section>
+
+<!-- ETAPA ZERO / LOGIN -->
+<section id="screen-login" class="screen login-shell hidden">
+  <div class="login-card">
+    <div class="logo" style="margin-bottom:22px"><div class="mark">CF</div>Controle Financeiro</div>
+    <div class="eyebrow">Conexão com seu OneDrive</div>
+    <h1 id="loginTitle" style="font-size:28px">Vamos criar sua base financeira.</h1>
+    <p class="lead" id="loginLead" style="font-size:13px;margin-bottom:20px">Sua conta Microsoft será usada para criar um arquivo privado <b>organizador_financeiro.json</b> no seu OneDrive. É esse arquivo que guardará as informações da aplicação.</p>
+    <button class="ms-btn" id="microsoftLoginBtn">
+      <span class="ms-logo"><i></i><i></i><i></i><i></i></span>
+      Entrar com Microsoft
+    </button>
+    <div class="login-status" id="loginStatus">
+      Entre com sua conta Microsoft. No primeiro acesso, o aplicativo criará automaticamente o arquivo <b>organizador_financeiro.json</b> dentro da pasta privada do aplicativo no seu OneDrive.
+    </div>
+    <div id="hostWarning" class="host-warning hidden"><b>Para testar o login real:</b> publique este arquivo como <b>index.html</b> em https://igorhorrocks.github.io/controle_financeiro/. Esse é o endereço cadastrado como SPA no Microsoft Entra.</div><div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
+  </div>
+</section>
+
+<!-- ONBOARDING GENERIC HEADER HELPERS -->
+<section id="screen-step1" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Controle Financeiro</div><div class="step-text"><b>Etapa 1</b> de 5 · Seu perfil</div></div><div class="progress"><div style="width:20%"></div></div>
+ <div class="wrap">
+  <div class="eyebrow">Pra começar</div><h1>Quem vai usar este controle?</h1>
+  <p class="lead">Vamos personalizar a experiência. Você poderá acompanhar sua vida financeira sozinho(a) ou em conjunto com outra pessoa.</p>
+  <div class="card">
+   <div class="card-head"><div><h2>Seu perfil financeiro</h2><p class="desc">Essas informações servem apenas para organizar os dados e identificar receitas, gastos e patrimônio.</p></div><span class="badge">PERFIL</span></div>
+   <div class="form-grid">
+    <div class="field"><label class="field-label">Como você quer usar?</label><select id="profileType"><option value="individual">Individual</option><option value="casal" selected>Casal / duas pessoas</option></select></div>
+    <div class="field"><label class="field-label">Seu nome</label><input id="person1" value="Laura" placeholder="Seu nome"></div>
+    <div class="field" id="person2Field"><label class="field-label">Nome da outra pessoa</label><input id="person2" value="Victor" placeholder="Nome"></div>
+    <div class="field"><label class="field-label">Moeda principal</label><select id="currency"><option selected>Real brasileiro (R$)</option></select></div>
+   </div>
+   <div class="callout info"><b>Você poderá alterar isso depois.</b> O objetivo aqui é apenas permitir que receitas, despesas e investimentos sejam associados à pessoa correta.</div>
+  </div>
+  <div class="actions"><button class="btn btn-ghost" data-prev="login">← Voltar</button><button class="btn btn-primary" id="saveStep1">Salvar e continuar →</button></div>
+ </div>
+</section>
+
+<!-- ETAPA 2 -->
+<section id="screen-step2" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Controle Financeiro</div><div class="step-text"><b>Etapa 2</b> de 5 · Sua aposentadoria</div></div><div class="progress"><div style="width:40%"></div></div>
+ <div class="wrap">
+  <div class="eyebrow">Onde você quer chegar</div><h1>Vamos transformar aposentadoria em uma meta concreta.</h1>
+  <p class="lead">Defina quando gostaria de se aposentar, qual renda deseja ter e o que já construiu para esse objetivo. Os valores são apresentados em poder de compra de hoje.</p>
+  <div class="onboard-layout">
+   <div>
+    <div class="card">
+     <div class="card-head"><div><h2>1. Seu horizonte</h2><p class="desc">Quanto tempo temos para construir seu plano?</p></div><span class="badge">META</span></div>
+     <div class="form-grid">
+      <div class="field"><label class="field-label">Sua idade atual</label><input id="age" type="number" value="32" min="18" max="90"></div>
+      <div class="field"><label class="field-label">Com que idade deseja se aposentar?</label><input id="retAge" type="number" value="60" min="30" max="100"></div>
+      <div class="field full"><label class="field-label">Por quantos anos pretende usar esse patrimônio?</label><input id="useYears" type="number" min="1" max="60" step="1" value="25"><span class="hint">Digite livremente o período planejado para receber a renda da aposentadoria a partir do patrimônio acumulado.</span></div>
+     </div>
+    </div>
+    <div class="card">
+     <div class="card-head"><div><h2>2. Qual renda você gostaria de ter?</h2><p class="desc">Pense no valor mensal em dinheiro de hoje.</p></div></div>
+     <div class="form-grid"><div class="field full"><label class="field-label">Renda mensal desejada na aposentadoria</label><div class="money"><span>R$</span><input id="retIncome" class="moneyField" inputmode="numeric" value="8.000"></div><span class="hint">A aplicação considera inflação para preservar o poder de compra dessa meta ao longo do tempo.</span></div></div>
+    </div>
+    <div class="card">
+     <div class="card-head"><div><h2>3. O que você já construiu até aqui?</h2><p class="desc">Informe apenas o dinheiro que você considera destinado à aposentadoria.</p></div></div>
+     <div class="form-grid">
+      <div class="field"><label class="field-label">Quanto você já tem destinado para aposentadoria?</label><div class="money"><span>R$</span><input id="retCurrent" class="moneyField" inputmode="numeric" value="100.000"></div></div>
+      <div class="field"><label class="field-label">Quanto você já investe por mês para essa meta?</label><div class="money"><span>R$</span><input id="retMonthlyCurrent" class="moneyField" inputmode="numeric" value="1.500"></div></div>
+     </div>
+     <div class="callout"><b>Por que separar esse valor?</b> Nem todo patrimônio precisa financiar sua aposentadoria. Reserva de emergência, imóvel e dinheiro para outros objetivos podem continuar separados.</div>
+     <div class="premise-actions"><button class="pill-btn" id="calcExplainBtn" type="button">↗ Entender este cálculo</button></div>
+    </div>
+   </div>
+   <aside class="summary-card sticky">
+    <h3>Resumo da sua meta</h3>
+    <div class="summary-item"><small>Tempo até a aposentadoria</small><strong id="sumYears">28 anos</strong></div>
+    <div class="summary-item"><small>Renda mensal desejada</small><strong id="sumIncome">R$ 8.000</strong></div>
+    <div class="summary-item"><small>Patrimônio estimado necessário</small><strong id="sumNeed">R$ 1.460.000</strong></div>
+    <div class="summary-item"><small>Patrimônio atual destinado à meta</small><strong id="sumCurrent">R$ 100.000</strong></div>
+    <div class="summary-item primary"><small>Aporte inicial estimado</small><strong id="sumMonthly">R$ 2.298/mês</strong></div>
+    <div class="callout warn" id="retCompare" style="margin-top:12px">Seu aporte atual está abaixo da estimativa inicial.</div>
+   </aside>
+  </div>
+  <div class="actions"><button class="btn btn-ghost" data-prev="step1">← Voltar</button><button class="btn btn-primary" id="saveStep2">Salvar e continuar →</button></div>
+ </div>
+</section>
+
+<!-- DETALHE CÁLCULO -->
+<section id="screen-calc" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Como calculamos sua aposentadoria</div><button class="btn btn-secondary" id="backFromCalc">← Voltar para a meta</button></div>
+ <div class="wrap">
+  <div class="eyebrow">Transparência do cálculo</div><h1>Veja seu dinheiro crescer — e depois financiar sua aposentadoria.</h1>
+  <p class="lead">Primeiro calculamos o patrimônio necessário para pagar a renda desejada. Depois projetamos o que você já possui, calculamos os aportes necessários e simulamos a desacumulação depois da aposentadoria.</p>
+  <div class="calc-grid">
+   <div class="card">
+    <div class="card-head"><div><h2>Premissas desta simulação</h2><p class="desc">Elas ficam visíveis aqui para o usuário entender o cálculo.</p></div><button class="btn btn-secondary" id="btnCalcAdjustPremises" type="button">Ajustar premissas</button></div>
+    <div class="assumption-grid">
+      <div class="assumption"><small>Rentabilidade esperada</small><strong id="calcReturnLabel">10,0% a.a.</strong></div>
+      <div class="assumption"><small>Inflação estimada</small><strong id="calcInflationLabel">4,0% a.a.</strong></div>
+      <div class="assumption"><small>Referência</small><strong>Renda fixa</strong></div>
+    </div>
+    <div id="calcPremiseEditor" class="premise-editor hidden">
+      <div class="form-grid" style="margin-top:0">
+        <div class="field"><label class="field-label">Rentabilidade esperada (% a.a.)</label><input id="calcReturnInput" type="number" min="0" max="30" step="0.1" value="10"></div>
+        <div class="field"><label class="field-label">Inflação estimada (% a.a.)</label><input id="calcInflationInput" type="number" min="0" max="20" step="0.1" value="4"></div>
+      </div>
+      <div class="actions" style="margin-top:12px;justify-content:flex-end"><button class="btn btn-secondary" id="cancelCalcPremises" type="button">Cancelar</button><button class="btn btn-primary" id="saveCalcPremises" type="button">Aplicar premissas</button></div>
+    </div>
+    <div class="callout info"><b>Como a inflação entra?</b> O cálculo trabalha em poder de compra de hoje. A rentabilidade é descontada da inflação para estimar o crescimento real do patrimônio. O aporte mostrado como “de hoje” precisa ser reajustado ao longo dos anos para preservar o mesmo esforço financeiro.</div>
+   </div>
+   <div class="card"><h2>Resultado com seus dados</h2>
+    <div class="kpis" style="grid-template-columns:1fr 1fr;margin-top:15px"><div class="kpi primary"><small>Patrimônio necessário</small><strong id="calcNeed">—</strong></div><div class="kpi"><small>Aporte inicial em dinheiro de hoje</small><strong id="calcMonthly">—</strong></div></div>
+    <div class="callout">Durante a aposentadoria o saldo continua rendendo, mas passa a financiar retiradas mensais. Por isso o patrimônio diminui até se aproximar de zero no fim do período planejado.</div>
+   </div>
+  </div>
+  <div class="card"><div class="card-head"><div><h2>Evolução do patrimônio</h2><p class="desc">Acumulação → aposentadoria → desacumulação</p></div></div><svg id="retirementSvg" class="svg-chart" viewBox="0 0 1000 420"></svg></div>
+  <div class="card">
+    <div class="card-head"><div><h2>Como o aporte muda ao longo do tempo?</h2><p class="desc">O aporte inicial é expresso em dinheiro de hoje. Para manter o mesmo esforço, o valor nominal sobe junto com a inflação.</p></div><span class="badge">AJUSTE PELA INFLAÇÃO</span></div>
+    <div class="callout" style="margin-top:14px">Exemplo: se hoje o plano pedir <b id="contributionTodayExample">—</b>, daqui a alguns anos o número em reais será maior. Isso não significa necessariamente um esforço maior: parte desse aumento apenas repõe a perda de poder de compra causada pela inflação.</div>
+    <div class="calc-table-wrap">
+      <table class="calc-table">
+        <thead><tr><th>Momento</th><th>Idade</th><th>Aporte mensal nominal estimado</th><th>Leitura</th></tr></thead>
+        <tbody id="contributionTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!-- ETAPA 3 -->
+<section id="screen-step3" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Controle Financeiro</div><div class="step-text"><b>Etapa 3</b> de 5 · Sua vida financeira hoje</div></div><div class="progress"><div style="width:60%"></div></div>
+ <div class="wrap">
+  <div class="eyebrow">Agora vamos entender seu mês</div><h1>Como é sua vida financeira hoje?</h1>
+  <p class="lead">Comece pelo que você já conhece. Informe suas receitas e gastos fixos. Os gastos variáveis podem ser preenchidos aos poucos — por enquanto, escolha apenas quais categorias quer acompanhar.</p>
+  <div class="card">
+   <div class="card-head"><div><h2>1. Receitas mensais</h2><p class="desc">Adicione as entradas que costumam fazer parte do seu mês.</p></div><span class="badge">VALORES MENSAIS</span></div>
+   <div class="rows" id="incomeRows"><div class="data-row row-head"><span>Quem / origem</span><span>Descrição</span><span>Valor</span><span></span></div>
+    <div class="data-row data"><input value="Laura"><input value="Salário"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="numeric" value="8.000"></div><button class="del">×</button></div>
+    <div class="data-row data"><input value="Victor"><input value="Salário"><div class="money"><span>R$</span><input class="moneyField incomeValue" inputmode="numeric" value="6.000"></div><button class="del">×</button></div>
+   </div>
+   <button class="add" id="addIncome">+ Adicionar outra receita</button><div class="total-line">Receita mensal informada <strong id="incomeTotal">R$ 14.000</strong></div>
+  </div>
+  <div class="card">
+   <div class="card-head"><div><h2>2. Despesas fixas</h2><p class="desc">Primeiro defina como você quer organizar seus gastos fixos. Depois cadastre os valores que já conhece.</p></div><span class="badge">PERSONALIZÁVEL</span></div>
+   <div style="margin-top:20px">
+     <h3 class="subsection-title">Quais categorias de despesas fixas você quer acompanhar?</h3>
+     <p class="desc">O Controle Financeiro traz uma estrutura inicial, mas você pode escolher apenas o que faz sentido para sua realidade e criar novas categorias.</p>
+   </div>
+   <div class="category-grid" id="fixedCategories"><label class="cat"><input type="checkbox" checked> Moradia</label><label class="cat"><input type="checkbox" checked> Contas da casa</label><label class="cat"><input type="checkbox" checked> Transporte</label><label class="cat"><input type="checkbox" checked> Saúde</label><label class="cat"><input type="checkbox" checked> Educação</label><label class="cat"><input type="checkbox" checked> Assinaturas</label><label class="cat"><input type="checkbox"> Seguros</label><label class="cat"><input type="checkbox"> Outros</label></div>
+   <div class="custom-row"><input id="newFixedCategory" placeholder="Não encontrou uma categoria? Digite aqui"><button class="small-btn" id="addFixedCategory">+ Criar categoria</button></div>
+   <div class="divider"></div>
+   <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Agora cadastre suas despesas fixas</h3><p class="desc">Use as categorias definidas acima e informe descrição e valor mensal.</p></div><span class="badge">PREENCHA AGORA</span></div>
+   <div class="rows" id="fixedRows"><div class="data-row row-head"><span>Categoria</span><span>Descrição</span><span>Valor mensal</span><span></span></div>
+    <div class="data-row data"><select><option selected>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Condomínio"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="650"></div><button class="del">×</button></div>
+    <div class="data-row data"><select><option>Moradia</option><option selected>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Internet"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="120"></div><button class="del">×</button></div>
+   </div>
+   <button class="add" id="addFixed">+ Adicionar despesa fixa</button><div class="total-line">Despesas fixas informadas <strong id="fixedTotal">R$ 770</strong></div>
+  </div>
+  <div class="card">
+   <div class="card-head"><div><h2>3. Quais gastos variáveis você quer acompanhar?</h2><p class="desc">Você não precisa saber os valores agora. Escolha apenas as categorias que fazem sentido para sua rotina.</p></div><span class="badge">PERSONALIZÁVEL</span></div>
+   <div class="category-grid" id="variableCategories"><label class="cat"><input type="checkbox" checked> Alimentação</label><label class="cat"><input type="checkbox" checked> Mercado</label><label class="cat"><input type="checkbox" checked> Transporte</label><label class="cat"><input type="checkbox" checked> Saúde</label><label class="cat"><input type="checkbox" checked> Lazer</label><label class="cat"><input type="checkbox" checked> Compras</label><label class="cat"><input type="checkbox" checked> Pets</label><label class="cat"><input type="checkbox" checked> Cuidados pessoais</label><label class="cat"><input type="checkbox"> Educação</label><label class="cat"><input type="checkbox"> Viagens</label><label class="cat"><input type="checkbox"> Presentes</label><label class="cat"><input type="checkbox"> Outros</label></div>
+   <div class="custom-row"><input id="newVariableCategory" placeholder="Nova categoria variável"><button class="small-btn" id="addVariableCategory">+ Criar categoria</button></div>
+   <div class="callout"><b>Não se preocupe em estimar tudo agora.</b> Conforme você registrar os gastos variáveis, o aplicativo formará sua média real e sua visão mensal ficará mais precisa.</div>
+  </div>
+  <div class="card"><h2>Prévia do seu mês</h2><p class="desc">Ainda sem considerar despesas variáveis.</p><div class="kpis" style="grid-template-columns:repeat(3,1fr)"><div class="kpi"><small>Receitas informadas</small><strong id="previewIncome">R$ 14.000</strong></div><div class="kpi"><small>Despesas fixas informadas</small><strong id="previewFixed">R$ 770</strong></div><div class="kpi"><small>Disponível antes das variáveis</small><strong id="previewFree">R$ 13.230</strong></div></div></div>
+  <div class="actions"><button class="btn btn-ghost" data-prev="step2">← Voltar</button><button class="btn btn-primary" id="saveStep3">Salvar e continuar →</button></div>
+ </div>
+</section>
+
+<!-- ETAPA 4 -->
+<section id="screen-step4" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Controle Financeiro</div><div class="step-text"><b>Etapa 4</b> de 5 · Patrimônio e investimentos</div></div><div class="progress"><div style="width:80%"></div></div>
+ <div class="wrap">
+  <div class="eyebrow">O que você já construiu</div><h1>Conte para nós o que você já tem hoje.</h1><p class="lead">Cadastre investimentos, reservas e outros patrimônios. Não precisa detalhar tudo perfeitamente agora — os valores poderão ser atualizados depois.</p>
+  <div class="card">
+   <div class="card-head"><div><h2>1. Investimentos e reservas</h2><p class="desc">Primeiro escolha como quer organizar seus investimentos. Depois detalhe os valores e indique o que faz parte da aposentadoria.</p></div><span class="badge">PATRIMÔNIO FINANCEIRO</span></div>
+   <div style="margin-top:20px">
+     <h3 class="subsection-title">Quais categorias de investimento você quer acompanhar?</h3>
+     <p class="desc">Mantenha as categorias sugeridas ou personalize antes de cadastrar seus investimentos.</p>
+   </div>
+   <div class="category-grid" id="investmentCategories"><label class="cat"><input type="checkbox" checked> Conta corrente</label><label class="cat"><input type="checkbox" checked> Reserva de emergência</label><label class="cat"><input type="checkbox" checked> Renda fixa</label><label class="cat"><input type="checkbox" checked> Renda variável</label><label class="cat"><input type="checkbox" checked> Previdência privada</label><label class="cat"><input type="checkbox" checked> FGTS</label><label class="cat"><input type="checkbox"> Criptoativos</label><label class="cat"><input type="checkbox"> Outros</label></div>
+   <div class="custom-row"><input id="newInvestmentCategory" placeholder="Não encontrou uma categoria? Digite aqui"><button class="small-btn" id="addInvestmentCategory">+ Criar categoria</button></div>
+   <div class="divider"></div>
+   <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Agora detalhe seus investimentos e reservas</h3><p class="desc">O botão de aposentadoria define quais valores alimentam a meta futura.</p></div><span class="badge">PREENCHA AGORA</span></div>
+   <div class="rows" id="investmentRows"><div class="data-row invest row-head"><span>Categoria</span><span>Descrição</span><span>Valor</span><span>Aposentadoria?</span><span></span></div>
+    <div class="data-row invest data"><select class="invCat"><option>Conta corrente</option><option>Reserva de emergência</option><option selected>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input value="Tesouro IPCA+"><div class="money"><span>R$</span><input class="moneyField investmentValue" inputmode="numeric" value="100.000"></div><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox" checked><span class="slider"></span></label><span class="toggle-label">Sim, faz parte<br>da meta</span></div><button class="del">×</button></div>
+    <div class="data-row invest data"><select class="invCat"><option>Conta corrente</option><option selected>Reserva de emergência</option><option>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input value="Reserva de emergência"><div class="money"><span>R$</span><input class="moneyField investmentValue" inputmode="numeric" value="30.000"></div><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button></div>
+   </div>
+   <button class="add" id="addInvestment">+ Adicionar investimento ou reserva</button><div class="total-line">Patrimônio financeiro informado <strong id="financialTotal">R$ 130.000</strong></div>
+   <div class="callout info"><b>Nem todo investimento é aposentadoria.</b> A reserva de emergência, por exemplo, pode continuar separada. O botão acima permite que o dashboard mostre patrimônio total e patrimônio visando aposentadoria como informações diferentes.</div>
+  </div>
+  <div class="card">
+   <div class="card-head"><div><h2>2. Outros patrimônios</h2><p class="desc">Bens que você deseja acompanhar no patrimônio total.</p></div><span class="badge">OPCIONAL</span></div>
+   <div class="rows" id="assetRows"><div class="data-row asset row-head"><span>Tipo</span><span>Descrição</span><span>Valor estimado</span><span></span></div>
+    <div class="data-row asset data"><select><option selected>Imóvel</option><option>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input value="Apartamento"><div class="money"><span>R$</span><input class="moneyField assetValue" inputmode="numeric" value="350.000"></div><button class="del">×</button></div>
+    <div class="data-row asset data"><select><option>Imóvel</option><option selected>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input value="Carro"><div class="money"><span>R$</span><input class="moneyField assetValue" inputmode="numeric" value="90.000"></div><button class="del">×</button></div>
+   </div>
+   <button class="add" id="addAsset">+ Adicionar outro patrimônio</button><div class="total-line">Outros patrimônios informados <strong id="assetsTotal">R$ 440.000</strong></div>
+   <div class="callout"><b>Esses bens entram no patrimônio total, mas não automaticamente na aposentadoria.</b> Um imóvel onde você pretende morar ou um veículo que deseja manter não são tratados como dinheiro disponível para financiar a renda futura.</div>
+  </div>
+  <div class="card"><div class="card-head"><div><h2>3. Seu patrimônio hoje</h2><p class="desc">Uma primeira fotografia do que você já construiu.</p></div><span class="badge">RESUMO</span></div><div class="kpis"><div class="kpi"><small>Patrimônio financeiro</small><strong id="sumFinancial">R$ 130.000</strong></div><div class="kpi primary"><small>Destinado à aposentadoria</small><strong id="sumRetirement">R$ 100.000</strong></div><div class="kpi"><small>Outros bens</small><strong id="sumAssets">R$ 440.000</strong></div><div class="kpi"><small>Patrimônio total acompanhado</small><strong id="sumTotalAssets">R$ 570.000</strong></div></div><div class="callout">O valor detalhado agora nos investimentos passa a ser a referência mais precisa para a projeção da aposentadoria e substitui a estimativa inicial da Etapa 2 quando necessário.</div></div>
+  <div class="actions"><button class="btn btn-ghost" data-prev="step3">← Voltar</button><button class="btn btn-primary" id="saveStep4">Salvar e continuar →</button></div>
+ </div>
+</section>
+
+<!-- ETAPA 5 -->
+<section id="screen-step5" class="screen hidden">
+ <div class="topbar"><div class="logo"><div class="mark">CF</div>Controle Financeiro</div><div class="step-text"><b>Etapa 5</b> de 5 · Seu plano</div></div><div class="progress"><div style="width:100%"></div></div>
+ <div class="wrap">
+  <div class="eyebrow">Tudo pronto</div><h1>Seu plano financeiro começa aqui.</h1><p class="lead">Com as informações que você forneceu, já conseguimos montar uma primeira visão da sua vida financeira e transformar sua meta de aposentadoria em um plano acompanhável.</p>
+  <div class="card hero-plan"><div><h2>Você definiu onde quer chegar.</h2><p class="desc">Agora o Controle Financeiro compara sua evolução real com esse plano. Os números ficam mais precisos conforme você registra receitas, despesas e investimentos.</p></div><div class="goal-box"><small>Sua meta de aposentadoria</small><strong id="planIncome">R$ 8.000/mês</strong><span id="planRetAge">em poder de compra de hoje · aposentadoria aos 60 anos</span></div></div>
+  <div class="kpis"><div class="kpi"><small>Patrimônio financeiro atual</small><strong id="planFinancial">R$ 130.000</strong></div><div class="kpi"><small>Patrimônio visando aposentadoria</small><strong id="planRetirement">R$ 100.000</strong></div><div class="kpi primary"><small>Aporte inicial estimado</small><strong id="planMonthly">R$ 2.298/mês</strong></div><div class="kpi"><small>Patrimônio total acompanhado</small><strong id="planTotal">R$ 570.000</strong></div></div>
+  <div class="two-col">
+   <div class="card"><h2>Seu mês hoje</h2><p class="desc">Ainda estamos conhecendo suas despesas variáveis.</p><div class="compare"><div class="compare-box"><small>Receitas cadastradas</small><strong id="planRevenue">R$ 14.000</strong></div><div class="compare-box"><small>Despesas fixas</small><strong id="planFixed">R$ 770</strong></div></div><div class="callout warn">A sobra real será calculada conforme você registrar os gastos variáveis. Não vamos assumir que todo o valor disponível antes das variáveis pode ser investido.</div></div>
+   <div class="card"><h2>Seu ritmo de aposentadoria</h2><p class="desc">O aporte que você faz hoje comparado ao aporte inicial estimado.</p><div class="compare"><div class="compare-box"><small>Você investe hoje</small><strong id="planCurrentMonthly">R$ 1.500/mês</strong></div><div class="compare-box"><small>Estimativa do plano</small><strong id="planNeededMonthly">R$ 2.298/mês</strong></div></div><div style="margin-top:13px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between"><span>Progresso do aporte atual</span><b id="planPct">65%</b></div><div class="bar"><div id="planBar" style="width:65%"></div></div><div class="callout warn" id="planGap">Existe uma diferença estimada de R$ 798 por mês. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.</div></div>
+  </div>
+  <div class="card"><h2>O que acontece a partir de agora?</h2><div class="check-grid"><div class="check-item"><div class="num">1</div><b>Registre seu dia a dia</b>Inclua despesas variáveis e mantenha receitas e despesas fixas atualizadas.</div><div class="check-item"><div class="num">2</div><b>Acompanhe seu aporte</b>Compare todos os meses quanto conseguiu investir com o valor planejado.</div><div class="check-item"><div class="num">3</div><b>Deixe o plano se adaptar</b>Com histórico, o aplicativo mostra se você está no caminho esperado e quando vale rever a meta.</div></div></div>
+  <div class="actions"><button class="btn btn-ghost" data-prev="step4">← Voltar e revisar</button><button class="btn btn-primary" id="finishOnboarding">Ir para meu Controle Financeiro →</button></div>
+ </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="screen-dashboard" class="screen hidden">
+ <div class="dash-shell">
+  <aside class="sidebar">
+   <div class="side-logo"><div class="mark">CF</div>Controle Financeiro</div>
+   <nav class="nav">
+    <button class="active" data-tab="overview">Visão Geral</button>
+    <button data-tab="expenses">Despesas</button>
+    <button data-tab="revenues">Receitas</button>
+    <button data-tab="installments">Parcelas</button>
+    <button data-tab="investments">Investimentos</button>
+    <button data-tab="settings">Configuração / Importação</button>
+   </nav>
+   <div class="side-bottom"><button id="backToLanding">Sair da demonstração</button></div>
+  </aside>
+  <div class="dash-main">
+   <div class="dash-top"><div class="dash-title" id="dashTitle">Visão Geral</div><div class="dash-user"><span id="dashboardCloudStatus" class="cloud-status connected"><i></i><span>OneDrive conectado</span></span><div class="avatar" id="avatar">L</div><span id="dashUser">Laura</span></div></div>
+   <main class="dash-content">
+    <section id="tab-overview" class="dash-section active">
+     <div class="dash-heading"><div><h1>Visão Geral</h1><p>Uma leitura rápida do seu mês e do seu patrimônio.</p></div><div class="period"><button>3m</button><button class="active">6m</button><button>12m</button><button>Todo histórico</button></div></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Média de receitas · 3 meses</small><strong>R$ 14.450</strong><em>+2,8% vs. trimestre anterior</em></div><div class="dash-kpi"><small>Média de despesas · 3 meses</small><strong>R$ 9.180</strong><em>63,5% da renda média</em></div><div class="dash-kpi"><small>Parcelas futuras</small><strong>R$ 7.940</strong><em>saldo projetado</em></div><div class="dash-kpi retire-focus"><small>Patrimônio total</small><strong>R$ 570.000</strong><em>inclui bens e objetivos diversos</em></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Consolida Resultado</h3><p class="sub">Receitas, gastos e sobra mensal</p><canvas id="overviewChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Alocação de capital ao longo do tempo</h3><p class="sub">Composição do patrimônio financeiro</p><canvas id="allocationChart" class="chart-canvas"></canvas></div></div>
+     <div class="chart-grid"><div class="dash-card retire-focus"><h3>Aposentadoria</h3><p class="sub">Patrimônio visando aposentadoria × meta definida</p><div class="split-2"><div><small style="color:var(--muted);font-size:10px">Hoje</small><div style="font-size:21px;font-weight:850;color:var(--brand);margin-top:4px">R$ 100.000</div></div><div><small style="color:var(--muted);font-size:10px">Aporte estimado</small><div style="font-size:21px;font-weight:850;margin-top:4px">R$ 2.298/mês</div></div></div><div class="bar" style="margin-top:18px"><div style="width:7%"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px"><span>Patrimônio visando aposentadoria</span><span>Meta: ~R$ 1,46 mi</span></div></div><div class="dash-card"><h3>Próximo passo</h3><p class="sub">O que merece sua atenção</p><div class="callout warn" style="margin-top:0"><b>Complete seu primeiro mês de gastos variáveis.</b> A partir disso, conseguiremos comparar sua capacidade real de aporte com o plano de aposentadoria.</div></div></div>
+    </section>
+
+    <section id="tab-expenses" class="dash-section">
+     <div class="dash-heading"><div><h1>Despesas</h1><p>Despesas fixas e variáveis com gestão contextual, como no dashboard original.</p></div><button class="dash-green-btn" id="dashTopAddVariable" type="button">+ Adicionar despesa variável</button></div>
+     <div class="original-filterbar"><div class="original-filter-group"><select id="dashExpenseTypeFilter"><option value="all">Fixas + variáveis</option><option value="fixas">Somente fixas</option><option value="variaveis">Somente variáveis</option></select><select id="dashExpenseCategoryFilter"><option value="all">Todas as categorias</option><option>Moradia</option><option>Contas da casa</option><option>Mercado</option><option>Alimentação</option><option>Transporte</option><option>Lazer</option></select></div></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Fixas • mês</small><strong id="dashFixedKpi">R$ 4.380</strong></div><div class="dash-kpi"><small>Variáveis • mês</small><strong id="dashVariableKpi">R$ 3.920</strong></div><div class="dash-kpi"><small>Total • mês</small><strong id="dashExpenseTotalKpi">R$ 8.300</strong></div><div class="dash-kpi"><small>Média no período</small><strong>R$ 8.180</strong></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Evolução das despesas</h3><p class="sub">Fixas e variáveis por mês.</p><canvas id="expenseEvolutionChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por categoria</h3><p class="sub">Total no período selecionado.</p><canvas id="expenseCategoryChart" class="chart-canvas"></canvas></div></div>
+
+     <div class="expense-switcher">
+      <div class="expense-switcher-head"><div><h3>Lançamentos de despesas</h3><p>Alterne entre gastos fixos e variáveis na mesma área.</p></div><div class="expense-toggle"><button class="active" data-dash-expense-view="fixas" type="button">Gastos Fixos</button><button data-dash-expense-view="variaveis" type="button">Gastos Variáveis</button></div></div>
+
+      <div class="dash-card original-expense-pane" id="dashFixedPane">
+       <div class="fixed-pane-head"><div><h3>Gastos Fixos</h3><p>Acompanhe pagamentos e vencimentos do mês.</p></div><div class="fixed-pane-actions"><div class="month-nav"><button id="dashMonthPrev" type="button">‹</button><input id="dashFixedMonth" type="month" value="2026-09"><button id="dashMonthNext" type="button">›</button></div><button class="dash-secondary-btn" id="dashReplicateFixed" type="button">Replicar para o mês seguinte</button><button class="dash-green-btn" id="dashAddFixed" type="button">Adicionar gasto fixo</button></div></div>
+       <div class="fixed-mini-grid"><div class="fixed-mini"><span>Total previsto</span><strong id="dashFixedTotal">—</strong><small id="dashFixedCount">—</small></div><div class="fixed-mini paid"><span>Já pago</span><strong id="dashFixedPaid">—</strong><small id="dashFixedPaidCount">—</small></div><div class="fixed-mini pending"><span>Pendente</span><strong id="dashFixedPending">—</strong><small id="dashFixedPendingCount">—</small></div><div class="fixed-mini"><span>Percentual pago</span><strong id="dashFixedPct">—</strong><small>do total previsto</small></div></div>
+       <div class="fixed-progress"><div class="fixed-progress-line"><span>Progresso dos pagamentos</span><strong id="dashProgressText">—</strong></div><div class="fixed-progress-track"><div id="dashProgressBar"></div></div></div>
+       <div class="fixed-toolbar"><div class="fixed-status-tabs"><button class="active" data-fixed-status="all" type="button">Todos</button><button data-fixed-status="pending" type="button">Pendentes</button><button data-fixed-status="paid" type="button">Pagos</button></div><span id="dashFixedTableCount"></span></div>
+       <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th class="num">Valor</th><th>Status</th><th class="num">Ações</th></tr></thead><tbody id="dashFixedBody"></tbody></table></div>
+       <div id="dashFixedForm" class="dash-inline-editor hidden"><h4 id="dashFixedFormTitle">Adicionar gasto fixo</h4><div class="dash-form-grid"><div><label>Vencimento</label><input id="dashFixedDate" type="date" value="2026-09-10"></div><div><label>Descrição</label><input id="dashFixedDesc" maxlength="20" placeholder="Ex.: Condomínio"></div><div><label>Categoria</label><select id="dashFixedCat"><option>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select></div><div><label>Valor (R$)</label><input id="dashFixedValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSaveFixed" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelFixed" type="button">Cancelar</button></div></div>
+      </div>
+
+      <div class="dash-card original-expense-pane hidden" id="dashVariablePane">
+       <div class="fixed-pane-head"><div><h3>Gastos Variáveis</h3><p>Lançamentos do período selecionado.</p></div><button class="dash-green-btn" id="dashAddVariable" type="button">Adicionar despesa variável</button></div>
+       <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashVariableBody"></tbody></table></div>
+       <div id="dashVariableForm" class="dash-inline-editor hidden"><h4 id="dashVariableFormTitle">Adicionar despesa variável</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashVariableDate" type="date" value="2026-09-03"></div><div><label>Descrição</label><input id="dashVariableDesc" maxlength="20" placeholder="Ex.: Restaurante"></div><div><label>Categoria</label><select id="dashVariableCat"><option>Alimentação</option><option>Mercado</option><option>Transporte</option><option>Saúde</option><option>Lazer</option><option>Compras</option><option>Pets</option><option>Cuidados pessoais</option></select></div><div><label>Valor (R$)</label><input id="dashVariableValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSaveVariable" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelVariable" type="button">Cancelar</button></div></div>
+      </div>
+     </div>
+    </section>
+
+    <section id="tab-revenues" class="dash-section">
+     <div class="dash-heading"><div><h1>Receitas</h1><p>Acompanhe a composição das entradas do casal.</p></div><button class="btn btn-primary">+ Adicionar receita</button></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Receita do mês</small><strong>R$ 14.600</strong></div><div class="dash-kpi"><small>Média · 3 meses</small><strong>R$ 14.450</strong></div><div class="dash-kpi"><small>Laura</small><strong>57%</strong></div><div class="dash-kpi"><small>Victor</small><strong>43%</strong></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Evolução das receitas</h3><p class="sub">Últimos 6 meses</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por pessoa</h3><p class="sub">Participação média no período</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
+    </section>
+
+    <section id="tab-installments" class="dash-section">
+     <div class="dash-heading"><div><h1>Parcelas</h1><p>Histórico e compromissos futuros.</p></div><button class="btn btn-primary">+ Adicionar parcela</button></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Parcelas deste mês</small><strong>R$ 1.180</strong></div><div class="dash-kpi"><small>Saldo futuro</small><strong>R$ 7.940</strong></div><div class="dash-kpi"><small>Próximo encerramento</small><strong>Nov/26</strong></div><div class="dash-kpi"><small>Categorias ativas</small><strong>4</strong></div></div>
+     <div class="dash-card" style="margin-top:14px"><h3>Projeção de parcelas</h3><p class="sub">Saldo mensal por categoria</p><canvas id="installmentChart" class="chart-canvas"></canvas></div>
+    </section>
+
+    <section id="tab-investments" class="dash-section">
+     <div class="dash-heading"><div><h1>Investimentos</h1><p>Investimentos, patrimônio e projeção da aposentadoria reunidos em uma única área.</p></div><button class="dash-green-btn" type="button">+ Adicionar investimento</button></div>
+     <div class="original-grid5"><div class="dash-kpi"><small>Laura • aplicações</small><strong>R$ 72.000</strong></div><div class="dash-kpi"><small>Victor • aplicações</small><strong>R$ 28.000</strong></div><div class="dash-kpi"><small>Previdência</small><strong>R$ 18.000</strong></div><div class="dash-kpi"><small>FGTS total</small><strong>R$ 12.000</strong></div><div class="dash-kpi"><small>Patrimônio total</small><strong>R$ 570.000</strong></div></div>
+     <div class="original-grid3"><div class="dash-kpi retire-focus"><small>Patrimônio visando aposentadoria</small><strong id="dashRetirementWealth">R$ 100.000</strong></div><div class="dash-kpi"><small>Meta para aposentadoria</small><strong id="dashRetirementGoal">R$ 1.460.000</strong></div><div class="dash-kpi"><small>Diferença para meta</small><strong id="dashRetirementGap">R$ 1.360.000</strong></div></div>
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Alocação de capital ao longo do tempo</h3><p>Evolução histórica da composição patrimonial.</p></div><span class="original-pill">Histórico</span></div><canvas id="investmentAllocation" class="chart-canvas original-tall-chart"></canvas></div>
+     <div class="original-grid4"><div class="dash-kpi"><small>Patrimônio da aposentadoria no fim</small><strong>R$ 1,46 mi</strong></div><div class="dash-kpi"><small>Meta no fim</small><strong>R$ 1,46 mi</strong></div><div class="dash-kpi"><small>Diferença p/ meta</small><strong>R$ 0</strong></div><div class="dash-kpi"><small>Horizonte</small><strong id="dashProjectionYears">28 anos</strong></div></div>
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Projeção patrimonial para aposentadoria</h3><p>Patrimônio visando aposentadoria comparado à meta necessária para a renda definida no onboarding.</p></div><span class="original-pill">Real + projeção + meta</span></div><canvas id="retirementProjection" class="chart-canvas original-tall-chart"></canvas><div class="projection-legend"><span><i style="background:var(--brand)"></i>Patrimônio visando aposentadoria</span><span><i style="background:#222"></i>Meta para aposentadoria</span></div></div>
+     <div class="dash-card original-invest-card">
+       <div class="original-chart-head"><div><h3>Premissas da aposentadoria</h3><p>Ajuste as duas premissas que influenciam a projeção.</p></div><button class="dash-secondary-btn" id="dashAdjustPremises" type="button">Ajustar premissas</button></div>
+       <div id="dashPremiseEditor" class="premise-editor hidden"><div class="dash-form-grid"><div><label>Rentabilidade esperada (% a.a.)</label><input id="dashReturnInput" type="number" min="0" max="30" step="0.1" value="10"></div><div><label>Inflação estimada (% a.a.)</label><input id="dashInflationInput" type="number" min="0" max="20" step="0.1" value="4"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSavePremises" type="button">Salvar premissas</button></div></div>
+       <div class="assumption-grid" id="dashPremiseSummary"><div class="assumption"><small>Rentabilidade</small><strong id="dashReturnLabel">10,0% a.a.</strong></div><div class="assumption"><small>Inflação</small><strong id="dashInflationLabel">4,0% a.a.</strong></div><div class="assumption"><small>Referência</small><strong>Renda fixa</strong></div></div>
+     </div>
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Últimos registros de investimentos</h3><p>Registros mais recentes com edição e exclusão contextual.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody><tr><td>Tesouro IPCA+</td><td>Renda fixa</td><td class="num">R$ 100.000</td><td class="num"><div class="row-actions"><button class="icon-action" title="Editar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg></button><button class="icon-action danger-icon" title="Excluir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div></td></tr><tr><td>Reserva de emergência</td><td>Reserva</td><td class="num">R$ 30.000</td><td class="num"><div class="row-actions"><button class="icon-action" title="Editar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg></button><button class="icon-action danger-icon" title="Excluir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div></td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="tab-settings" class="dash-section">
+     <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Controle da origem dos seus dados.</p></div></div>
+     <div class="split-2"><div class="dash-card"><h3>Microsoft / OneDrive</h3><p class="sub">Origem principal: organizador_financeiro.json</p><div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div><button class="btn btn-secondary" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button></div><div class="dash-card"><h3>Seu onboarding</h3><p class="sub">As etapas foram salvas progressivamente.</p><div class="callout" style="margin-top:0">Cada etapa do onboarding é salva no OneDrive antes de avançar. Se você fechar a aplicação no meio do processo, poderá retomar a partir do último ponto salvo.</div><button class="btn btn-secondary" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button></div></div>
+    </section>
+   </main>
+  </div>
+ </div>
+</section>
+
+<script>
+const STORE='cf_local_cache_dados_financeiros';
+const LOGIN_INTENT_KEY='cf_microsoft_login_intent';
+const CLIENT_ID='219bb9ea-ed0a-4ac0-9c28-16da10ada408';
+const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/controle_financeiro/';
+const GRAPH_SCOPES=['Files.ReadWrite.AppFolder'];
+const GRAPH_BASE='https://graph.microsoft.com/v1.0';
+const JSON_FILENAME='organizador_financeiro.json';
+
+let accessMode='first';
+let msalModule=null;
+let msalInstance=null;
+let activeMicrosoftAccount=null;
+let appRootId=null;
+let appRootWebUrl=null;
+let cloudReady=false;
+let syncChain=Promise.resolve();
+
+function emptyData(){
+ return {
+  schemaVersion:2,
+  tipo:'organizador_financeiro',
+  app:'Organizador Financeiro',
+  sourceOfTruth:'onedrive',
+  createdAt:new Date().toISOString(),
+  updatedAt:new Date().toISOString(),
+  onboarding:{completed:false,lastStep:0},
+  perfil:null,
+  aposentadoria:null,
+  categorias:{fixas:[],variaveis:[],investimentos:[]},
+  receitas:[],
+  despesasFixas:[],
+  despesasVariaveis:[],
+  parcelas:[],
+  investimentos:[],
+  outrosPatrimonios:[]
+ };
+}
+function defaultData(){
+ return {
+  schemaVersion:2, tipo:'organizador_financeiro', app:'Organizador Financeiro', sourceOfTruth:'onedrive',
+  createdAt:new Date().toISOString(), updatedAt:new Date().toISOString(),
+  onboarding:{completed:false,lastStep:0},
+  perfil:{tipo:'casal',pessoas:['Laura','Victor'],moeda:'BRL'},
+  aposentadoria:{idadeAtual:32,idadeAposentadoria:60,anosUsufruto:25,rendaMensalHoje:8000,patrimonioInicialInformado:100000,aporteAtual:1500,premissas:{rentabilidadeAnual:.10,inflacaoAnual:.04,referencia:'renda fixa'}},
+  categorias:{fixas:['Moradia','Contas da casa','Transporte','Saúde','Educação','Assinaturas'],variaveis:['Alimentação','Mercado','Transporte','Saúde','Lazer','Compras','Pets','Cuidados pessoais'],investimentos:['Conta corrente','Reserva de emergência','Renda fixa','Renda variável','Previdência privada','FGTS']},
+  receitas:[{pessoa:'Laura',descricao:'Salário',valor:8000},{pessoa:'Victor',descricao:'Salário',valor:6000}],
+  despesasFixas:[{categoria:'Moradia',descricao:'Condomínio',valor:650},{categoria:'Contas da casa',descricao:'Internet',valor:120}],
+  despesasVariaveis:[],
+  investimentos:[{categoria:'Renda fixa',descricao:'Tesouro IPCA+',valor:100000,aposentadoria:true},{categoria:'Reserva de emergência',descricao:'Reserva de emergência',valor:30000,aposentadoria:false}],
+  outrosPatrimonios:[{tipo:'Imóvel',descricao:'Apartamento',valor:350000},{tipo:'Veículo',descricao:'Carro',valor:90000}],
+  parcelas:[],
+  historicoDemo:true
+ };
+}
+let data=emptyData();
+
+function cacheLocal(){
+ data.updatedAt=new Date().toISOString();
+ localStorage.setItem(STORE,JSON.stringify(data));
+}
+function setCloudStatus(state,text){
+ const el=document.getElementById('dashboardCloudStatus');
+ if(el){el.className='cloud-status '+state;el.querySelector('span').textContent=text}
+}
+function setLoginStatus(type,htmlText){
+ const box=document.getElementById('loginStatus');
+ box.className='login-status '+type;
+ box.innerHTML=htmlText;
+}
+function saveData(step, silent=false){
+ data.updatedAt=new Date().toISOString();
+ if(step!==undefined && step!==null) data.onboarding.lastStep=step;
+ cacheLocal();
+ if(cloudReady){
+   syncChain=syncChain.then(()=>uploadJsonToOneDrive(data)).catch(err=>{
+     console.error(err);setCloudStatus('error','Falha ao sincronizar');if(!silent)showToast('Não foi possível sincronizar com o OneDrive');
+   });
+ }
+ if(!silent) showToast(cloudReady?'Salvando no OneDrive…':'Alterações salvas localmente');
+ return syncChain;
+}
+async function saveDataAndWait(step){
+ data.updatedAt=new Date().toISOString();
+ if(step!==undefined && step!==null) data.onboarding.lastStep=step;
+ cacheLocal();
+ if(!cloudReady) throw new Error('A conexão com o OneDrive não está ativa.');
+ setCloudStatus('saving','Salvando no OneDrive…');
+ await uploadJsonToOneDrive(data);
+ setCloudStatus('connected','OneDrive sincronizado');
+ showToast('organizador_financeiro.json atualizado no OneDrive');
+}
+function showToast(msg){
+ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),1900);
+}
+function showScreen(name){
+ document.querySelectorAll('body > section.screen').forEach(s=>s.classList.add('hidden'));
+ const el=document.getElementById('screen-'+name); if(el){el.classList.remove('hidden');window.scrollTo({top:0,behavior:'instant'});}
+ if(name==='dashboard') setTimeout(drawDashboardCharts,50);
+}
+
+function isRegisteredHost(){
+ return location.origin==='https://igorhorrocks.github.io' && location.pathname.startsWith('/controle_financeiro/');
+}
+function authRedirectUri(){
+ return REGISTERED_REDIRECT_URI;
+}
+async function initMicrosoftAuth(){
+ try{
+   msalModule=await import('https://cdn.jsdelivr.net/npm/@azure/msal-browser@5.21.0/+esm');
+   msalInstance=new msalModule.PublicClientApplication({
+     auth:{
+       clientId:CLIENT_ID,
+       authority:'https://login.microsoftonline.com/common',
+       redirectUri:authRedirectUri(),
+       postLogoutRedirectUri:authRedirectUri()
+     },
+     cache:{cacheLocation:msalModule.BrowserCacheLocation.LocalStorage}
+   });
+   await msalInstance.initialize();
+   const redirectResult=await msalInstance.handleRedirectPromise();
+   if(redirectResult?.account){
+     activeMicrosoftAccount=redirectResult.account;
+     msalInstance.setActiveAccount(activeMicrosoftAccount);
+     const intent=localStorage.getItem(LOGIN_INTENT_KEY)||'existing';
+     localStorage.removeItem(LOGIN_INTENT_KEY);
+     await completeMicrosoftLogin(intent,redirectResult);
+     return;
+   }
+   const accounts=msalInstance.getAllAccounts();
+   if(accounts.length){
+     activeMicrosoftAccount=accounts[0];
+     msalInstance.setActiveAccount(activeMicrosoftAccount);
+   }
+ }catch(err){
+   console.error('Falha ao inicializar MSAL',err);
+   setLoginStatus('error','<b>Não foi possível carregar a autenticação Microsoft.</b><br>Verifique sua conexão com a internet e recarregue a página.');
+ }
+}
+async function startMicrosoftLogin(mode){
+ if(!isRegisteredHost()){
+   setLoginStatus('error','<b>O login real precisa ser testado no endereço registrado.</b><br>Publique este arquivo como <b>index.html</b> em '+REGISTERED_REDIRECT_URI+' e tente novamente.');
+   return;
+ }
+ if(!msalInstance) await initMicrosoftAuth();
+ accessMode=mode;
+ localStorage.setItem(LOGIN_INTENT_KEY,mode);
+ setLoginStatus('working','Abrindo a Microsoft para autenticação…');
+ await msalInstance.loginRedirect({scopes:GRAPH_SCOPES,prompt:'select_account'});
+}
+async function getGraphToken(){
+ if(!msalInstance) await initMicrosoftAuth();
+ const account=msalInstance.getActiveAccount()||activeMicrosoftAccount||msalInstance.getAllAccounts()[0];
+ if(!account) throw new Error('Nenhuma conta Microsoft autenticada.');
+ try{
+   const result=await msalInstance.acquireTokenSilent({scopes:GRAPH_SCOPES,account});
+   return result.accessToken;
+ }catch(err){
+   console.error('Token silencioso indisponível',err);
+   localStorage.setItem(LOGIN_INTENT_KEY,'resume');
+   await msalInstance.acquireTokenRedirect({scopes:GRAPH_SCOPES,account});
+   throw err;
+ }
+}
+async function graphFetch(url,options={}){
+ const token=await getGraphToken();
+ const headers=new Headers(options.headers||{});
+ headers.set('Authorization','Bearer '+token);
+ const res=await fetch(url,{...options,headers});
+ return res;
+}
+async function ensureAppRoot(){
+ if(appRootId) return {id:appRootId,webUrl:appRootWebUrl};
+ const res=await graphFetch(GRAPH_BASE+'/me/drive/special/approot');
+ if(!res.ok) throw new Error('Não foi possível acessar a pasta do aplicativo no OneDrive ('+res.status+').');
+ const item=await res.json();appRootId=item.id;appRootWebUrl=item.webUrl||null;return item;
+}
+async function uploadJsonToOneDrive(payload){
+ setCloudStatus('saving','Salvando no OneDrive…');
+ const root=await ensureAppRoot();
+ const url=GRAPH_BASE+'/me/drive/items/'+encodeURIComponent(root.id)+':/'+encodeURIComponent(JSON_FILENAME)+':/content';
+ const res=await graphFetch(url,{
+   method:'PUT',
+   headers:{'Content-Type':'application/json; charset=utf-8'},
+   body:JSON.stringify(payload,null,2)
+ });
+ if(!res.ok){
+   const txt=await res.text().catch(()=> '');
+   setCloudStatus('error','Falha ao sincronizar');
+   throw new Error('Falha ao gravar JSON no OneDrive ('+res.status+'): '+txt.slice(0,250));
+ }
+ setCloudStatus('connected','OneDrive sincronizado');
+ return await res.json();
+}
+async function readJsonFromOneDrive(){
+ const root=await ensureAppRoot();
+ const url=GRAPH_BASE+'/me/drive/items/'+encodeURIComponent(root.id)+':/'+encodeURIComponent(JSON_FILENAME)+':/content';
+ const res=await graphFetch(url,{method:'GET'});
+ if(res.status===404) return null;
+ if(!res.ok) throw new Error('Não foi possível carregar o JSON do OneDrive ('+res.status+').');
+ const text=await res.text();
+ return JSON.parse(text);
+}
+function normalizeLoadedData(obj){
+ const base=emptyData();
+ return {
+   ...base,...obj,
+   onboarding:{...base.onboarding,...(obj.onboarding||{})},
+   categorias:{...base.categorias,...(obj.categorias||{})},
+   receitas:Array.isArray(obj.receitas)?obj.receitas:[],
+   despesasFixas:Array.isArray(obj.despesasFixas)?obj.despesasFixas:[],
+   despesasVariaveis:Array.isArray(obj.despesasVariaveis)?obj.despesasVariaveis:[],
+   parcelas:Array.isArray(obj.parcelas)?obj.parcelas:[],
+   investimentos:Array.isArray(obj.investimentos)?obj.investimentos:[],
+   outrosPatrimonios:Array.isArray(obj.outrosPatrimonios)?obj.outrosPatrimonios:[]
+ };
+}
+async function completeMicrosoftLogin(intent,loginResult){
+ try{
+   setLoginStatus('working','<b>Microsoft conectada.</b><br>Preparando sua pasta privada no OneDrive…');
+   activeMicrosoftAccount=loginResult?.account||msalInstance.getActiveAccount();
+   if(activeMicrosoftAccount) msalInstance.setActiveAccount(activeMicrosoftAccount);
+   await ensureAppRoot();
+   cloudReady=true;
+   if(intent==='first'){
+     const existing=await readJsonFromOneDrive().catch(err=>{if(String(err).includes('(404)'))return null;throw err});
+     if(existing){
+       setLoginStatus('error','<b>Já existe um organizador_financeiro.json nesta conta.</b><br>Para evitar sobrescrever seus dados, use a opção “Já tenho uma conta”.');
+       return;
+     }
+     data=emptyData();
+     await uploadJsonToOneDrive(data);
+     cacheLocal();
+     setLoginStatus('success','<b>✓ Tudo certo.</b><br>Seu organizador financeiro foi criado no OneDrive como <b>'+JSON_FILENAME+'</b>. Agora podemos começar.');
+     setTimeout(()=>{resetFirstAccessForms();showScreen('step1')},850);
+   }else if(intent==='resume'){
+     const loaded=await readJsonFromOneDrive();
+     if(loaded){data=normalizeLoadedData(loaded);cacheLocal();resumeFromLoadedData()}
+   }else{
+     const loaded=await readJsonFromOneDrive();
+     if(!loaded){
+       setLoginStatus('error','<b>Não encontramos o '+JSON_FILENAME+'.</b><br>Se este é seu primeiro acesso, volte e escolha “É meu primeiro acesso”.');
+       return;
+     }
+     data=normalizeLoadedData(loaded);cacheLocal();
+     setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Carregando seu Controle Financeiro…');
+     setTimeout(resumeFromLoadedData,650);
+   }
+ }catch(err){
+   console.error(err);
+   cloudReady=false;
+   setCloudStatus('error','OneDrive desconectado');
+   setLoginStatus('error','<b>Não foi possível concluir a conexão com o OneDrive.</b><br>'+escapeHtml(err.message||String(err)));
+ }
+}
+function prefillNameFromMicrosoft(){
+ if(activeMicrosoftAccount?.name) person1.value=activeMicrosoftAccount.name;
+}
+function resetFirstAccessForms(){
+ profileType.value='individual';
+ person2Field.classList.add('hidden');
+ person1.value=activeMicrosoftAccount?.name||'';
+ person2.value='';
+ age.value='';retAge.value='';useYears.value='';
+ retIncome.value='';retCurrent.value='';retMonthlyCurrent.value='';
+ clearDataRows('incomeRows');addIncomeHydrated({pessoa:person1.value,descricao:'',valor:0});
+ clearDataRows('fixedRows');
+ clearDataRows('investmentRows');
+ clearDataRows('assetRows');
+ /* Mantém as categorias genéricas visíveis/pré-selecionadas na interface.
+    Elas só passam a fazer parte do JSON quando o usuário salva as etapas correspondentes. */
+ updateLive();
+}
+function resumeFromLoadedData(){
+ hydrateFormsFromData();
+ preparePlan();prepareDashboard();
+ if(data.onboarding?.completed){showScreen('dashboard');return}
+ const last=Math.max(0,Number(data.onboarding?.lastStep||0));
+ const next=Math.min(5,Math.max(1,last+1));
+ showScreen('step'+next);
+}
+
+function brl(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(Math.max(0,Number(v)||0))}
+function parseMoney(s){const d=String(s||'').replace(/\D/g,'');return d?Number(d):0}
+function formatMoney(el){const v=parseMoney(el.value);el.value=v?v.toLocaleString('pt-BR'):''}
+function bindMoney(el){if(el.dataset.bound)return;el.dataset.bound='1';el.addEventListener('input',()=>{formatMoney(el);updateLive()})}
+document.querySelectorAll('.moneyField').forEach(bindMoney);
+
+function getCheckedLabels(containerId){
+ return [...document.querySelectorAll('#'+containerId+' .cat')].filter(x=>x.querySelector('input').checked).map(x=>x.textContent.trim());
+}
+function addCategory(containerId,inputId,alsoSelectClass){
+ const input=document.getElementById(inputId),name=input.value.trim();if(!name)return;
+ const label=document.createElement('label');label.className='cat';label.innerHTML='<input type="checkbox" checked> '+name;document.getElementById(containerId).appendChild(label);
+ if(alsoSelectClass) document.querySelectorAll('.'+alsoSelectClass).forEach(sel=>{if(![...sel.options].some(o=>o.text===name)){const op=document.createElement('option');op.textContent=name;sel.appendChild(op)}});
+ input.value='';
+}
+
+document.getElementById('firstAccessBtn').onclick=()=>{
+ accessMode='first';
+ document.getElementById('loginTitle').textContent='Vamos criar sua base financeira.';
+ document.getElementById('loginLead').innerHTML='Faça login com a Microsoft. Depois da autenticação, o Controle Financeiro criará automaticamente um <b>organizador_financeiro.json</b> privado no seu OneDrive. Esse arquivo será a origem das informações do seu organizador financeiro.';
+ setLoginStatus('','Entre com sua conta Microsoft para continuar.');
+ showScreen('login');
+};
+document.getElementById('existingAccessBtn').onclick=()=>{
+ accessMode='existing';
+ document.getElementById('loginTitle').textContent='Bem-vindo(a) de volta.';
+ document.getElementById('loginLead').innerHTML='Entre com a mesma conta Microsoft usada anteriormente. O aplicativo localizará o <b>organizador_financeiro.json</b> no seu OneDrive e continuará a partir dele.';
+ setLoginStatus('','Entre com sua conta Microsoft para carregar seus dados.');
+ showScreen('login');
+};
+document.getElementById('loginBack').onclick=()=>showScreen('landing');
+document.getElementById('microsoftLoginBtn').onclick=()=>startMicrosoftLogin(accessMode);
+
+document.querySelectorAll('[data-prev]').forEach(b=>b.onclick=()=>showScreen(b.dataset.prev));
+document.getElementById('profileType').onchange=e=>document.getElementById('person2Field').classList.toggle('hidden',e.target.value==='individual');
+document.getElementById('saveStep1').onclick=async()=>{
+ const type=profileType.value,p1=person1.value.trim(),p2=person2.value.trim();
+ if(!p1){alert('Informe seu nome para continuar.');return}
+ if(type!=='individual'&&!p2){alert('Informe o nome da outra pessoa.');return}
+ data.perfil={tipo:type,pessoas:type==='individual'?[p1]:[p1,p2],moeda:'BRL'};
+ try{await saveDataAndWait(1);showScreen('step2')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
+};
+
+let calcAnnual=.10,calcInfl=.04;
+function retirementModel(){
+ const age=+ageEl().value||0,retAge=+retAgeEl().value||0,useYears=+useYearsEl().value||0;
+ const income=parseMoney(retIncome.value),current=parseMoney(retCurrent.value),currentMonthly=parseMoney(retMonthlyCurrent.value);
+ const realAnnual=((1+calcAnnual)/(1+calcInfl))-1,rm=Math.pow(1+realAnnual,1/12)-1,n=Math.max(0,(retAge-age)*12),nUse=useYears*12;
+ const need=rm>0?income*(1-Math.pow(1+rm,-nUse))/rm:income*nUse;
+ const future=current*Math.pow(1+rm,n),remaining=Math.max(0,need-future),monthly=n>0?(rm>0?remaining*rm/(Math.pow(1+rm,n)-1):remaining/n):remaining;
+ let bal=current,pts=[{age,balance:bal}];
+ for(let m=1;m<=n;m++){bal=bal*(1+rm)+monthly;if(m%12===0||m===n)pts.push({age:age+m/12,balance:bal})}
+ for(let m=1;m<=nUse;m++){bal=Math.max(0,bal*(1+rm)-income);if(m%12===0||m===nUse)pts.push({age:retAge+m/12,balance:bal})}
+ return {age,retAge,useYears,income,current,currentMonthly,need,monthly,future,endAge:retAge+useYears,pts,realAnnual};
+}
+function ageEl(){return document.getElementById('age')}function retAgeEl(){return document.getElementById('retAge')}function useYearsEl(){return document.getElementById('useYears')}
+['age','retAge','useYears','retIncome','retCurrent','retMonthlyCurrent'].forEach(id=>document.getElementById(id).addEventListener('input',updateRetirementSummary));
+function updateRetirementSummary(){
+ const m=retirementModel(),complete=m.age>0&&m.retAge>m.age&&m.useYears>0&&m.income>0;
+ sumYears.textContent=(m.age&&m.retAge>m.age)?(m.retAge-m.age)+' anos':'—';
+ sumIncome.textContent=m.income?brl(m.income):'—';
+ sumNeed.textContent=complete?brl(m.need):'—';
+ sumCurrent.textContent=brl(m.current);
+ sumMonthly.textContent=complete?brl(m.monthly)+'/mês':'—';
+ if(!complete){retCompare.innerHTML='Preencha sua meta para visualizar a estimativa de aporte.';return}
+ const gap=m.monthly-m.currentMonthly;
+ retCompare.innerHTML=gap>0?'Seu aporte atual está cerca de <b>'+brl(gap)+'/mês</b> abaixo da estimativa inicial.':'Seu aporte atual já está <b>acima da estimativa inicial</b>.';
+}
+document.getElementById('calcExplainBtn').onclick=()=>{
+ const m=retirementModel();
+ if(!(m.age>0&&m.retAge>m.age&&m.useYears>0&&m.income>0)){alert('Preencha primeiro os dados principais da sua meta de aposentadoria.');return}
+ updateCalcScreen();showScreen('calc');
+};document.getElementById('backFromCalc').onclick=()=>showScreen('step2');
+document.getElementById('btnCalcAdjustPremises').onclick=()=>document.getElementById('calcPremiseEditor').classList.toggle('hidden');
+document.getElementById('cancelCalcPremises').onclick=()=>document.getElementById('calcPremiseEditor').classList.add('hidden');
+document.getElementById('saveCalcPremises').onclick=()=>{
+ const r=Math.max(0,Math.min(30,Number(calcReturnInput.value)||0))/100;
+ const i=Math.max(0,Math.min(20,Number(calcInflationInput.value)||0))/100;
+ if(r<=i){alert('Para esta simulação, a rentabilidade esperada precisa ser maior que a inflação estimada.');return}
+ calcAnnual=r;calcInfl=i;
+ if(data?.aposentadoria){data.aposentadoria.premissas={rentabilidadeAnual:calcAnnual,inflacaoAnual:calcInfl,referencia:'renda fixa'}}
+ document.getElementById('calcPremiseEditor').classList.add('hidden');updateRetirementSummary();updateCalcScreen();saveData(undefined,true);showToast('Premissas atualizadas');
+};
+
+
+function updateCalcScreen(){
+ const m=retirementModel(),complete=m.age>0&&m.retAge>m.age&&m.useYears>0&&m.income>0;
+ if(!complete){alert('Preencha primeiro os dados principais da sua meta de aposentadoria.');showScreen('step2');return}
+ calcNeed.textContent=brl(m.need);calcMonthly.textContent=brl(m.monthly)+'/mês';
+ calcReturnLabel.textContent=(calcAnnual*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
+ calcInflationLabel.textContent=(calcInfl*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
+ calcReturnInput.value=(calcAnnual*100).toFixed(1);calcInflationInput.value=(calcInfl*100).toFixed(1);
+ contributionTodayExample.textContent=brl(m.monthly)+' por mês';
+ renderContributionTable(m);drawRetirementSvg(m)
+}
+function renderContributionTable(m){
+ const tbody=document.getElementById('contributionTableBody');let rows='';
+ const years=Math.max(0,Math.round(m.retAge-m.age));
+ for(let y=0;y<=years;y++){
+   const nominal=m.monthly*Math.pow(1+calcInfl,y);
+   const label=y===0?'Hoje':'Daqui a '+y+' ano'+(y===1?'':'s');
+   const reading=y===0?'Valor-base em dinheiro de hoje':'Reajuste acumulado pela inflação estimada';
+   const cls=(y===0||y%5===0||y===years)?' class="highlight"':'';
+   rows+=`<tr${cls}><td>${label}</td><td>${Math.round(m.age+y)} anos</td><td>${brl(nominal)}/mês</td><td>${reading}</td></tr>`;
+ }
+ tbody.innerHTML=rows;
+}
+function drawRetirementSvg(m){
+ const svg=retirementSvg,W=1000,H=420,L=75,R=30,T=38,B=55,maxY=Math.max(...m.pts.map(p=>p.balance),1)*1.08,x=a=>L+(a-m.age)/(m.endAge-m.age)*(W-L-R),y=v=>T+(1-v/maxY)*(H-T-B);
+ let s='';for(let i=0;i<=4;i++){let yy=T+i*(H-T-B)/4,val=maxY*(1-i/4);s+=`<line x1="${L}" y1="${yy}" x2="${W-R}" y2="${yy}" stroke="#eceef2"/><text x="${L-10}" y="${yy+4}" text-anchor="end" font-size="11" fill="#7a8089">${Math.round(val/1000)} mil</text>`}
+ for(let i=0;i<=5;i++){let a=m.age+(m.endAge-m.age)*i/5;s+=`<text x="${x(a)}" y="${H-20}" text-anchor="middle" font-size="11" fill="#7a8089">${Math.round(a)} anos</text>`}
+ const rx=x(m.retAge);s+=`<line x1="${rx}" y1="${T}" x2="${rx}" y2="${H-B}" stroke="#333" stroke-width="2" stroke-dasharray="6 6"/><text x="${rx+7}" y="${T+14}" font-size="11" font-weight="700" fill="#333">Aposentadoria</text>`;
+ const path=m.pts.map((p,i)=>(i?'L':'M')+' '+x(p.age).toFixed(1)+' '+y(p.balance).toFixed(1)).join(' ');s+=`<path d="${path}" fill="none" stroke="#c91545" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>`;svg.innerHTML=s;
+}
+document.getElementById('saveStep2').onclick=async()=>{
+ const m=retirementModel();
+ if(!m.age||!m.retAge||m.retAge<=m.age||!m.useYears||!m.income){alert('Preencha idade atual, idade de aposentadoria, anos de uso do patrimônio e renda desejada.');return}
+ data.aposentadoria={idadeAtual:m.age,idadeAposentadoria:m.retAge,anosUsufruto:m.useYears,rendaMensalHoje:m.income,patrimonioInicialInformado:m.current,aporteAtual:m.currentMonthly,premissas:{rentabilidadeAnual:calcAnnual,inflacaoAnual:calcInfl,referencia:'renda fixa'},patrimonioNecessario:m.need,aporteEstimado:m.monthly};
+ try{await saveDataAndWait(2);showScreen('step3')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
+};
+
+function bindDelete(btn){if(btn.dataset.bound)return;btn.dataset.bound='1';btn.onclick=()=>{btn.closest('.data').remove();updateLive()}}
+document.querySelectorAll('.del').forEach(bindDelete);
+function makeMoney(cls){const d=document.createElement('div');d.className='money';d.innerHTML='<span>R$</span><input class="moneyField '+cls+'" inputmode="numeric" value="">';bindMoney(d.querySelector('input'));return d}
+addIncome.onclick=()=>{const r=document.createElement('div');r.className='data-row data';r.innerHTML='<input placeholder="Pessoa / origem"><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('incomeValue'));bindDelete(r.querySelector('.del'));incomeRows.appendChild(r)};
+addFixed.onclick=()=>{const r=document.createElement('div');r.className='data-row data';r.innerHTML='<select><option>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('fixedValue'));bindDelete(r.querySelector('.del'));fixedRows.appendChild(r)};
+addFixedCategory.onclick=()=>addCategory('fixedCategories','newFixedCategory');
+addVariableCategory.onclick=()=>addCategory('variableCategories','newVariableCategory');
+function updateStep3(){
+ let inc=[...document.querySelectorAll('.incomeValue')].reduce((a,e)=>a+parseMoney(e.value),0),fix=[...document.querySelectorAll('.fixedValue')].reduce((a,e)=>a+parseMoney(e.value),0);
+ incomeTotal.textContent=brl(inc);fixedTotal.textContent=brl(fix);previewIncome.textContent=brl(inc);previewFixed.textContent=brl(fix);previewFree.textContent=brl(inc-fix);
+}
+document.getElementById('saveStep3').onclick=async()=>{
+ data.receitas=[...document.querySelectorAll('#incomeRows .data')].map(r=>({pessoa:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.incomeValue').value)})).filter(x=>x.descricao||x.valor);
+ data.despesasFixas=[...document.querySelectorAll('#fixedRows .data')].map(r=>({categoria:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.fixedValue').value)})).filter(x=>x.descricao||x.valor);
+ data.categorias.fixas=getCheckedLabels('fixedCategories');data.categorias.variaveis=getCheckedLabels('variableCategories');
+ try{await saveDataAndWait(3);showScreen('step4')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
+};
+
+function bindRetFlag(el){if(el.dataset.bound)return;el.dataset.bound='1';el.onchange=()=>{el.closest('.toggle').querySelector('.toggle-label').innerHTML=el.checked?'Sim, faz parte<br>da meta':'Não, outro<br>objetivo';updateLive()}}
+document.querySelectorAll('.retirementFlag').forEach(bindRetFlag);
+addInvestment.onclick=()=>{const r=document.createElement('div');r.className='data-row invest data';r.innerHTML='<select class="invCat"><option>Conta corrente</option><option>Reserva de emergência</option><option>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';r.children[2].replaceWith(makeMoney('investmentValue'));bindDelete(r.querySelector('.del'));bindRetFlag(r.querySelector('.retirementFlag'));investmentRows.appendChild(r)};
+addAsset.onclick=()=>{const r=document.createElement('div');r.className='data-row asset data';r.innerHTML='<select><option>Imóvel</option><option>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('assetValue'));bindDelete(r.querySelector('.del'));assetRows.appendChild(r)};
+addInvestmentCategory.onclick=()=>addCategory('investmentCategories','newInvestmentCategory','invCat');
+function updateStep4(){
+ const inv=[...document.querySelectorAll('#investmentRows .data')],fin=inv.reduce((a,r)=>a+parseMoney(r.querySelector('.investmentValue').value),0),ret=inv.reduce((a,r)=>a+(r.querySelector('.retirementFlag').checked?parseMoney(r.querySelector('.investmentValue').value):0),0),assets=[...document.querySelectorAll('.assetValue')].reduce((a,e)=>a+parseMoney(e.value),0);
+ financialTotal.textContent=brl(fin);assetsTotal.textContent=brl(assets);sumFinancial.textContent=brl(fin);sumRetirement.textContent=brl(ret);sumAssets.textContent=brl(assets);sumTotalAssets.textContent=brl(fin+assets);
+}
+document.getElementById('saveStep4').onclick=async()=>{
+ data.investimentos=[...document.querySelectorAll('#investmentRows .data')].map(r=>({categoria:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.investmentValue').value),aposentadoria:r.querySelector('.retirementFlag').checked})).filter(x=>x.descricao||x.valor);
+ data.outrosPatrimonios=[...document.querySelectorAll('#assetRows .data')].map(r=>({tipo:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.assetValue').value)})).filter(x=>x.descricao||x.valor);
+ data.categorias.investimentos=getCheckedLabels('investmentCategories');
+ const ret=data.investimentos.filter(x=>x.aposentadoria).reduce((a,x)=>a+x.valor,0);
+ if(data.aposentadoria)data.aposentadoria.patrimonioDetalhado=ret;
+ try{await saveDataAndWait(4);preparePlan();showScreen('step5')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
+};
+function updateLive(){updateRetirementSummary();updateStep3();updateStep4()}
+function totals(){
+ const financial=(data.investimentos||[]).reduce((a,x)=>a+x.valor,0),ret=(data.investimentos||[]).filter(x=>x.aposentadoria).reduce((a,x)=>a+x.valor,0),assets=(data.outrosPatrimonios||[]).reduce((a,x)=>a+x.valor,0),rev=(data.receitas||[]).reduce((a,x)=>a+x.valor,0),fix=(data.despesasFixas||[]).reduce((a,x)=>a+x.valor,0);return {financial,ret,assets,total:financial+assets,rev,fix}
+}
+function preparePlan(){
+ const t=totals(),a=data.aposentadoria,need=a.aporteEstimado||retirementModel().monthly,cur=a.aporteAtual||0,pct=need?Math.min(100,Math.round(cur/need*100)):100,gap=Math.max(0,need-cur);
+ planIncome.textContent=brl(a.rendaMensalHoje)+'/mês';planRetAge.textContent='em poder de compra de hoje · aposentadoria aos '+a.idadeAposentadoria+' anos';planFinancial.textContent=brl(t.financial);planRetirement.textContent=brl(t.ret);planMonthly.textContent=brl(need)+'/mês';planTotal.textContent=brl(t.total);planRevenue.textContent=brl(t.rev);planFixed.textContent=brl(t.fix);planCurrentMonthly.textContent=brl(cur)+'/mês';planNeededMonthly.textContent=brl(need)+'/mês';planPct.textContent=pct+'%';planBar.style.width=pct+'%';planGap.innerHTML=gap>0?'Existe uma diferença estimada de <b>'+brl(gap)+' por mês</b>. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.':'Seu aporte atual já atende ou supera a estimativa inicial do plano.';
+}
+finishOnboarding.onclick=async()=>{
+ data.onboarding.completed=true;
+ try{await saveDataAndWait(5);prepareDashboard();showScreen('dashboard')}catch(err){data.onboarding.completed=false;alert('Não foi possível concluir e salvar seu plano no OneDrive. Tente novamente.')}
+};
+
+
+function clearDataRows(containerId){
+ document.querySelectorAll('#'+containerId+' .data').forEach(r=>r.remove());
+}
+function addIncomeHydrated(item={}){
+ const r=document.createElement('div');r.className='data-row data';
+ r.innerHTML='<input placeholder="Pessoa / origem"><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ r.children[0].value=item.pessoa||'';r.children[1].value=item.descricao||'';
+ r.children[2].replaceWith(makeMoney('incomeValue'));r.querySelector('.incomeValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
+ bindDelete(r.querySelector('.del'));incomeRows.appendChild(r);
+}
+function addFixedHydrated(item={}){
+ const r=document.createElement('div');r.className='data-row data';
+ const opts=['Moradia','Contas da casa','Transporte','Saúde','Educação','Assinaturas','Seguros','Outros'];
+ r.innerHTML='<select>'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ if(item.categoria&&!opts.includes(item.categoria)){const op=document.createElement('option');op.textContent=item.categoria;r.children[0].appendChild(op)}
+ r.children[0].value=item.categoria||'Moradia';r.children[1].value=item.descricao||'';
+ r.children[2].replaceWith(makeMoney('fixedValue'));r.querySelector('.fixedValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
+ bindDelete(r.querySelector('.del'));fixedRows.appendChild(r);
+}
+function addInvestmentHydrated(item={}){
+ const r=document.createElement('div');r.className='data-row invest data';
+ const opts=['Conta corrente','Reserva de emergência','Renda fixa','Renda variável','Previdência privada','FGTS','Outros'];
+ r.innerHTML='<select class="invCat">'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';
+ if(item.categoria&&!opts.includes(item.categoria)){const op=document.createElement('option');op.textContent=item.categoria;r.children[0].appendChild(op)}
+ r.children[0].value=item.categoria||'Renda fixa';r.children[1].value=item.descricao||'';
+ r.children[2].replaceWith(makeMoney('investmentValue'));r.querySelector('.investmentValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
+ r.querySelector('.retirementFlag').checked=!!item.aposentadoria;
+ bindRetFlag(r.querySelector('.retirementFlag'));bindDelete(r.querySelector('.del'));investmentRows.appendChild(r);
+ r.querySelector('.retirementFlag').dispatchEvent(new Event('change'));
+}
+function addAssetHydrated(item={}){
+ const r=document.createElement('div');r.className='data-row asset data';
+ const opts=['Imóvel','Veículo','Empresa','Terreno','Outro bem'];
+ r.innerHTML='<select>'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ r.children[0].value=item.tipo||'Imóvel';r.children[1].value=item.descricao||'';
+ r.children[2].replaceWith(makeMoney('assetValue'));r.querySelector('.assetValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
+ bindDelete(r.querySelector('.del'));assetRows.appendChild(r);
+}
+function hydrateCategoryChecks(containerId,selected=[]){
+ const wanted=new Set(selected||[]);
+ document.querySelectorAll('#'+containerId+' .cat').forEach(label=>{
+   const name=label.textContent.trim();label.querySelector('input').checked=wanted.has(name);
+ });
+ wanted.forEach(name=>{
+   if(![...document.querySelectorAll('#'+containerId+' .cat')].some(x=>x.textContent.trim()===name)){
+     const label=document.createElement('label');label.className='cat';label.innerHTML='<input type="checkbox" checked> '+escapeHtml(name);document.getElementById(containerId).appendChild(label);
+   }
+ });
+}
+function hydrateFormsFromData(){
+ const p=data.perfil||{};
+ profileType.value=p.tipo||'individual';person1.value=p.pessoas?.[0]||activeMicrosoftAccount?.name||'';person2.value=p.pessoas?.[1]||'';person2Field.classList.toggle('hidden',profileType.value==='individual');
+ const a=data.aposentadoria||{};
+ age.value=a.idadeAtual||'';retAge.value=a.idadeAposentadoria||'';useYears.value=a.anosUsufruto||'';retIncome.value=a.rendaMensalHoje?Number(a.rendaMensalHoje).toLocaleString('pt-BR'):'';retCurrent.value=a.patrimonioDetalhado||a.patrimonioInicialInformado?Number(a.patrimonioDetalhado||a.patrimonioInicialInformado).toLocaleString('pt-BR'):'';retMonthlyCurrent.value=a.aporteAtual?Number(a.aporteAtual).toLocaleString('pt-BR'):'';
+ if(a.premissas){calcAnnual=Number(a.premissas.rentabilidadeAnual??calcAnnual);calcInfl=Number(a.premissas.inflacaoAnual??calcInfl)}
+ clearDataRows('incomeRows');(data.receitas||[]).forEach(addIncomeHydrated);if(!(data.receitas||[]).length)addIncomeHydrated();
+ hydrateCategoryChecks('fixedCategories',data.categorias?.fixas||[]);hydrateCategoryChecks('variableCategories',data.categorias?.variaveis||[]);
+ clearDataRows('fixedRows');(data.despesasFixas||[]).forEach(addFixedHydrated);
+ hydrateCategoryChecks('investmentCategories',data.categorias?.investimentos||[]);
+ clearDataRows('investmentRows');(data.investimentos||[]).forEach(addInvestmentHydrated);
+ clearDataRows('assetRows');(data.outrosPatrimonios||[]).forEach(addAssetHydrated);
+ updateLive();
+}
+
+function prepareDashboard(){
+ const p=data.perfil?.pessoas?.[0]||'Usuário';dashUser.textContent=p;avatar.textContent=p.charAt(0).toUpperCase();
+ ensureDashboardExpenseDemo();
+ const t=totals(),a=data.aposentadoria||{},m=retirementModel(),ret=t.ret||a.patrimonioDetalhado||a.patrimonioInicialInformado||0,goal=a.patrimonioNecessario||m.need;
+ dashRetirementWealth.textContent=brl(ret);dashRetirementGoal.textContent=brl(goal);dashRetirementGap.textContent=brl(Math.max(0,goal-ret));dashProjectionYears.textContent=Math.max(0,(a.idadeAposentadoria||m.retAge)-(a.idadeAtual||m.age))+' anos';
+ const pr=a.premissas||{};calcAnnual=Number(pr.rentabilidadeAnual??calcAnnual);calcInfl=Number(pr.inflacaoAnual??calcInfl);dashReturnInput.value=(calcAnnual*100).toFixed(1);dashInflationInput.value=(calcInfl*100).toFixed(1);dashReturnLabel.textContent=(calcAnnual*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';dashInflationLabel.textContent=(calcInfl*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';
+ renderDashboardExpenses();
+}
+document.querySelectorAll('.nav button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.dash-section').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+btn.dataset.tab).classList.add('active');dashTitle.textContent=btn.textContent;setTimeout(drawDashboardCharts,30)});
+backToLanding.onclick=async()=>{
+ try{if(msalInstance&&msalInstance.getActiveAccount())await msalInstance.logoutRedirect({account:msalInstance.getActiveAccount()});else showScreen('landing')}catch(e){showScreen('landing')}
+};restartOnboarding.onclick=()=>showScreen('step1');
+downloadJson.onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='organizador_financeiro.json';a.click();URL.revokeObjectURL(a.href);showToast('Cópia local do JSON baixada')};
+
+function setupCanvas(c){
+ const dpr=window.devicePixelRatio||1,rect=c.getBoundingClientRect(),w=Math.max(300,rect.width),h=250;c.width=w*dpr;c.height=h*dpr;c.style.height=h+'px';const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,w,h};
+}
+function lineChart(id,series,labels,opts={}){
+ const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),L=44,R=16,T=20,B=34,max=Math.max(...series.flatMap(s=>s.data))*1.15,min=0;
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle='#eceef2';ctx.lineWidth=1;ctx.fillStyle='#8a9099';ctx.font='10px system-ui';
+ for(let i=0;i<5;i++){let y=T+i*(h-T-B)/4;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke();}
+ labels.forEach((lab,i)=>{let x=L+i*(w-L-R)/(labels.length-1);ctx.fillText(lab,x-10,h-12)});
+ series.forEach((s,si)=>{ctx.strokeStyle=s.color;ctx.lineWidth=2.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();s.data.forEach((v,i)=>{let x=L+i*(w-L-R)/(labels.length-1),y=T+(1-(v-min)/(max-min||1))*(h-T-B);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.setLineDash([])});
+}
+function barChart(id,series,labels){
+ const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),L=42,R=14,T=20,B=34,max=Math.max(...series.flatMap(s=>s.data))*1.15,group=(w-L-R)/labels.length,bw=group/(series.length+1);
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle='#eceef2';for(let i=0;i<5;i++){let y=T+i*(h-T-B)/4;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke()}
+ labels.forEach((lab,i)=>{ctx.fillStyle='#8a9099';ctx.font='10px system-ui';ctx.fillText(lab,L+i*group+group*.2,h-12)});
+ series.forEach((s,si)=>s.data.forEach((v,i)=>{let bh=(v/max)*(h-T-B),x=L+i*group+group*.18+si*bw,y=h-B-bh;ctx.fillStyle=s.color;ctx.fillRect(x,y,bw*.8,bh)}));
+}
+function pieChart(id,vals,colors){
+ const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),cx=w/2,cy=h/2,r=Math.min(w,h)*.32,total=vals.reduce((a,b)=>a+b,0);let a=-Math.PI/2;vals.forEach((v,i)=>{let b=a+v/total*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a,b);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();a=b});
+ ctx.beginPath();ctx.arc(cx,cy,r*.58,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.fillStyle='#333';ctx.font='700 18px system-ui';ctx.textAlign='center';ctx.fillText('100%',cx,cy+6);ctx.textAlign='start';
+}
+
+let dashExpenseView='fixas',dashFixedStatus='all',dashExpenseEditing=null;
+const pencilSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg>';
+const trashSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
+
+function ensureDashboardExpenseDemo(){
+ if(!Array.isArray(data.despesasFixas))data.despesasFixas=[];
+ if(!Array.isArray(data.despesasVariaveis))data.despesasVariaveis=[];
+ data.despesasFixas.forEach((x,i)=>{if(!x.id)x.id='fx-'+Date.now()+'-'+i;if(!x.data)x.data='2026-09-'+String([10,15,20,25][i%4]).padStart(2,'0');if(x.pago===undefined)x.pago=i%2===0});
+ if(data.historicoDemo && data.despesasFixas.length<4){
+   const extras=[
+    {id:'fx-demo-3',data:'2026-09-15',categoria:'Contas da casa',descricao:'Energia elétrica',valor:285,pago:true},
+    {id:'fx-demo-4',data:'2026-09-20',categoria:'Assinaturas',descricao:'Streaming',valor:89,pago:false},
+    {id:'fx-demo-5',data:'2026-09-25',categoria:'Saúde',descricao:'Academia',valor:180,pago:false}
+   ];
+   extras.forEach(x=>{if(!data.despesasFixas.some(y=>y.id===x.id))data.despesasFixas.push(x)});
+ }
+ if(data.historicoDemo && data.despesasVariaveis.length===0)data.despesasVariaveis=[
+  {id:'var-demo-1',data:'2026-09-03',descricao:'Supermercado',categoria:'Mercado',valor:486},
+  {id:'var-demo-2',data:'2026-09-02',descricao:'Restaurante',categoria:'Alimentação',valor:220},
+  {id:'var-demo-3',data:'2026-08-30',descricao:'Combustível',categoria:'Transporte',valor:260},
+  {id:'var-demo-4',data:'2026-08-28',descricao:'Cinema',categoria:'Lazer',valor:96}
+ ];
+ data.despesasVariaveis.forEach((x,i)=>{if(!x.id)x.id='var-'+Date.now()+'-'+i});
+}
+
+function dashExpenseActions(kind,id){
+ return `<div class="row-actions"><button class="icon-action" data-dash-edit="${kind}" data-id="${id}" title="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-dash-delete="${kind}" data-id="${id}" title="Excluir">${trashSvg}</button></div>`;
+}
+function monthKeyDash(d){return String(d||'').slice(0,7)}
+function renderDashboardExpenses(){
+ ensureDashboardExpenseDemo();
+ const month=dashFixedMonth?.value||'2026-09';
+ let fixed=data.despesasFixas.filter(x=>monthKeyDash(x.data)===month);
+ if(dashFixedStatus==='paid')fixed=fixed.filter(x=>x.pago);
+ if(dashFixedStatus==='pending')fixed=fixed.filter(x=>!x.pago);
+ dashFixedBody.innerHTML=fixed.map(x=>{
+   const day=Number(String(x.data).slice(8,10))||1;
+   return `<tr class="${x.pago?'fixed-row-paid':'fixed-row-pending'}"><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td><div class="fixed-due"><span>dia</span><input type="number" min="1" max="31" value="${day}" data-due-id="${x.id}" title="Editar dia do vencimento"></div></td><td class="num">${brl(x.valor)}</td><td><span class="pay-status ${x.pago?'paid':'pending'}">${x.pago?'Pago':'Pendente'}</span></td><td class="num"><div class="row-actions"><button class="pay-action" data-pay-id="${x.id}">${x.pago?'Desfazer':'Marcar pago'}</button>${dashExpenseActions('fixas',x.id)}</div></td></tr>`
+ }).join('')||'<tr><td colspan="6" style="text-align:center;color:#8a9099">Nenhum gasto fixo para este filtro.</td></tr>';
+ dashVariableBody.innerHTML=data.despesasVariaveis.map(x=>`<tr><td>${formatDateDash(x.data)}</td><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td class="num">${brl(x.valor)}</td><td class="num">${dashExpenseActions('variaveis',x.id)}</td></tr>`).join('');
+
+ const monthAll=data.despesasFixas.filter(x=>monthKeyDash(x.data)===month),total=monthAll.reduce((a,x)=>a+Number(x.valor||0),0),paid=monthAll.filter(x=>x.pago).reduce((a,x)=>a+Number(x.valor||0),0),pending=total-paid,pct=total?Math.round(paid/total*100):0;
+ dashFixedTotal.textContent=brl(total);dashFixedCount.textContent=monthAll.length+' lançamentos';dashFixedPaid.textContent=brl(paid);dashFixedPaidCount.textContent=monthAll.filter(x=>x.pago).length+' pagos';dashFixedPending.textContent=brl(pending);dashFixedPendingCount.textContent=monthAll.filter(x=>!x.pago).length+' pendentes';dashFixedPct.textContent=pct+'%';dashProgressText.textContent=pct+'% pago';dashProgressBar.style.width=pct+'%';dashFixedTableCount.textContent=fixed.length+' registros';
+ const variableMonth=data.despesasVariaveis.filter(x=>monthKeyDash(x.data)===month).reduce((a,x)=>a+Number(x.valor||0),0);dashFixedKpi.textContent=brl(total);dashVariableKpi.textContent=brl(variableMonth);dashExpenseTotalKpi.textContent=brl(total+variableMonth);
+ bindDashboardExpenseRows();
+}
+
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function formatDateDash(d){if(!d)return '—';const [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
+function bindDashboardExpenseRows(){
+ document.querySelectorAll('[data-pay-id]').forEach(b=>b.onclick=()=>{const r=data.despesasFixas.find(x=>x.id===b.dataset.payId);if(r){r.pago=!r.pago;saveData(undefined,true);renderDashboardExpenses();showToast(r.pago?'Pagamento marcado como pago':'Pagamento voltou para pendente')}});
+ document.querySelectorAll('[data-due-id]').forEach(i=>i.onchange=()=>{const r=data.despesasFixas.find(x=>x.id===i.dataset.dueId);if(!r)return;const day=Math.max(1,Math.min(31,Number(i.value)||1));r.data=monthKeyDash(r.data)+'-'+String(day).padStart(2,'0');saveData(undefined,true);showToast('Vencimento atualizado')});
+ document.querySelectorAll('[data-dash-edit]').forEach(b=>b.onclick=()=>openDashExpenseEditor(b.dataset.dashEdit,b.dataset.id));
+ document.querySelectorAll('[data-dash-delete]').forEach(b=>b.onclick=()=>{const kind=b.dataset.dashDelete,arr=kind==='fixas'?data.despesasFixas:data.despesasVariaveis,idx=arr.findIndex(x=>x.id===b.dataset.id);if(idx<0)return;if(confirm('Excluir somente este lançamento?')){arr.splice(idx,1);saveData(undefined,true);renderDashboardExpenses();showToast('Lançamento excluído')}})
+}
+function openDashExpenseEditor(kind,id=null){
+ const arr=kind==='fixas'?data.despesasFixas:data.despesasVariaveis,rec=id?arr.find(x=>x.id===id):null;dashExpenseEditing={kind,id:id||null};
+ if(kind==='fixas'){dashFixedForm.classList.remove('hidden');dashFixedFormTitle.textContent=rec?'Editar gasto fixo':'Adicionar gasto fixo';dashFixedDate.value=rec?.data||((dashFixedMonth.value||'2026-09')+'-10');dashFixedDesc.value=rec?.descricao||'';dashFixedCat.value=rec?.categoria||'Moradia';dashFixedValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):''}
+ else{dashVariableForm.classList.remove('hidden');dashVariableFormTitle.textContent=rec?'Editar despesa variável':'Adicionar despesa variável';dashVariableDate.value=rec?.data||'2026-09-03';dashVariableDesc.value=rec?.descricao||'';dashVariableCat.value=rec?.categoria||'Alimentação';dashVariableValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):''}
+}
+function closeDashExpenseForms(){dashFixedForm.classList.add('hidden');dashVariableForm.classList.add('hidden');dashExpenseEditing=null}
+function saveDashExpense(kind){
+ const isFixed=kind==='fixas',arr=isFixed?data.despesasFixas:data.despesasVariaveis,date=isFixed?dashFixedDate.value:dashVariableDate.value,desc=(isFixed?dashFixedDesc.value:dashVariableDesc.value).trim(),cat=isFixed?dashFixedCat.value:dashVariableCat.value,val=parseMoney(isFixed?dashFixedValue.value:dashVariableValue.value);
+ if(!date||!desc||!val){alert('Preencha data, descrição e valor.');return}
+ let rec=dashExpenseEditing?.kind===kind&&dashExpenseEditing.id?arr.find(x=>x.id===dashExpenseEditing.id):null;
+ if(rec){Object.assign(rec,{data:date,descricao:desc,categoria:cat,valor:val})}
+ else arr.push({id:(isFixed?'fx':'var')+'-'+Date.now(),data:date,descricao:desc,categoria:cat,valor:val,...(isFixed?{pago:false}:{})});
+ saveData(undefined,true);closeDashExpenseForms();renderDashboardExpenses();showToast(rec?'Lançamento editado':'Lançamento adicionado');
+}
+document.querySelectorAll('[data-dash-expense-view]').forEach(b=>b.onclick=()=>{dashExpenseView=b.dataset.dashExpenseView;document.querySelectorAll('[data-dash-expense-view]').forEach(x=>x.classList.toggle('active',x===b));dashFixedPane.classList.toggle('hidden',dashExpenseView!=='fixas');dashVariablePane.classList.toggle('hidden',dashExpenseView!=='variaveis')});
+document.querySelectorAll('[data-fixed-status]').forEach(b=>b.onclick=()=>{dashFixedStatus=b.dataset.fixedStatus;document.querySelectorAll('[data-fixed-status]').forEach(x=>x.classList.toggle('active',x===b));renderDashboardExpenses()});
+dashAddFixed.onclick=()=>openDashExpenseEditor('fixas');dashAddVariable.onclick=()=>openDashExpenseEditor('variaveis');dashTopAddVariable.onclick=()=>{document.querySelector('[data-dash-expense-view="variaveis"]').click();openDashExpenseEditor('variaveis')};
+dashSaveFixed.onclick=()=>saveDashExpense('fixas');dashSaveVariable.onclick=()=>saveDashExpense('variaveis');dashCancelFixed.onclick=closeDashExpenseForms;dashCancelVariable.onclick=closeDashExpenseForms;
+dashMonthPrev.onclick=()=>shiftDashMonth(-1);dashMonthNext.onclick=()=>shiftDashMonth(1);dashFixedMonth.onchange=renderDashboardExpenses;
+function shiftDashMonth(delta){const [y,m]=dashFixedMonth.value.split('-').map(Number),d=new Date(Date.UTC(y,m-1+delta,1));dashFixedMonth.value=d.toISOString().slice(0,7);renderDashboardExpenses()}
+dashReplicateFixed.onclick=()=>{const source=dashFixedMonth.value,[y,m]=source.split('-').map(Number),d=new Date(Date.UTC(y,m,1)),target=d.toISOString().slice(0,7),sourceRows=data.despesasFixas.filter(x=>monthKeyDash(x.data)===source);if(!sourceRows.length){showToast('Não há gastos fixos para replicar');return}if(!confirm(`Replicar ${sourceRows.length} gastos fixos para ${target}?`))return;sourceRows.forEach(x=>{const day=String(x.data).slice(8,10)||'01';if(!data.despesasFixas.some(z=>monthKeyDash(z.data)===target&&z.descricao===x.descricao))data.despesasFixas.push({...x,id:'fx-'+Date.now()+'-'+Math.random().toString(16).slice(2),data:target+'-'+day,pago:false})});saveData(undefined,true);dashFixedMonth.value=target;renderDashboardExpenses();showToast('Gastos fixos replicados')};
+
+/* Ajuste de premissas também disponível na aba Investimentos */
+dashAdjustPremises.onclick=()=>dashPremiseEditor.classList.toggle('hidden');
+dashSavePremises.onclick=()=>{
+ const r=Math.max(0,Math.min(30,Number(dashReturnInput.value)||0))/100,i=Math.max(0,Math.min(20,Number(dashInflationInput.value)||0))/100;
+ if(r<=i){alert('A rentabilidade esperada precisa ser maior que a inflação estimada nesta simulação.');return}
+ calcAnnual=r;calcInfl=i;const m=retirementModel();
+ data.aposentadoria.premissas={rentabilidadeAnual:r,inflacaoAnual:i,referencia:'renda fixa'};data.aposentadoria.patrimonioNecessario=m.need;data.aposentadoria.aporteEstimado=m.monthly;
+ dashPremiseEditor.classList.add('hidden');dashReturnLabel.textContent=(r*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';dashInflationLabel.textContent=(i*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';
+ saveData(undefined,true);preparePlan();prepareDashboard();drawDashboardCharts();showToast('Premissas atualizadas');
+};
+
+function drawDashboardCharts(){
+ ensureDashboardExpenseDemo();renderDashboardExpenses();
+ const labels=['Abr','Mai','Jun','Jul','Ago','Set'];
+ lineChart('expenseEvolutionChart',[{data:[4200,4300,4380,4380,4380,4380],color:'#6b7280'},{data:[3450,3600,3720,3890,4010,3920],color:'#dc2626'}],labels);
+ barChart('expenseCategoryChart',[{data:[2200,1450,980,760,620,440],color:'#dc2626'}],['Moradia','Mercado','Casa','Transp.','Lazer','Saúde']);
+ lineChart('overviewChart',[{data:[13800,14000,14400,14200,14550,14600],color:'#3f6fa3'},{data:[8500,8900,9000,9150,9300,9240],color:'#c91545'}],labels);
+ barChart('allocationChart',[{data:[72,75,80,86,94,100],color:'#c91545'},{data:[22,24,25,27,29,30],color:'#6e7682'}],labels);
+ lineChart('revenueChart',[{data:[7900,8000,8200,8100,8300,8350],color:'#d995aa'},{data:[5900,6000,6200,6100,6250,6250],color:'#5e83ad'}],labels);
+ pieChart('revenuePie',[57,43],['#d995aa','#5e83ad']);
+ barChart('installmentChart',[{data:[1180,1050,920,780,540,350],color:'#c91545'}],['Set','Out','Nov','Dez','Jan','Fev']);
+ lineChart('investmentAllocation',[{data:[78,82,88,93,97,100],color:'#c91545'},{data:[18,21,23,25,27,30],color:'#64707d'}],labels);
+ const rlabels=['Hoje','5a','10a','15a','20a','25a','28a'];lineChart('retirementProjection',[{data:[100,270,510,810,1120,1360,1460],color:'#c91545'},{data:[100,300,560,850,1130,1350,1460],color:'#222',dash:[6,5]}],rlabels);
+}
+window.addEventListener('resize',()=>{if(!screenDashboard.classList.contains('hidden'))drawDashboardCharts()});
+const screenDashboard=document.getElementById('screen-dashboard');
+
+updateLive();
+if(!isRegisteredHost())document.getElementById('hostWarning')?.classList.remove('hidden');
+initMicrosoftAuth();
+</script>
+</body>
+</html>
