@@ -2002,6 +2002,43 @@ html.android-mobile #screen-dashboard select{
   }
 }
 
+
+/* ===== v24: botão "Entender este cálculo" dentro do resumo da meta ===== */
+.summary-calc-action{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid #F0E8E6;
+}
+.summary-calc-btn{
+  width:100%;
+  justify-content:center;
+  min-height:40px;
+  border-color:#E7D8DC;
+  color:var(--brand);
+  background:#FFF8FA;
+}
+.summary-calc-btn:hover{
+  background:#FFF1F5;
+  border-color:#E9C7D1;
+}
+
+
+/* ===== v26: explicação do aporte inicial estimado ===== */
+.summary-initial-contribution-note{
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:10.5px;
+  line-height:1.45;
+  font-weight:500;
+}
+@media(max-width:760px){
+  .summary-initial-contribution-note{
+    font-size:11px;
+    line-height:1.5;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2125,7 +2162,7 @@ html.android-mobile #screen-dashboard select{
      <div class="form-grid">
       <div class="field"><label class="field-label">Sua idade atual</label><input id="age" type="number" value="32" min="18" max="90"></div>
       <div class="field"><label class="field-label">Com que idade deseja se aposentar?</label><input id="retAge" type="number" value="60" min="30" max="100"></div>
-      <div class="field full"><label class="field-label">Por quantos anos pretende usar esse patrimônio?</label><input id="useYears" type="number" min="1" max="60" step="1" value="25"><span class="hint">Digite livremente o período planejado para receber a renda da aposentadoria a partir do patrimônio acumulado.</span></div>
+      <div class="field full"><label class="field-label">Por quantos anos pretende usar esse patrimônio?</label><input id="useYears" type="number" min="1" max="60" step="1" value="25"></div>
      </div>
     </div>
     <div class="card">
@@ -2138,8 +2175,7 @@ html.android-mobile #screen-dashboard select{
       <div class="field"><label class="field-label">Quanto você já tem destinado para aposentadoria?</label><div class="money"><span>R$</span><input id="retCurrent" class="moneyField" inputmode="decimal" value="100.000"></div></div>
       <div class="field"><label class="field-label">Quanto você já investe por mês para essa meta?</label><div class="money"><span>R$</span><input id="retMonthlyCurrent" class="moneyField" inputmode="decimal" value="1.500"></div></div>
      </div>
-     <div class="callout"><b>Por que separar esse valor?</b> Nem todo patrimônio precisa financiar sua aposentadoria. Reserva de emergência, imóvel e dinheiro para outros objetivos podem continuar separados.</div>
-     <div class="premise-actions"><button class="pill-btn" id="calcExplainBtn" type="button">↗ Entender este cálculo</button></div>
+     <div class="callout"><b>Por que separar esse valor?</b> Nem todo patrimônio precisa financiar sua aposentadoria. Reserva de emergência e dinheiro para outros objetivos podem continuar separados.</div>
     </div>
    </div>
    <aside class="summary-card sticky">
@@ -2148,8 +2184,15 @@ html.android-mobile #screen-dashboard select{
     <div class="summary-item"><small>Renda mensal desejada</small><strong id="sumIncome">R$ 8.000</strong></div>
     <div class="summary-item"><small>Patrimônio estimado necessário</small><strong id="sumNeed">R$ 1.460.000</strong></div>
     <div class="summary-item"><small>Patrimônio atual destinado à meta</small><strong id="sumCurrent">R$ 100.000</strong></div>
-    <div class="summary-item primary"><small>Aporte inicial estimado com tributação</small><strong id="sumMonthly">R$ 2.298/mês</strong></div>
+    <div class="summary-item primary">
+     <small>Aporte inicial estimado</small>
+     <strong id="sumMonthly">R$ 2.298/mês</strong>
+     <span class="summary-initial-contribution-note">Este é o valor de partida. Ao longo do tempo, o Organizador Financeiro reajusta o aporte mensalmente de acordo com a inflação considerada na projeção, para preservar o poder de compra do valor investido.</span>
+    </div>
     <div class="callout warn" id="retCompare" style="margin-top:12px">Seu aporte atual está abaixo da estimativa inicial.</div>
+    <div class="summary-calc-action">
+     <button class="pill-btn summary-calc-btn" id="calcExplainBtn" type="button">↗ Entender este cálculo</button>
+    </div>
    </aside>
   </div>
   <div class="actions"><button class="btn btn-ghost" data-prev="step1">← Voltar</button><button class="btn btn-primary" id="saveStep2">Salvar e continuar →</button></div>
