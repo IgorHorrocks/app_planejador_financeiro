@@ -774,6 +774,233 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 #tab-investments .original-table th:nth-child(5),
 #tab-investments .original-table td:nth-child(5){width:15%;text-align:right!important}
 
+
+/* ==========================================================
+   v11 — padrão único de tabelas financeiras
+   ========================================================== */
+#screen-dashboard .table-container{
+  width:100%;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:auto;
+  border:1px solid #E7DDDB;
+  border-radius:12px;
+  background:#FFFDFC;
+  -webkit-overflow-scrolling:touch;
+}
+#screen-dashboard .financial-table{
+  width:100%;
+  min-width:0!important;
+  border-collapse:separate;
+  border-spacing:0;
+  table-layout:fixed;
+  background:#FFFDFC;
+}
+#screen-dashboard .financial-table th,
+#screen-dashboard .financial-table td{
+  box-sizing:border-box;
+  vertical-align:middle!important;
+  border:0;
+  border-bottom:1px solid #EFE7E5;
+  padding:11px 12px!important;
+  font-variant-numeric:tabular-nums;
+}
+#screen-dashboard .financial-table thead th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  height:42px;
+  background:#F5E8EB!important;
+  color:#6E3542!important;
+  border-bottom:1px solid #E5CDD3!important;
+  font-size:9px!important;
+  line-height:1.15;
+  font-weight:850!important;
+  letter-spacing:.02em!important;
+  text-transform:none!important;
+  white-space:nowrap;
+}
+#screen-dashboard .financial-table tbody td{
+  height:52px;
+  color:#4B4044;
+  font-size:10.5px!important;
+  line-height:1.32;
+}
+#screen-dashboard .financial-table tbody tr:last-child td{border-bottom:0}
+#screen-dashboard .financial-table tbody tr:hover td{background:#FCF7F7}
+#screen-dashboard .financial-table .num{
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+#screen-dashboard .money-cell{
+  white-space:nowrap!important;
+  text-align:right!important;
+  font-weight:720;
+  color:#382E32;
+}
+#screen-dashboard .cell-description{
+  display:block;
+  min-width:0;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+#screen-dashboard .cell-date,
+#screen-dashboard .cell-status{white-space:nowrap}
+#screen-dashboard .row-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  gap:6px!important;
+  width:100%;
+  min-width:0;
+  white-space:nowrap;
+}
+#screen-dashboard .icon-action,
+#screen-dashboard .pay-action{
+  flex:0 0 auto;
+  min-height:34px;
+}
+#screen-dashboard .icon-action{width:34px!important;height:34px!important}
+#screen-dashboard .pay-action{padding:0 9px!important;white-space:nowrap}
+#screen-dashboard .icon-action svg{width:14px;height:14px}
+#screen-dashboard .empty-table{
+  height:auto!important;
+  text-align:center!important;
+  color:#91868A!important;
+  padding:22px!important;
+  white-space:normal!important;
+}
+
+/* largura de cada tabela em desktop */
+#screen-dashboard .fixed-table th:nth-child(1),#screen-dashboard .fixed-table td:nth-child(1){width:24%}
+#screen-dashboard .fixed-table th:nth-child(2),#screen-dashboard .fixed-table td:nth-child(2){width:18%}
+#screen-dashboard .fixed-table th:nth-child(3),#screen-dashboard .fixed-table td:nth-child(3){width:14%}
+#screen-dashboard .fixed-table th:nth-child(4),#screen-dashboard .fixed-table td:nth-child(4){width:14%}
+#screen-dashboard .fixed-table th:nth-child(5),#screen-dashboard .fixed-table td:nth-child(5){width:12%}
+#screen-dashboard .fixed-table th:nth-child(6),#screen-dashboard .fixed-table td:nth-child(6){width:18%}
+
+#screen-dashboard .variable-table th:nth-child(1),#screen-dashboard .variable-table td:nth-child(1){width:15%}
+#screen-dashboard .variable-table th:nth-child(2),#screen-dashboard .variable-table td:nth-child(2){width:31%}
+#screen-dashboard .variable-table th:nth-child(3),#screen-dashboard .variable-table td:nth-child(3){width:23%}
+#screen-dashboard .variable-table th:nth-child(4),#screen-dashboard .variable-table td:nth-child(4){width:15%}
+#screen-dashboard .variable-table th:nth-child(5),#screen-dashboard .variable-table td:nth-child(5){width:16%}
+
+#screen-dashboard .revenue-table th:nth-child(1),#screen-dashboard .revenue-table td:nth-child(1){width:15%}
+#screen-dashboard .revenue-table th:nth-child(2),#screen-dashboard .revenue-table td:nth-child(2){width:18%}
+#screen-dashboard .revenue-table th:nth-child(3),#screen-dashboard .revenue-table td:nth-child(3){width:38%}
+#screen-dashboard .revenue-table th:nth-child(4),#screen-dashboard .revenue-table td:nth-child(4){width:17%}
+#screen-dashboard .revenue-table th:nth-child(5),#screen-dashboard .revenue-table td:nth-child(5){width:12%}
+
+#screen-dashboard .investment-table th:nth-child(1),#screen-dashboard .investment-table td:nth-child(1){width:13%}
+#screen-dashboard .investment-table th:nth-child(2),#screen-dashboard .investment-table td:nth-child(2){width:25%}
+#screen-dashboard .investment-table th:nth-child(3),#screen-dashboard .investment-table td:nth-child(3){width:22%}
+#screen-dashboard .investment-table th:nth-child(4),#screen-dashboard .investment-table td:nth-child(4){width:14%}
+#screen-dashboard .investment-table th:nth-child(5),#screen-dashboard .investment-table td:nth-child(5){width:15%}
+#screen-dashboard .investment-table th:nth-child(6),#screen-dashboard .investment-table td:nth-child(6){width:11%}
+
+#screen-dashboard .installment-table{min-width:980px!important}
+#screen-dashboard .installment-table th:nth-child(1),#screen-dashboard .installment-table td:nth-child(1){width:11%}
+#screen-dashboard .installment-table th:nth-child(2),#screen-dashboard .installment-table td:nth-child(2){width:20%}
+#screen-dashboard .installment-table th:nth-child(3),#screen-dashboard .installment-table td:nth-child(3){width:14%}
+#screen-dashboard .installment-table th:nth-child(4),#screen-dashboard .installment-table td:nth-child(4){width:10%}
+#screen-dashboard .installment-table th:nth-child(5),#screen-dashboard .installment-table td:nth-child(5){width:13%}
+#screen-dashboard .installment-table th:nth-child(6),#screen-dashboard .installment-table td:nth-child(6){width:12%}
+#screen-dashboard .installment-table th:nth-child(7),#screen-dashboard .installment-table td:nth-child(7){width:11%}
+#screen-dashboard .installment-table th:nth-child(8),#screen-dashboard .installment-table td:nth-child(8){width:9%}
+
+#screen-dashboard .compact-add-btn{min-height:32px;padding:6px 9px}
+#screen-dashboard .installment-preview{
+  margin-top:10px;
+  padding:10px 12px;
+  border:1px solid #E8DDDA;
+  border-radius:10px;
+  background:#FAF6F5;
+  color:#6D6065;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* No celular, as tabelas viram cards legíveis, evitando scroll horizontal */
+@media(max-width:680px){
+  #screen-dashboard .table-container{
+    overflow:visible!important;
+    border:0;
+    background:transparent;
+  }
+  #screen-dashboard .financial-table,
+  #screen-dashboard .financial-table tbody,
+  #screen-dashboard .financial-table tr,
+  #screen-dashboard .financial-table td{
+    display:block;
+    width:100%!important;
+    min-width:0!important;
+  }
+  #screen-dashboard .financial-table{background:transparent}
+  #screen-dashboard .financial-table thead{display:none}
+  #screen-dashboard .financial-table tbody{
+    display:grid;
+    gap:10px;
+  }
+  #screen-dashboard .financial-table tbody tr{
+    display:block;
+    height:auto!important;
+    border:1px solid #E7DDDB;
+    border-radius:13px;
+    overflow:hidden;
+    background:#FFFDFC;
+    box-shadow:0 4px 14px rgba(71,35,43,.035);
+  }
+  #screen-dashboard .financial-table tbody td{
+    min-height:44px!important;
+    height:auto!important;
+    padding:9px 11px!important;
+    display:grid;
+    grid-template-columns:minmax(92px,35%) minmax(0,1fr);
+    gap:10px;
+    align-items:center;
+    border-bottom:1px solid #F0E8E6;
+    text-align:right!important;
+    font-size:12px!important;
+  }
+  #screen-dashboard .financial-table tbody td:last-child{border-bottom:0}
+  #screen-dashboard .financial-table tbody td::before{
+    content:attr(data-label);
+    text-align:left;
+    color:#8A5B66;
+    font-size:9.5px;
+    font-weight:850;
+    line-height:1.2;
+  }
+  #screen-dashboard .financial-table .empty-table{
+    display:block;
+    text-align:center!important;
+    padding:18px!important;
+  }
+  #screen-dashboard .financial-table .empty-table::before{content:none}
+  #screen-dashboard .financial-table .cell-description{
+    white-space:normal;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    text-align:right;
+  }
+  #screen-dashboard .financial-table .row-actions{
+    justify-content:flex-end!important;
+    flex-wrap:wrap;
+  }
+  #screen-dashboard .financial-table .icon-action{
+    width:40px!important;height:40px!important;
+  }
+  #screen-dashboard .financial-table .pay-action{
+    min-height:40px!important;
+    font-size:10.5px!important;
+  }
+  #screen-dashboard .installment-table{min-width:0!important}
+  #screen-dashboard .compact-add-btn{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -1197,14 +1424,14 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
        <div class="fixed-mini-grid"><div class="fixed-mini"><span>Total previsto</span><strong id="dashFixedTotal">—</strong><small id="dashFixedCount">—</small></div><div class="fixed-mini paid"><span>Já pago</span><strong id="dashFixedPaid">—</strong><small id="dashFixedPaidCount">—</small></div><div class="fixed-mini pending"><span>Pendente</span><strong id="dashFixedPending">—</strong><small id="dashFixedPendingCount">—</small></div><div class="fixed-mini"><span>Percentual pago</span><strong id="dashFixedPct">—</strong><small>do total previsto</small></div></div>
        <div class="fixed-progress"><div class="fixed-progress-line"><span>Progresso dos pagamentos</span><strong id="dashProgressText">—</strong></div><div class="fixed-progress-track"><div id="dashProgressBar"></div></div></div>
        <div class="fixed-toolbar"><div class="fixed-status-tabs"><button class="active" data-fixed-status="all" type="button">Todos</button><button data-fixed-status="pending" type="button">Pendentes</button><button data-fixed-status="paid" type="button">Pagos</button></div><span id="dashFixedTableCount"></span></div>
-       <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th class="num">Valor</th><th>Status</th><th class="num">Ações</th></tr></thead><tbody id="dashFixedBody"></tbody></table></div>
-       <div id="dashFixedForm" class="dash-inline-editor hidden"><h4 id="dashFixedFormTitle">Adicionar gasto fixo</h4><div class="dash-form-grid"><div><label>Vencimento</label><input id="dashFixedDate" type="date"></div><div><label>Descrição</label><input id="dashFixedDesc" maxlength="40" placeholder="Ex.: Condomínio"></div><div><label>Categoria</label><select id="dashFixedCat"></select></div><div><label>Valor (R$)</label><input id="dashFixedValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveFixed" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelFixed" type="button">Cancelar</button></div></div>
+       <div class="original-table-wrap table-container"><table class="original-table financial-table fixed-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th class="num">Valor</th><th>Status</th><th class="num">Ações</th></tr></thead><tbody id="dashFixedBody"></tbody></table></div>
+       <div id="dashFixedForm" class="dash-inline-editor hidden"><h4 id="dashFixedFormTitle">Adicionar gasto fixo</h4><div class="dash-form-grid"><div><label>Vencimento</label><input id="dashFixedDate" type="date"></div><div><label>Descrição</label><input id="dashFixedDesc" maxlength="40" placeholder="Ex.: Condomínio"></div><div><label>Categoria</label><select id="dashFixedCat"></select></div><div><label>Valor (R$)</label><input id="dashFixedValue" inputmode="decimal" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveFixed" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelFixed" type="button">Cancelar</button></div></div>
       </div>
 
       <div class="dash-card original-expense-pane hidden" id="dashVariablePane">
        <div class="fixed-pane-head"><div><h3>Gastos Variáveis</h3><p>Lançamentos do período selecionado.</p></div><button class="dash-primary-btn" id="dashAddVariable" type="button">Adicionar despesa variável</button></div>
-       <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashVariableBody"></tbody></table></div>
-       <div id="dashVariableForm" class="dash-inline-editor hidden"><h4 id="dashVariableFormTitle">Adicionar despesa variável</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashVariableDate" type="date"></div><div><label>Descrição</label><input id="dashVariableDesc" maxlength="40" placeholder="Ex.: Restaurante"></div><div><label>Categoria</label><select id="dashVariableCat"></select></div><div><label>Valor (R$)</label><input id="dashVariableValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveVariable" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelVariable" type="button">Cancelar</button></div></div>
+       <div class="original-table-wrap table-container"><table class="original-table financial-table variable-table"><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashVariableBody"></tbody></table></div>
+       <div id="dashVariableForm" class="dash-inline-editor hidden"><h4 id="dashVariableFormTitle">Adicionar despesa variável</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashVariableDate" type="date"></div><div><label>Descrição</label><input id="dashVariableDesc" maxlength="40" placeholder="Ex.: Restaurante"></div><div><label>Categoria</label><select id="dashVariableCat"></select></div><div><label>Valor (R$)</label><input id="dashVariableValue" inputmode="decimal" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveVariable" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelVariable" type="button">Cancelar</button></div></div>
       </div>
      </div>
     </section>
@@ -1213,15 +1440,57 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
      <div class="dash-heading"><div><h1>Receitas</h1><p>Composição das entradas informadas no cadastro e nos lançamentos posteriores.</p></div><button class="dash-primary-btn" id="dashAddRevenue" type="button">+ Adicionar receita</button></div>
      <div class="dash-kpis"><div class="dash-kpi"><small>Receita do mês</small><strong id="dashRevenueMonth">—</strong></div><div class="dash-kpi"><small>Média dos meses registrados</small><strong id="dashRevenueAverage">—</strong></div><div class="dash-kpi"><small id="dashPerson1Label">Pessoa 1</small><strong id="dashPerson1Share">—</strong></div><div class="dash-kpi"><small id="dashPerson2Label">Pessoa 2</small><strong id="dashPerson2Share">—</strong></div></div>
      <div class="chart-grid"><div class="dash-card"><h3>Receitas atuais</h3><p class="sub">Valores por pessoa/origem.</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição da receita</h3><p class="sub">Participação percentual pela base disponível.</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
-     <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Receitas cadastradas</h3><p>Os valores abaixo vêm diretamente do organizador_financeiro.json.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Pessoa</th><th>Descrição</th><th class="num">Valor</th></tr></thead><tbody id="dashRevenueBody"></tbody></table></div></div>
-     <div id="dashRevenueForm" class="dash-card dash-inline-editor hidden"><h4>Adicionar receita</h4><div class="dash-form-grid"><div><label>Pessoa</label><select id="dashRevenuePerson"></select></div><div><label>Descrição</label><input id="dashRevenueDesc" maxlength="40" placeholder="Ex.: Salário"></div><div><label>Valor (R$)</label><input id="dashRevenueValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveRevenue" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelRevenue" type="button">Cancelar</button></div></div>
+     <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Receitas cadastradas</h3><p>Os valores abaixo vêm diretamente do organizador_financeiro.json.</p></div></div><div class="original-table-wrap table-container"><table class="original-table financial-table revenue-table"><thead><tr><th>Data</th><th>Pessoa</th><th>Descrição</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashRevenueBody"></tbody></table></div></div>
+     <div id="dashRevenueForm" class="dash-card dash-inline-editor hidden"><h4 id="dashRevenueFormTitle">Adicionar receita</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashRevenueDate" type="date"></div><div><label>Pessoa</label><select id="dashRevenuePerson"></select></div><div><label>Descrição</label><input id="dashRevenueDesc" maxlength="60" placeholder="Ex.: Salário"></div><div><label>Valor (R$)</label><input id="dashRevenueValue" inputmode="decimal" placeholder="0,00"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveRevenue" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelRevenue" type="button">Cancelar</button></div></div>
     </section>
 
     <section id="tab-installments" class="dash-section">
-     <div class="dash-heading"><div><h1>Parcelas</h1><p>Histórico e compromissos futuros cadastrados.</p></div></div>
-     <div class="dash-kpis"><div class="dash-kpi"><small>Parcelas • mês</small><strong id="dashInstallmentsMonth">—</strong></div><div class="dash-kpi"><small>Próximos 3 meses</small><strong id="dashInstallments3">—</strong></div><div class="dash-kpi"><small>Próximos 6 meses</small><strong id="dashInstallments6">—</strong></div><div class="dash-kpi"><small>Total futuro</small><strong id="dashInstallmentsFuture">—</strong></div></div>
-     <div class="dash-card"><h3>Histórico e projeção das parcelas</h3><p class="sub">Quando não há parcelas cadastradas, o painel não inventa valores.</p><canvas id="installmentChart" class="chart-canvas"></canvas></div>
-     <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Parcelas cadastradas</h3><p>Compromissos registrados no arquivo financeiro.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Parcelas</th><th class="num">Valor</th></tr></thead><tbody id="dashInstallmentBody"></tbody></table></div></div>
+     <div class="dash-heading">
+      <div><h1>Parcelas</h1><p>Histórico e compromissos futuros cadastrados.</p></div>
+      <button class="dash-primary-btn" id="dashAddInstallment" type="button">+ Adicionar parcela</button>
+     </div>
+     <div class="dash-kpis">
+      <div class="dash-kpi"><small>Parcelas • mês</small><strong id="dashInstallmentsMonth">—</strong></div>
+      <div class="dash-kpi"><small>Próximos 3 meses</small><strong id="dashInstallments3">—</strong></div>
+      <div class="dash-kpi"><small>Próximos 6 meses</small><strong id="dashInstallments6">—</strong></div>
+      <div class="dash-kpi"><small>Total futuro</small><strong id="dashInstallmentsFuture">—</strong></div>
+     </div>
+
+     <div class="dash-card">
+      <h3>Histórico e projeção das parcelas</h3>
+      <p class="sub">Valores mensais calculados a partir das compras parceladas registradas.</p>
+      <canvas id="installmentChart" class="chart-canvas"></canvas>
+     </div>
+
+     <div class="dash-card reference-table-card">
+      <div class="original-chart-head">
+       <div><h3>Parcelas cadastradas</h3><p>Compras parceladas salvas no organizador_financeiro.json.</p></div>
+       <button class="dash-primary-btn compact-add-btn" id="dashAddInstallmentSecondary" type="button">+ Adicionar parcela</button>
+      </div>
+      <div class="original-table-wrap table-container">
+       <table class="original-table financial-table installment-table">
+        <thead><tr><th>Compra</th><th>Descrição</th><th>Categoria</th><th>Parcelas</th><th class="num">Valor total</th><th class="num">Valor/parcela</th><th>Próx. venc.</th><th class="num">Ações</th></tr></thead>
+        <tbody id="dashInstallmentBody"></tbody>
+       </table>
+      </div>
+     </div>
+
+     <div id="dashInstallmentForm" class="dash-card dash-inline-editor hidden">
+      <h4 id="dashInstallmentFormTitle">Adicionar parcela</h4>
+      <div class="dash-form-grid installment-form-grid">
+       <div><label>Data da compra</label><input id="dashInstallmentPurchaseDate" type="date"></div>
+       <div><label>Descrição</label><input id="dashInstallmentDesc" maxlength="60" placeholder="Ex.: Notebook"></div>
+       <div><label>Categoria</label><select id="dashInstallmentCat"></select></div>
+       <div><label>Valor total (R$)</label><input id="dashInstallmentTotalValue" inputmode="decimal" placeholder="0,00"></div>
+       <div><label>Quantidade de parcelas</label><input id="dashInstallmentCount" type="number" min="1" max="120" step="1" value="1"></div>
+       <div><label>Primeiro vencimento</label><input id="dashInstallmentFirstDue" type="date"></div>
+      </div>
+      <div id="dashInstallmentPreview" class="installment-preview">Valor estimado da parcela: —</div>
+      <div class="dash-form-actions">
+       <button class="dash-primary-btn" id="dashSaveInstallment" type="button">Salvar parcela</button>
+       <button class="dash-secondary-btn" id="dashCancelInstallment" type="button">Cancelar</button>
+      </div>
+     </div>
     </section>
 
     <section id="tab-investments" class="dash-section">
@@ -1296,10 +1565,10 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
      <div class="dash-card original-invest-card">
       <div class="original-chart-head"><div><h3>Posição financeira do mês</h3><p>Os registros abaixo formam a fotografia usada nos gráficos históricos.</p></div><span class="original-pill" id="dashInvestmentPositionLabel">—</span></div>
-      <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th>Aposentadoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashInvestmentBody"></tbody></table></div>
+      <div class="original-table-wrap table-container"><table class="original-table financial-table investment-table"><thead><tr><th>Mês</th><th>Investimento</th><th>Categoria</th><th>Aposentadoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashInvestmentBody"></tbody></table></div>
      </div>
 
-     <div id="dashInvestmentForm" class="dash-card dash-inline-editor hidden"><h4 id="dashInvestmentFormTitle">Adicionar investimento ou reserva</h4><div class="dash-form-grid"><div><label>Categoria</label><select id="dashInvestmentCat"></select></div><div><label>Descrição</label><input id="dashInvestmentDesc" maxlength="40" placeholder="Ex.: Tesouro IPCA+"></div><div><label>Valor (R$)</label><input id="dashInvestmentValue" inputmode="numeric" placeholder="0"></div><div><label>Faz parte da aposentadoria?</label><select id="dashInvestmentRetirement"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveInvestment" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelInvestment" type="button">Cancelar</button></div></div>
+     <div id="dashInvestmentForm" class="dash-card dash-inline-editor hidden"><h4 id="dashInvestmentFormTitle">Adicionar investimento ou reserva</h4><div class="dash-form-grid"><div><label>Categoria</label><select id="dashInvestmentCat"></select></div><div><label>Descrição</label><input id="dashInvestmentDesc" maxlength="40" placeholder="Ex.: Tesouro IPCA+"></div><div><label>Valor (R$)</label><input id="dashInvestmentValue" inputmode="decimal" placeholder="0"></div><div><label>Faz parte da aposentadoria?</label><select id="dashInvestmentRetirement"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveInvestment" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelInvestment" type="button">Cancelar</button></div></div>
     </section>
     <section id="tab-settings" class="dash-section">
      <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Gerencie a origem dos dados e as categorias usadas em novos lançamentos.</p></div></div>
@@ -1787,8 +2056,18 @@ function resumeFromLoadedData(){
  showScreen('step'+next);
 }
 
-function brl(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(Math.max(0,Number(v)||0))}
-function parseMoney(s){const d=String(s||'').replace(/\D/g,'');return d?Number(d):0}
+function brl(v){return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:2,maximumFractionDigits:2}).format(Math.max(0,Number(v)||0))}
+function parseMoney(s){
+ const raw=String(s||'').trim();
+ if(!raw)return 0;
+ if(raw.includes(',')){
+   const normalized=raw.replace(/\./g,'').replace(',','.').replace(/[^\d.-]/g,'');
+   return Number(normalized)||0;
+ }
+ if(/^\D*\d{1,3}(\.\d{3})+\D*$/.test(raw))return Number(raw.replace(/\D/g,''))||0;
+ const normalized=raw.replace(/[^\d.-]/g,'');
+ return Number(normalized)||0;
+}
 function formatMoney(el){const v=parseMoney(el.value);el.value=v?v.toLocaleString('pt-BR'):''}
 function bindMoney(el){if(el.dataset.bound)return;el.dataset.bound='1';el.addEventListener('input',()=>{formatMoney(el);updateLive()})}
 document.querySelectorAll('.moneyField').forEach(bindMoney);
@@ -1820,6 +2099,7 @@ function syncCategorySelects(){
  setSelectOptions(document.getElementById('dashFixedCat'),fixed);
  setSelectOptions(document.getElementById('dashVariableCat'),variable);
  setSelectOptions(document.getElementById('dashInvestmentCat'),investment);
+ setSelectOptions(document.getElementById('dashInstallmentCat'),parcelCategoryOptions());
 
  const filter=document.getElementById('dashExpenseCategoryFilter');
  if(filter){
@@ -2111,6 +2391,7 @@ document.getElementById('saveStep3').onclick=async()=>{
    pessoa:r.children[0].value.trim(),
    descricao:r.children[1].value.trim(),
    valor:parseMoney(r.querySelector('.incomeValue').value),
+   data:todayIso(),
    mesReferencia:month
  })).filter(x=>x.descricao||x.valor);
  data.despesasFixas=[...document.querySelectorAll('#fixedRows .data')].map((r,i)=>({
@@ -2382,16 +2663,65 @@ function monthlySum(items,month,valueFn=x=>Number(x.valor||0)){
 }
 function installmentValue(x){
  if(Number(x.valorParcela))return Number(x.valorParcela);
- if(Number(x.valor))return Number(x.valor);
  if(Number(x.valorTotal)&&Number(x.numeroParcelas))return Number(x.valorTotal)/Number(x.numeroParcelas);
+ if(Number(x.valor))return Number(x.valor);
  return 0;
 }
+function parcelCategoryOptions(){
+ const names=[...(data.categorias?.fixas||[]),...(data.categorias?.variaveis||[]),'Outros'];
+ return [...new Set(names.filter(Boolean))];
+}
+function addMonthsToIso(dateStr,offset){
+ const base=dateStr||todayIso();
+ const [y,m,d]=base.split('-').map(Number);
+ const date=new Date(Date.UTC(y,m-1+offset,Math.min(d||1,28)));
+ return date.toISOString().slice(0,10);
+}
+function installmentStartDate(x){
+ if(x.primeiroVencimento)return x.primeiroVencimento;
+ if(x.primeiraDataVencimento)return x.primeiraDataVencimento;
+ if(x.dataVencimento)return x.dataVencimento;
+ if(x.mesReferencia)return x.mesReferencia+'-01';
+ if(x.data)return x.data;
+ return currentMonthKey()+'-01';
+}
+function installmentPaidCount(x){
+ const total=Math.max(1,Number(x.numeroParcelas||1));
+ if(Number.isFinite(Number(x.parcelasPagas)))return Math.max(0,Math.min(total,Number(x.parcelasPagas)));
+ if(Number.isFinite(Number(x.parcelasRestantes)))return Math.max(0,total-Number(x.parcelasRestantes));
+ return 0;
+}
+function installmentSchedule(x){
+ const total=Math.max(1,Number(x.numeroParcelas||x.parcelasTotal||x.parcelasRestantes||1));
+ const paid=installmentPaidCount(x);
+ const first=installmentStartDate(x);
+ const value=installmentValue(x);
+ return Array.from({length:total},(_,i)=>({
+   numero:i+1,
+   data:addMonthsToIso(first,i),
+   mes:addMonthsToIso(first,i).slice(0,7),
+   valor:value,
+   pago:i<paid
+ }));
+}
+function allInstallmentOccurrences(){
+ return (data.parcelas||[]).flatMap(x=>installmentSchedule(x).map(o=>({...o,registro:x})));
+}
+function installmentMonthlyTotal(month){
+ return allInstallmentOccurrences().filter(o=>o.mes===month&&!o.pago).reduce((a,o)=>a+Number(o.valor||0),0);
+}
 function futureInstallmentTotal(){
- return (data.parcelas||[]).reduce((a,x)=>{
-   const v=installmentValue(x);
-   const rest=Number(x.parcelasRestantes ?? x.numeroParcelas ?? 1);
-   return a+v*Math.max(0,rest);
- },0);
+ const month=currentMonthKey();
+ return allInstallmentOccurrences().filter(o=>o.mes>=month&&!o.pago).reduce((a,o)=>a+Number(o.valor||0),0);
+}
+function installmentRangeTotal(monthsAhead){
+ const start=currentMonthKey();
+ const months=Array.from({length:monthsAhead},(_,i)=>shiftMonthKey(start,i));
+ return months.reduce((a,m)=>a+installmentMonthlyTotal(m),0);
+}
+function nextInstallmentDue(x){
+ const month=currentMonthKey();
+ return installmentSchedule(x).find(o=>!o.pago&&o.mes>=month)||installmentSchedule(x).find(o=>!o.pago)||null;
 }
 function prepareDashboard(){
  ensureDashboardMetadata();
@@ -2408,7 +2738,7 @@ function prepareDashboard(){
 
  const fixedMonth=monthlySum(data.despesasFixas,month);
  const variableMonth=monthlySum(data.despesasVariaveis,month);
- const installmentMonth=monthlySum(data.parcelas,month,installmentValue);
+ const installmentMonth=installmentMonthlyTotal(month);
  const revenueMonth=data.receitas.length?monthlySum(data.receitas,month):t.rev;
  const knownExpenses=fixedMonth+variableMonth+installmentMonth;
  const futureParcels=futureInstallmentTotal();
@@ -2590,7 +2920,7 @@ function ensureDashboardExpenseDemo(){ ensureDashboardMetadata(); }
 
 
 function dashExpenseActions(kind,id){
- return `<div class="row-actions"><button class="icon-action" data-dash-edit="${kind}" data-id="${id}" title="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-dash-delete="${kind}" data-id="${id}" title="Excluir">${trashSvg}</button></div>`;
+ return `<button class="icon-action" data-dash-edit="${kind}" data-id="${id}" title="Editar" aria-label="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-dash-delete="${kind}" data-id="${id}" title="Excluir" aria-label="Excluir">${trashSvg}</button>`;
 }
 function monthKeyDash(d){return String(d||'').slice(0,7)}
 function renderDashboardExpenses(){
@@ -2607,11 +2937,24 @@ function renderDashboardExpenses(){
    const dueHtml=due
      ? `<div class="fixed-due"><span>dia</span><input type="number" min="1" max="31" value="${due}" data-due-id="${x.id}" title="Editar dia do vencimento"></div>`
      : `<button class="pay-action" data-set-due-id="${x.id}" title="Definir vencimento">Definir</button>`;
-   return `<tr><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td>${dueHtml}</td><td class="num">${brl(x.valor)}</td><td><span class="pay-status ${x.pago?'paid':'pending'}">${x.pago?'Pago':'Pendente'}</span></td><td class="num"><div class="row-actions"><button class="pay-action" data-pay-id="${x.id}">${x.pago?'Desfazer':'Marcar pago'}</button>${dashExpenseActions('fixas',x.id)}</div></td></tr>`
+   return `<tr>
+    <td data-label="Descrição"><span class="cell-description" title="${escapeHtml(x.descricao)}">${escapeHtml(x.descricao)}</span></td>
+    <td data-label="Categoria">${escapeHtml(x.categoria)}</td>
+    <td data-label="Vencimento" class="cell-date">${dueHtml}</td>
+    <td data-label="Valor" class="num money-cell">${brl(x.valor)}</td>
+    <td data-label="Status" class="cell-status"><span class="pay-status ${x.pago?'paid':'pending'}">${x.pago?'Pago':'Pendente'}</span></td>
+    <td data-label="Ações" class="num"><div class="row-actions"><button class="pay-action" data-pay-id="${x.id}">${x.pago?'Desfazer':'Marcar pago'}</button>${dashExpenseActions('fixas',x.id)}</div></td>
+   </tr>`
  }).join('')||'<tr><td colspan="6" class="empty-table">Nenhum gasto fixo para este mês.</td></tr>';
 
  const vars=data.despesasVariaveis.filter(x=>recordMonth(x)===month);
- dashVariableBody.innerHTML=vars.map(x=>`<tr><td>${formatDateDash(x.data)||'—'}</td><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td class="num">${brl(x.valor)}</td><td class="num">${dashExpenseActions('variaveis',x.id)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma despesa variável cadastrada neste mês.</td></tr>';
+ dashVariableBody.innerHTML=vars.map(x=>`<tr>
+  <td data-label="Data" class="cell-date">${formatDateDash(x.data)||'—'}</td>
+  <td data-label="Descrição"><span class="cell-description" title="${escapeHtml(x.descricao)}">${escapeHtml(x.descricao)}</span></td>
+  <td data-label="Categoria">${escapeHtml(x.categoria)}</td>
+  <td data-label="Valor" class="num money-cell">${brl(x.valor)}</td>
+  <td data-label="Ações" class="num"><div class="row-actions">${dashExpenseActions('variaveis',x.id)}</div></td>
+ </tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma despesa variável cadastrada neste mês.</td></tr>';
 
  const total=fixedAll.reduce((a,x)=>a+Number(x.valor||0),0);
  const paid=fixedAll.filter(x=>x.pago).reduce((a,x)=>a+Number(x.valor||0),0),pending=total-paid,pct=total?Math.round(paid/total*100):0;
@@ -2683,9 +3026,10 @@ dashReplicateFixed.onclick=()=>{
 };
 
 
+let dashRevenueEditingId=null;
 function renderDashboardRevenues(){
  const month=currentMonthKey();
- const rows=(data.receitas||[]).filter(x=>recordMonth(x)===month || !x.mesReferencia && !x.data);
+ const rows=(data.receitas||[]).filter(x=>recordMonth(x)===month || (!x.mesReferencia&&!x.data));
  const total=rows.reduce((a,x)=>a+Number(x.valor||0),0);
  const months=availableMonths(data.receitas);
  const avg=months.length?months.reduce((a,m)=>a+monthlySum(data.receitas,m),0)/months.length:total;
@@ -2700,30 +3044,136 @@ function renderDashboardRevenues(){
  dashPerson2Label.textContent=people.length>1?p2:'Outras receitas';
  dashPerson2Share.textContent=total?Math.round((people.length>1?p2v:Math.max(0,total-p1v))/total*100)+'%':'—';
 
- dashRevenueBody.innerHTML=rows.map(x=>`<tr><td>${escapeHtml(x.pessoa||'—')}</td><td>${escapeHtml(x.descricao||'—')}</td><td class="num">${brl(x.valor)}</td></tr>`).join('')||'<tr><td colspan="3" class="empty-table">Nenhuma receita cadastrada.</td></tr>';
+ dashRevenueBody.innerHTML=rows.map(x=>`<tr>
+  <td data-label="Data" class="cell-date">${x.data?formatDateDash(x.data):monthLabelPt(recordMonth(x))}</td>
+  <td data-label="Pessoa">${escapeHtml(x.pessoa||'—')}</td>
+  <td data-label="Descrição"><span class="cell-description" title="${escapeHtml(x.descricao||'—')}">${escapeHtml(x.descricao||'—')}</span></td>
+  <td data-label="Valor" class="num money-cell">${brl(x.valor)}</td>
+  <td data-label="Ações" class="num"><div class="row-actions"><button class="icon-action" data-revenue-edit="${x.id}" title="Editar" aria-label="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-revenue-delete="${x.id}" title="Excluir" aria-label="Excluir">${trashSvg}</button></div></td>
+ </tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma receita cadastrada.</td></tr>';
 
  const personSelect=document.getElementById('dashRevenuePerson');
  setSelectOptions(personSelect,people.length?people:['Você'],true);
+
+ document.querySelectorAll('[data-revenue-edit]').forEach(btn=>btn.onclick=()=>openRevenueEditor(btn.dataset.revenueEdit));
+ document.querySelectorAll('[data-revenue-delete]').forEach(btn=>btn.onclick=()=>{
+   const idx=(data.receitas||[]).findIndex(x=>x.id===btn.dataset.revenueDelete);
+   if(idx<0)return;
+   if(confirm('Excluir esta receita?')){
+     data.receitas.splice(idx,1);saveData(undefined,true);prepareDashboard();drawDashboardCharts();showToast('Receita excluída');
+   }
+ });
 }
-dashAddRevenue.onclick=()=>{renderDashboardRevenues();dashRevenueForm.classList.remove('hidden');dashRevenueDesc.value='';dashRevenueValue.value=''};
-dashCancelRevenue.onclick=()=>dashRevenueForm.classList.add('hidden');
+function openRevenueEditor(id=null){
+ dashRevenueEditingId=id;
+ const rec=id?(data.receitas||[]).find(x=>x.id===id):null;
+ renderDashboardRevenues();
+ dashRevenueForm.classList.remove('hidden');
+ dashRevenueFormTitle.textContent=rec?'Editar receita':'Adicionar receita';
+ dashRevenueDate.value=rec?.data||todayIso();
+ if(rec?.pessoa)setSelectOptions(dashRevenuePerson,[...(data.perfil?.pessoas||[]),rec.pessoa],false);
+ dashRevenuePerson.value=rec?.pessoa||dashRevenuePerson.options[0]?.value||'';
+ dashRevenueDesc.value=rec?.descricao||'';
+ dashRevenueValue.value=rec?Number(rec.valor||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
+}
+dashAddRevenue.onclick=()=>openRevenueEditor();
+dashCancelRevenue.onclick=()=>{dashRevenueForm.classList.add('hidden');dashRevenueEditingId=null};
 dashSaveRevenue.onclick=()=>{
- const pessoa=dashRevenuePerson.value,descricao=dashRevenueDesc.value.trim(),valor=parseMoney(dashRevenueValue.value);
- if(!descricao||!valor){alert('Preencha descrição e valor.');return}
- data.receitas.push({id:'rec-'+Date.now(),pessoa,descricao,valor,mesReferencia:currentMonthKey()});
- saveData(undefined,true);dashRevenueForm.classList.add('hidden');prepareDashboard();drawDashboardCharts();showToast('Receita adicionada');
+ const dataLanc=dashRevenueDate.value,pessoa=dashRevenuePerson.value,descricao=dashRevenueDesc.value.trim(),valor=parseMoney(dashRevenueValue.value);
+ if(!dataLanc||!descricao||!valor){alert('Preencha data, descrição e valor.');return}
+ if(dashRevenueEditingId){
+   const rec=(data.receitas||[]).find(x=>x.id===dashRevenueEditingId);
+   if(rec)Object.assign(rec,{data:dataLanc,mesReferencia:dataLanc.slice(0,7),pessoa,descricao,valor});
+ }else{
+   data.receitas.push({id:'rec-'+Date.now(),data:dataLanc,mesReferencia:dataLanc.slice(0,7),pessoa,descricao,valor});
+ }
+ saveData(undefined,true);dashRevenueForm.classList.add('hidden');dashRevenueEditingId=null;prepareDashboard();drawDashboardCharts();showToast('Receita salva');
 };
 
+let dashInstallmentEditingId=null;
 function renderDashboardInstallments(){
  const month=currentMonthKey(),items=data.parcelas||[];
- const cur=monthlySum(items,month,installmentValue);
- const future=futureInstallmentTotal();
- // Como nem todos os formatos de parcela possuem calendário detalhado,
- // usa valores efetivamente armazenados quando houver.
- const val3=items.reduce((a,x)=>a+installmentValue(x)*Math.min(3,Math.max(0,Number(x.parcelasRestantes??x.numeroParcelas??1))),0);
- const val6=items.reduce((a,x)=>a+installmentValue(x)*Math.min(6,Math.max(0,Number(x.parcelasRestantes??x.numeroParcelas??1))),0);
- dashInstallmentsMonth.textContent=brl(cur);dashInstallments3.textContent=brl(val3);dashInstallments6.textContent=brl(val6);dashInstallmentsFuture.textContent=brl(future);
- dashInstallmentBody.innerHTML=items.map(x=>`<tr><td>${escapeHtml(x.descricao||'—')}</td><td>${escapeHtml(x.categoria||'—')}</td><td>${escapeHtml(String(x.parcelasRestantes??x.numeroParcelas??'—'))}</td><td class="num">${brl(installmentValue(x))}</td></tr>`).join('')||'<tr><td colspan="4" class="empty-table">Nenhuma parcela cadastrada.</td></tr>';
+ const cur=installmentMonthlyTotal(month),val3=installmentRangeTotal(3),val6=installmentRangeTotal(6),future=futureInstallmentTotal();
+ dashInstallmentsMonth.textContent=brl(cur);
+ dashInstallments3.textContent=brl(val3);
+ dashInstallments6.textContent=brl(val6);
+ dashInstallmentsFuture.textContent=brl(future);
+
+ dashInstallmentBody.innerHTML=items.map(x=>{
+   const totalCount=Math.max(1,Number(x.numeroParcelas||1));
+   const paid=installmentPaidCount(x),next=nextInstallmentDue(x);
+   const totalValue=Number(x.valorTotal||installmentValue(x)*totalCount||0);
+   return `<tr>
+    <td data-label="Compra" class="cell-date">${x.data?formatDateDash(x.data):'—'}</td>
+    <td data-label="Descrição"><span class="cell-description" title="${escapeHtml(x.descricao||'—')}">${escapeHtml(x.descricao||'—')}</span></td>
+    <td data-label="Categoria">${escapeHtml(x.categoria||'—')}</td>
+    <td data-label="Parcelas">${paid}/${totalCount}</td>
+    <td data-label="Valor total" class="num money-cell">${brl(totalValue)}</td>
+    <td data-label="Valor/parcela" class="num money-cell">${brl(installmentValue(x))}</td>
+    <td data-label="Próx. venc." class="cell-date">${next?formatDateDash(next.data):'Concluída'}</td>
+    <td data-label="Ações" class="num"><div class="row-actions"><button class="icon-action" data-installment-edit="${x.id}" title="Editar" aria-label="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-installment-delete="${x.id}" title="Excluir" aria-label="Excluir">${trashSvg}</button></div></td>
+   </tr>`;
+ }).join('')||'<tr><td colspan="8" class="empty-table">Nenhuma compra parcelada cadastrada.</td></tr>';
+
+ document.querySelectorAll('[data-installment-edit]').forEach(btn=>btn.onclick=()=>openInstallmentEditor(btn.dataset.installmentEdit));
+ document.querySelectorAll('[data-installment-delete]').forEach(btn=>btn.onclick=()=>{
+   const idx=(data.parcelas||[]).findIndex(x=>x.id===btn.dataset.installmentDelete);
+   if(idx<0)return;
+   if(confirm('Excluir esta compra parcelada e sua projeção futura?')){
+     data.parcelas.splice(idx,1);saveData(undefined,true);prepareDashboard();drawDashboardCharts();showToast('Parcela excluída');
+   }
+ });
+}
+function updateInstallmentPreview(){
+ const total=parseMoney(dashInstallmentTotalValue.value),count=Math.max(1,Number(dashInstallmentCount.value)||1);
+ dashInstallmentPreview.textContent=total?'Valor estimado da parcela: '+brl(total/count):'Valor estimado da parcela: —';
+}
+function openInstallmentEditor(id=null){
+ dashInstallmentEditingId=id;
+ const rec=id?(data.parcelas||[]).find(x=>x.id===id):null;
+ syncCategorySelects();
+ setSelectOptions(dashInstallmentCat,[...parcelCategoryOptions(),rec?.categoria].filter(Boolean),false);
+ dashInstallmentForm.classList.remove('hidden');
+ dashInstallmentFormTitle.textContent=rec?'Editar parcela':'Adicionar parcela';
+ dashInstallmentPurchaseDate.value=rec?.data||todayIso();
+ dashInstallmentDesc.value=rec?.descricao||'';
+ dashInstallmentCat.value=rec?.categoria||dashInstallmentCat.options[0]?.value||'Outros';
+ const totalCount=Math.max(1,Number(rec?.numeroParcelas||1));
+ const totalValue=rec?Number(rec.valorTotal||installmentValue(rec)*totalCount||0):0;
+ dashInstallmentTotalValue.value=totalValue?totalValue.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
+ dashInstallmentCount.value=totalCount;
+ dashInstallmentFirstDue.value=rec?installmentStartDate(rec):todayIso();
+ updateInstallmentPreview();
+}
+dashAddInstallment.onclick=()=>openInstallmentEditor();
+dashAddInstallmentSecondary.onclick=()=>openInstallmentEditor();
+dashCancelInstallment.onclick=()=>{dashInstallmentForm.classList.add('hidden');dashInstallmentEditingId=null};
+dashInstallmentTotalValue.addEventListener('input',updateInstallmentPreview);
+dashInstallmentCount.addEventListener('input',updateInstallmentPreview);
+dashSaveInstallment.onclick=()=>{
+ const purchaseDate=dashInstallmentPurchaseDate.value,descricao=dashInstallmentDesc.value.trim(),categoria=dashInstallmentCat.value,
+       totalValue=parseMoney(dashInstallmentTotalValue.value),count=Math.max(1,Number(dashInstallmentCount.value)||1),
+       firstDue=dashInstallmentFirstDue.value;
+ if(!purchaseDate||!descricao||!categoria||!totalValue||!firstDue){alert('Preencha data da compra, descrição, categoria, valor total, quantidade de parcelas e primeiro vencimento.');return}
+ const payload={
+   data:purchaseDate,
+   descricao,
+   categoria,
+   valorTotal:totalValue,
+   numeroParcelas:count,
+   valorParcela:totalValue/count,
+   primeiroVencimento:firstDue,
+   mesReferencia:firstDue.slice(0,7)
+ };
+ if(dashInstallmentEditingId){
+   const rec=(data.parcelas||[]).find(x=>x.id===dashInstallmentEditingId);
+   if(rec)Object.assign(rec,payload,{parcelasPagas:Number(rec.parcelasPagas||0),parcelasRestantes:Math.max(0,count-Number(rec.parcelasPagas||0))});
+ }else{
+   data.parcelas.push({id:'par-'+Date.now(),...payload,parcelasPagas:0,parcelasRestantes:count});
+ }
+ saveData(undefined,true);
+ dashInstallmentForm.classList.add('hidden');dashInstallmentEditingId=null;
+ prepareDashboard();drawDashboardCharts();showToast('Parcela salva e projeção atualizada');
 }
 
 
@@ -2761,6 +3211,9 @@ function renderSettingsCategories(){
 function updateCategoryReferences(type,oldName,newName){
   const recordKey=settingsCategoryMap[type].records;
   (data[recordKey]||[]).forEach(r=>{if(r.categoria===oldName)r.categoria=newName});
+  if(type==='fixas'||type==='variaveis'){
+    (data.parcelas||[]).forEach(r=>{if(r.categoria===oldName)r.categoria=newName});
+  }
 }
 function editSettingsCategory(index){
   const values=settingsCategoryValues(),oldName=values[index];
@@ -2810,15 +3263,16 @@ function renderDashboardInvestments(){
  const rows=investmentPositionsForMonth(month);
  dashInvestmentPositionLabel.textContent=monthLabelPt(month);
  dashInvestmentBody.innerHTML=rows.map(x=>`<tr>
-   <td>${escapeHtml(x.descricao||'—')}</td>
-   <td>${escapeHtml(x.categoria||'—')}</td>
-   <td><span class="tag">${x.aposentadoria?'Sim':'Não'}</span></td>
-   <td class="num">${brl(x.valor)}</td>
-   <td class="num"><div class="row-actions">
-    <button class="icon-action" data-invest-edit="${x.id}" title="Editar">${pencilSvg}</button>
-    <button class="icon-action danger-icon" data-invest-delete="${x.id}" title="Excluir">${trashSvg}</button>
+   <td data-label="Mês" class="cell-date">${monthLabelPt(recordMonth(x))}</td>
+   <td data-label="Investimento"><span class="cell-description" title="${escapeHtml(x.descricao||'—')}">${escapeHtml(x.descricao||'—')}</span></td>
+   <td data-label="Categoria">${escapeHtml(x.categoria||'—')}</td>
+   <td data-label="Aposentadoria"><span class="tag">${x.aposentadoria?'Sim':'Não'}</span></td>
+   <td data-label="Valor" class="num money-cell">${brl(x.valor)}</td>
+   <td data-label="Ações" class="num"><div class="row-actions">
+    <button class="icon-action" data-invest-edit="${x.id}" title="Editar" aria-label="Editar">${pencilSvg}</button>
+    <button class="icon-action danger-icon" data-invest-delete="${x.id}" title="Excluir" aria-label="Excluir">${trashSvg}</button>
    </div></td>
-  </tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma posição registrada neste mês.</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="6" class="empty-table">Nenhuma posição registrada neste mês.</td></tr>';
 
  document.querySelectorAll('[data-invest-edit]').forEach(btn=>btn.onclick=()=>openInvestmentEditor(btn.dataset.investEdit));
  document.querySelectorAll('[data-invest-delete]').forEach(btn=>btn.onclick=()=>{
@@ -2959,7 +3413,7 @@ function drawDashboardCharts(){
  const parcels=data.parcelas||[],inv=data.investimentos||[];
 
  const revenue=revs.reduce((a,x)=>a+Number(x.valor||0),0);
- const fixedTotal=fixed.reduce((a,x)=>a+Number(x.valor||0),0),variableTotal=vars.reduce((a,x)=>a+Number(x.valor||0),0),parcelMonth=monthlySum(parcels,month,installmentValue);
+ const fixedTotal=fixed.reduce((a,x)=>a+Number(x.valor||0),0),variableTotal=vars.reduce((a,x)=>a+Number(x.valor||0),0),parcelMonth=installmentMonthlyTotal(month);
  const expenses=fixedTotal+variableTotal+parcelMonth,available=Math.max(0,revenue-expenses);
 
  if(revenue||expenses)barChart('overviewChart',[{label:'Valor',data:[revenue,expenses,available],color:['#4566A9','#CC092F','rgba(204,9,47,.22)']}],['Receitas','Despesas','Disponível']);
@@ -2969,8 +3423,10 @@ function drawDashboardCharts(){
  drawCategoryBar('overviewVariableChart',vars,x=>x.categoria,'red');
 
  if(parcels.length){
-   const values=parcels.slice(0,6).map(installmentValue),labels=parcels.slice(0,6).map(x=>(x.categoria||x.descricao||'Parcela').slice(0,10));
-   barChart('overviewInstallmentChart',[{label:'Parcela',data:values,color:'#B81570'}],labels);
+   const pMonths=Array.from({length:6},(_,i)=>shiftMonthKey(currentMonthKey(),i));
+   const values=pMonths.map(m=>installmentMonthlyTotal(m));
+   const labels=pMonths.map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3));
+   barChart('overviewInstallmentChart',[{label:'Compromisso mensal',data:values,color:'#B81570'}],labels);
  }else canvasMessage('overviewInstallmentChart','Nenhuma parcela cadastrada.');
 
  stackedInvestmentAllocation('allocationChart');
@@ -2994,8 +3450,10 @@ function drawDashboardCharts(){
 
  // Parcelas
  if(parcels.length){
-   const vals=parcels.slice(0,6).map(installmentValue),labs=parcels.slice(0,6).map((x,i)=>x.categoria?.slice(0,8)||('Parc. '+(i+1)));
-   barChart('installmentChart',[{label:'Parcela',data:vals,color:'#B81570'}],labs);
+   const months=Array.from({length:9},(_,i)=>shiftMonthKey(currentMonthKey(),i));
+   const vals=months.map(m=>installmentMonthlyTotal(m));
+   const labs=months.map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3)+(monthDiff(currentMonthKey(),m)>=12?'/'+m.slice(2,4):''));
+   barChart('installmentChart',[{label:'Parcelas do mês',data:vals,color:'#B81570'}],labs);
  }else canvasMessage('installmentChart','Nenhuma parcela cadastrada.');
 
  // Investimentos
