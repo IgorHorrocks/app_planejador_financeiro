@@ -682,6 +682,98 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   }
 }
 
+
+/* ===== v10: mobile legível + foco patrimonial ===== */
+.wealth-goal-card{
+  margin-top:10px;background:rgba(255,255,255,.94);border:1px solid #E7D5D8;
+  border-left:4px solid #CC092F;border-radius:16px;padding:16px 17px;
+  box-shadow:0 10px 30px rgba(78,34,40,.05);
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px 22px
+}
+.wealth-goal-card h3{font-size:14px;margin:3px 0 5px;color:#30282B}
+.wealth-goal-card p{font-size:10px;line-height:1.5;color:#7F7478;margin:0}
+.wealth-goal-values{display:flex;gap:24px;align-items:center}
+.wealth-goal-values small{display:block;font-size:8px;color:#8A7E82;margin-bottom:3px}
+.wealth-goal-values strong{font-size:16px;color:#30282B}
+.wealth-goal-card .game-progress-line,
+.wealth-goal-card .game-progress{grid-column:1/-1}
+.investment-month-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.investment-month-actions input{height:34px;border:1px solid #DED4D1;border-radius:8px;padding:0 8px;font-size:10px}
+.goal-positive{color:#147A52!important}
+.goal-negative{color:#CC092F!important}
+.goal-neutral{color:#6D6367!important}
+
+/* Mobile: tipografia confortável e KPIs 2x2 */
+@media(max-width:760px){
+  #screen-dashboard{font-size:14px}
+  #screen-dashboard .dash-content{padding:18px 12px 38px!important}
+  #screen-dashboard .dash-heading{margin-bottom:14px}
+  #screen-dashboard .dash-heading h1{font-size:24px!important;line-height:1.08}
+  #screen-dashboard .dash-heading p{font-size:12px!important;line-height:1.5}
+  #screen-dashboard .dash-title{font-size:14px!important}
+  #screen-dashboard .side-logo strong{font-size:15px!important}
+  #screen-dashboard .side-logo small{font-size:10px!important}
+  #screen-dashboard .nav button{font-size:12px!important;line-height:1.2;padding:11px 9px!important}
+  #screen-dashboard .dash-kpis,
+  #screen-dashboard .original-grid4{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important
+  }
+  #screen-dashboard .original-grid3{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important
+  }
+  #screen-dashboard .dash-kpi{
+    min-height:108px!important;padding:14px 13px!important;border-radius:15px!important;
+    display:flex;flex-direction:column;justify-content:flex-start
+  }
+  #screen-dashboard .dash-kpi small{
+    font-size:10.5px!important;line-height:1.25!important;min-height:27px;margin-bottom:6px!important
+  }
+  #screen-dashboard .dash-kpi strong{
+    font-size:clamp(17px,5.2vw,21px)!important;line-height:1.12!important;letter-spacing:-.02em
+  }
+  #screen-dashboard .dash-kpi em{font-size:9.5px!important;line-height:1.3!important;margin-top:5px}
+  #screen-dashboard .dash-card{padding:14px!important;border-radius:15px!important}
+  #screen-dashboard .dash-card h3,
+  #screen-dashboard .original-chart-head h3{font-size:14px!important;line-height:1.25}
+  #screen-dashboard .dash-card .sub,
+  #screen-dashboard .original-chart-head p{font-size:11px!important;line-height:1.45}
+  #screen-dashboard .reference-period,#screen-dashboard .original-pill{font-size:9.5px!important}
+  #screen-dashboard .retirement-game-card,
+  #screen-dashboard .wealth-goal-card{grid-template-columns:minmax(0,1fr)!important;padding:14px!important}
+  #screen-dashboard .game-copy h3,#screen-dashboard .wealth-goal-card h3{font-size:15px!important}
+  #screen-dashboard .game-copy p,#screen-dashboard .wealth-goal-card p{font-size:11.5px!important}
+  #screen-dashboard .game-eyebrow{font-size:9px!important}
+  #screen-dashboard .game-numbers,
+  #screen-dashboard .wealth-goal-values{display:grid!important;grid-template-columns:1fr 1fr;gap:9px!important}
+  #screen-dashboard .game-numbers small,#screen-dashboard .wealth-goal-values small{font-size:9.5px!important}
+  #screen-dashboard .game-numbers strong,#screen-dashboard .wealth-goal-values strong{font-size:17px!important}
+  #screen-dashboard .game-progress-line{font-size:10px!important}
+  .investment-month-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .investment-month-actions input{grid-column:1/-1;width:100%;height:42px;font-size:16px!important}
+  .investment-month-actions button{width:100%;min-height:42px;font-size:11px}
+}
+@media(max-width:390px){
+  #screen-dashboard .dash-kpi{padding:12px 10px!important}
+  #screen-dashboard .dash-kpi small{font-size:10px!important}
+  #screen-dashboard .dash-kpi strong{font-size:16px!important}
+}
+
+
+#tab-investments .original-table th:nth-child(1),
+#tab-investments .original-table td:nth-child(1){width:25%}
+#tab-investments .original-table th:nth-child(2),
+#tab-investments .original-table td:nth-child(2){width:22%}
+#tab-investments .original-table th:nth-child(3),
+#tab-investments .original-table td:nth-child(3){width:18%}
+#tab-investments .original-table th:nth-child(4),
+#tab-investments .original-table td:nth-child(4){width:20%;text-align:right!important}
+#tab-investments .original-table th:nth-child(5),
+#tab-investments .original-table td:nth-child(5){width:15%;text-align:right!important}
+
 </style>
 </head>
 <body>
@@ -945,40 +1037,57 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   <circle cx="18" cy="22" r="2.2" fill="currentColor"/>
   <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
-</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 4</b> de 5 · Patrimônio e investimentos</div></div><div class="progress"><div style="width:80%"></div></div>
+</span>Organizador Financeiro</div><div class="step-text"><b>Etapa 4</b> de 5 · Investimentos</div></div><div class="progress"><div style="width:80%"></div></div>
  <div class="wrap">
-  <div class="eyebrow">O que você já construiu</div><h1>Conte para nós o que você já tem hoje.</h1><p class="lead">Cadastre investimentos, reservas e outros patrimônios. Não precisa detalhar tudo perfeitamente agora — os valores poderão ser atualizados depois.</p>
+  <div class="eyebrow">Seu patrimônio financeiro</div>
+  <h1>Conte para nós como seus recursos estão investidos hoje.</h1>
+  <p class="lead">Aqui entram apenas recursos financeiros: conta corrente, reserva, renda fixa, renda variável, previdência, FGTS e outras aplicações. Imóveis, veículos e demais bens ficam fora desta análise.</p>
+
   <div class="card">
-   <div class="card-head"><div><h2>1. Investimentos e reservas</h2><p class="desc">Primeiro escolha como quer organizar seus investimentos. Depois detalhe os valores e indique o que faz parte da aposentadoria.</p></div><span class="badge">PATRIMÔNIO FINANCEIRO</span></div>
+   <div class="card-head"><div><h2>Investimentos e reservas</h2><p class="desc">Primeiro escolha como quer organizar seu patrimônio financeiro. Depois informe os valores e marque o que faz parte do plano de aposentadoria.</p></div><span class="badge">PATRIMÔNIO FINANCEIRO</span></div>
+
    <div style="margin-top:20px">
-     <h3 class="subsection-title">Quais categorias de investimento você quer acompanhar?</h3>
-     <p class="desc">Mantenha as categorias sugeridas ou personalize antes de cadastrar seus investimentos.</p>
+    <h3 class="subsection-title">Quais categorias você quer acompanhar?</h3>
+    <p class="desc">As categorias poderão ser ajustadas depois em Configurações.</p>
    </div>
-   <div class="category-grid" id="investmentCategories"><label class="cat"><input type="checkbox" checked> Conta corrente</label><label class="cat"><input type="checkbox" checked> Reserva de emergência</label><label class="cat"><input type="checkbox" checked> Renda fixa</label><label class="cat"><input type="checkbox" checked> Renda variável</label><label class="cat"><input type="checkbox" checked> Previdência privada</label><label class="cat"><input type="checkbox" checked> FGTS</label><label class="cat"><input type="checkbox"> Criptoativos</label><label class="cat"><input type="checkbox"> Outros</label></div>
+
+   <div class="category-grid" id="investmentCategories">
+    <label class="cat"><input type="checkbox" checked> Conta corrente</label>
+    <label class="cat"><input type="checkbox" checked> Reserva de emergência</label>
+    <label class="cat"><input type="checkbox" checked> Renda fixa</label>
+    <label class="cat"><input type="checkbox" checked> Renda variável</label>
+    <label class="cat"><input type="checkbox" checked> Previdência privada</label>
+    <label class="cat"><input type="checkbox" checked> FGTS</label>
+    <label class="cat"><input type="checkbox"> Criptoativos</label>
+    <label class="cat"><input type="checkbox"> Outros</label>
+   </div>
    <div class="custom-row"><input id="newInvestmentCategory" placeholder="Não encontrou uma categoria? Digite aqui"><button class="small-btn" id="addInvestmentCategory">+ Criar categoria</button></div>
+
    <div class="divider"></div>
-   <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Agora detalhe seus investimentos e reservas</h3><p class="desc">O botão de aposentadoria define quais valores alimentam a meta futura.</p></div><span class="badge">PREENCHA AGORA</span></div>
-   <div class="rows" id="investmentRows"><div class="data-row invest row-head"><span>Categoria</span><span>Descrição</span><span>Valor</span><span>Aposentadoria?</span><span></span></div>
-    <div class="data-row invest data"><select class="invCat"><option>Conta corrente</option><option>Reserva de emergência</option><option selected>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input value="Tesouro IPCA+"><div class="money"><span>R$</span><input class="moneyField investmentValue" inputmode="numeric" value="100.000"></div><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox" checked><span class="slider"></span></label><span class="toggle-label">Sim, faz parte<br>da meta</span></div><button class="del">×</button></div>
-    <div class="data-row invest data"><select class="invCat"><option>Conta corrente</option><option selected>Reserva de emergência</option><option>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input value="Reserva de emergência"><div class="money"><span>R$</span><input class="moneyField investmentValue" inputmode="numeric" value="30.000"></div><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button></div>
+   <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Registre sua posição financeira deste mês</h3><p class="desc">Este será o primeiro ponto do seu histórico. Nos próximos meses, novas posições permitirão acompanhar alocação e evolução da meta.</p></div><span class="badge">PREENCHA AGORA</span></div>
+
+   <div class="rows" id="investmentRows">
+    <div class="data-row invest row-head"><span>Categoria</span><span>Descrição</span><span>Valor</span><span>Aposentadoria?</span><span></span></div>
    </div>
-   <button class="add" id="addInvestment">+ Adicionar investimento ou reserva</button><div class="total-line">Patrimônio financeiro informado <strong id="financialTotal">R$ 130.000</strong></div>
-   <div class="callout info"><b>Nem todo investimento é aposentadoria.</b> A reserva de emergência, por exemplo, pode continuar separada. O botão acima permite que o dashboard mostre patrimônio total e patrimônio visando aposentadoria como informações diferentes.</div>
+   <button class="add" id="addInvestment">+ Adicionar investimento ou reserva</button>
+   <div class="total-line">Patrimônio financeiro informado <strong id="financialTotal">R$ 0</strong></div>
+   <div class="callout info"><b>O que entra na aposentadoria?</b> Marque apenas os recursos que você realmente pretende usar para financiar sua renda futura. Uma reserva de emergência, por exemplo, pode continuar fora dessa meta.</div>
   </div>
+
   <div class="card">
-   <div class="card-head"><div><h2>2. Outros patrimônios</h2><p class="desc">Bens que você deseja acompanhar no patrimônio total.</p></div><span class="badge">OPCIONAL</span></div>
-   <div class="rows" id="assetRows"><div class="data-row asset row-head"><span>Tipo</span><span>Descrição</span><span>Valor estimado</span><span></span></div>
-    <div class="data-row asset data"><select><option selected>Imóvel</option><option>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input value="Apartamento"><div class="money"><span>R$</span><input class="moneyField assetValue" inputmode="numeric" value="350.000"></div><button class="del">×</button></div>
-    <div class="data-row asset data"><select><option>Imóvel</option><option selected>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input value="Carro"><div class="money"><span>R$</span><input class="moneyField assetValue" inputmode="numeric" value="90.000"></div><button class="del">×</button></div>
+   <div class="card-head"><div><h2>Seu ponto de partida</h2><p class="desc">Essa fotografia será a referência inicial para comparar sua evolução real com o patrimônio esperado mês a mês.</p></div><span class="badge">RESUMO</span></div>
+   <div class="kpis">
+    <div class="kpi"><small>Patrimônio financeiro</small><strong id="sumFinancial">R$ 0</strong></div>
+    <div class="kpi primary"><small>Visando aposentadoria</small><strong id="sumRetirement">R$ 0</strong></div>
+    <div class="kpi"><small>Outros objetivos financeiros</small><strong id="sumOutsideRetirement">R$ 0</strong></div>
+    <div class="kpi"><small>Aporte inicial estimado</small><strong id="sumExpectedContribution">—</strong></div>
    </div>
-   <button class="add" id="addAsset">+ Adicionar outro patrimônio</button><div class="total-line">Outros patrimônios informados <strong id="assetsTotal">R$ 440.000</strong></div>
-   <div class="callout"><b>Esses bens entram no patrimônio total, mas não automaticamente na aposentadoria.</b> Um imóvel onde você pretende morar ou um veículo que deseja manter não são tratados como dinheiro disponível para financiar a renda futura.</div>
+   <div class="callout"><b>A partir daqui, a meta deixa de ser abstrata.</b> O aplicativo passa a calcular quanto seu patrimônio de aposentadoria deveria valer em cada mês e compara esse valor com o que você efetivamente possui.</div>
   </div>
-  <div class="card"><div class="card-head"><div><h2>3. Seu patrimônio hoje</h2><p class="desc">Uma primeira fotografia do que você já construiu.</p></div><span class="badge">RESUMO</span></div><div class="kpis"><div class="kpi"><small>Patrimônio financeiro</small><strong id="sumFinancial">R$ 130.000</strong></div><div class="kpi primary"><small>Destinado à aposentadoria</small><strong id="sumRetirement">R$ 100.000</strong></div><div class="kpi"><small>Outros bens</small><strong id="sumAssets">R$ 440.000</strong></div><div class="kpi"><small>Patrimônio total acompanhado</small><strong id="sumTotalAssets">R$ 570.000</strong></div></div><div class="callout">O valor detalhado agora nos investimentos passa a ser a referência mais precisa para a projeção da aposentadoria e substitui a estimativa inicial da Etapa 2 quando necessário.</div></div>
+
   <div class="actions"><button class="btn btn-ghost" data-prev="step3">← Voltar</button><button class="btn btn-primary" id="saveStep4">Salvar e continuar →</button></div>
  </div>
 </section>
-
 <!-- ETAPA 5 -->
 <section id="screen-step5" class="screen hidden">
  <div class="topbar"><div class="logo"><span class="brand-target" aria-hidden="true">
@@ -992,7 +1101,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
  <div class="wrap">
   <div class="eyebrow">Tudo pronto</div><h1>Seu plano financeiro começa aqui.</h1><p class="lead">Com as informações que você forneceu, já conseguimos montar uma primeira visão da sua vida financeira e transformar sua meta de aposentadoria em um plano acompanhável.</p>
   <div class="card hero-plan"><div><h2>Você definiu onde quer chegar.</h2><p class="desc">Agora o Organizador Financeiro compara sua evolução real com esse plano. Os números ficam mais precisos conforme você registra receitas, despesas e investimentos.</p></div><div class="goal-box"><small>Sua meta de aposentadoria</small><strong id="planIncome">R$ 8.000/mês</strong><span id="planRetAge">em poder de compra de hoje · aposentadoria aos 60 anos</span></div></div>
-  <div class="kpis"><div class="kpi"><small>Patrimônio financeiro atual</small><strong id="planFinancial">R$ 130.000</strong></div><div class="kpi"><small>Patrimônio visando aposentadoria</small><strong id="planRetirement">R$ 100.000</strong></div><div class="kpi primary"><small>Aporte inicial estimado com tributação</small><strong id="planMonthly">R$ 2.298/mês</strong></div><div class="kpi"><small>Patrimônio total acompanhado</small><strong id="planTotal">R$ 570.000</strong></div></div>
+  <div class="kpis"><div class="kpi"><small>Patrimônio financeiro atual</small><strong id="planFinancial">—</strong></div><div class="kpi"><small>Patrimônio visando aposentadoria</small><strong id="planRetirement">—</strong></div><div class="kpi primary"><small>Aporte inicial estimado com tributação</small><strong id="planMonthly">—</strong></div><div class="kpi"><small>Recursos para outros objetivos</small><strong id="planOutsideRetirement">—</strong></div></div>
   <div class="two-col">
    <div class="card"><h2>Seu mês hoje</h2><p class="desc">Ainda estamos conhecendo suas despesas variáveis.</p><div class="compare"><div class="compare-box"><small>Receitas cadastradas</small><strong id="planRevenue">R$ 14.000</strong></div><div class="compare-box"><small>Despesas fixas</small><strong id="planFixed">R$ 770</strong></div></div><div class="callout warn">A sobra real será calculada conforme você registrar os gastos variáveis. Não vamos assumir que todo o valor disponível antes das variáveis pode ser investido.</div></div>
    <div class="card"><h2>Seu ritmo de aposentadoria</h2><p class="desc">O aporte que você faz hoje comparado ao aporte inicial estimado.</p><div class="compare"><div class="compare-box"><small>Você investe hoje</small><strong id="planCurrentMonthly">R$ 1.500/mês</strong></div><div class="compare-box"><small>Estimativa do plano</small><strong id="planNeededMonthly">R$ 2.298/mês</strong></div></div><div style="margin-top:13px;font-size:11px;color:var(--muted);display:flex;justify-content:space-between"><span>Progresso do aporte atual</span><b id="planPct">65%</b></div><div class="bar"><div id="planBar" style="width:65%"></div></div><div class="callout warn" id="planGap">Existe uma diferença estimada de R$ 798 por mês. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.</div></div>
@@ -1046,7 +1155,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
       <div class="dash-kpi"><small>Receitas mensais informadas</small><strong id="ovRevenue">—</strong><em id="ovRevenueNote">Base disponível</em></div>
       <div class="dash-kpi"><small>Despesas conhecidas</small><strong id="ovExpenses">—</strong><em>Fixas + variáveis + parcelas cadastradas</em></div>
       <div class="dash-kpi"><small>Parcelas futuras</small><strong id="ovInstallments">—</strong><em>Compromissos já cadastrados</em></div>
-      <div class="dash-kpi"><small>Patrimônio</small><strong id="ovPatrimony">—</strong><em>Financeiro + outros bens informados</em></div>
+      <div class="dash-kpi"><small>Patrimônio financeiro</small><strong id="ovPatrimony">—</strong><em>Última posição de investimentos registrada</em></div>
      </div>
 
      <div class="retirement-game-card">
@@ -1070,7 +1179,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
       <div class="dash-card"><h3>Gastos fixos</h3><p class="sub">Composição atual por categoria.</p><canvas id="overviewFixedChart" class="chart-canvas"></canvas></div>
       <div class="dash-card"><h3>Gastos variáveis</h3><p class="sub">Os lançamentos passam a aparecer aqui conforme forem cadastrados.</p><canvas id="overviewVariableChart" class="chart-canvas"></canvas></div>
       <div class="dash-card"><h3>Parcelas</h3><p class="sub">Comprometimento futuro já registrado.</p><canvas id="overviewInstallmentChart" class="chart-canvas"></canvas></div>
-      <div class="dash-card"><h3>Alocação de capital</h3><p class="sub">Composição do patrimônio financeiro informado.</p><canvas id="allocationChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Alocação de capital</h3><p class="sub">Categorias empilhadas ao longo dos meses registrados.</p><canvas id="allocationChart" class="chart-canvas"></canvas></div>
      </div>
     </section>
 
@@ -1116,24 +1225,82 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     </section>
 
     <section id="tab-investments" class="dash-section">
-     <div class="dash-heading"><div><h1>Investimentos</h1><p>Patrimônio, alocação e projeção da aposentadoria.</p></div><button class="dash-primary-btn" id="dashAddInvestment" type="button">+ Adicionar investimento</button></div>
-     <div class="original-grid4"><div class="dash-kpi"><small>Patrimônio financeiro</small><strong id="dashFinancialWealth">—</strong></div><div class="dash-kpi retire-focus"><small>Patrimônio visando aposentadoria</small><strong id="dashRetirementWealth">—</strong></div><div class="dash-kpi"><small>Outros bens</small><strong id="dashOtherAssets">—</strong></div><div class="dash-kpi"><small>Patrimônio total</small><strong id="dashTotalWealth">—</strong></div></div>
-     <div class="original-grid3"><div class="dash-kpi"><small>Meta para aposentadoria</small><strong id="dashRetirementGoal">—</strong></div><div class="dash-kpi"><small>Diferença para meta</small><strong id="dashRetirementGap">—</strong></div><div class="dash-kpi"><small>Horizonte</small><strong id="dashProjectionYears">—</strong></div></div>
-
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Alocação de capital</h3><p>Composição atual do patrimônio financeiro informado.</p></div><span class="original-pill">Dados atuais</span></div><canvas id="investmentAllocation" class="chart-canvas original-tall-chart"></canvas></div>
-
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Projeção patrimonial para aposentadoria</h3><p>Compare o patrimônio projetado com o aporte que você pretende fazer versus a trajetória necessária para atingir sua meta.</p></div><span class="original-pill">Aporte projetado × meta</span></div><canvas id="retirementProjection" class="chart-canvas original-tall-chart"></canvas><div class="projection-legend"><span><i class="legend-retirement"></i>Com o aporte projetado</span><span><i class="legend-goal"></i>Trajetória necessária</span></div><div id="projectionOutcomeText" class="projection-outcome">—</div></div>
-
-     <div class="dash-card original-invest-card">
-       <div class="original-chart-head"><div><h3>Premissas da aposentadoria</h3><p>Ajuste apenas as premissas que influenciam a projeção.</p></div><button class="dash-secondary-btn" id="dashAdjustPremises" type="button">Ajustar premissas</button></div>
-       <div id="dashPremiseEditor" class="premise-editor hidden"><div class="dash-form-grid"><div><label>Rentabilidade esperada (% a.a.)</label><input id="dashReturnInput" type="number" min="0" max="30" step="0.1"></div><div><label>Inflação estimada (% a.a.)</label><input id="dashInflationInput" type="number" min="0" max="20" step="0.1"></div><div><label>Aporte mensal considerado na projeção (R$ de hoje)</label><input id="dashProjectionContributionInput" inputmode="numeric" placeholder="0"></div></div><div class="callout" style="margin-top:10px"><b>Tributação:</b> a meta de aposentadoria considera 15% de IR sobre o rendimento resgatado. O aporte da projeção é reajustado pela inflação ao longo do tempo.</div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSavePremises" type="button">Salvar premissas</button></div></div>
-       <div class="assumption-grid tax-grid" id="dashPremiseSummary"><div class="assumption"><small>Rentabilidade</small><strong id="dashReturnLabel">—</strong></div><div class="assumption"><small>Inflação</small><strong id="dashInflationLabel">—</strong></div><div class="assumption"><small>IR sobre rendimento</small><strong id="dashTaxLabel">15,0%</strong></div><div class="assumption"><small>Aporte projetado</small><strong id="dashProjectionContributionLabel">—</strong></div></div>
+     <div class="dash-heading">
+      <div><h1>Investimentos</h1><p>Acompanhe sua posição financeira, a trajetória da aposentadoria e a alocação do patrimônio ao longo do tempo.</p></div>
+      <div class="investment-month-actions">
+       <input id="dashInvestmentMonth" type="month" aria-label="Mês da posição de investimentos">
+       <button class="dash-secondary-btn" id="dashCopyInvestmentMonth" type="button">Copiar mês anterior</button>
+       <button class="dash-primary-btn" id="dashAddInvestment" type="button">+ Adicionar investimento</button>
+      </div>
      </div>
 
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Investimentos cadastrados</h3><p>Valores coletados durante o onboarding e atualizações posteriores.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th>Aposentadoria</th><th class="num">Valor</th></tr></thead><tbody id="dashInvestmentBody"></tbody></table></div></div>
-     <div id="dashInvestmentForm" class="dash-card dash-inline-editor hidden"><h4>Adicionar investimento ou reserva</h4><div class="dash-form-grid"><div><label>Categoria</label><select id="dashInvestmentCat"></select></div><div><label>Descrição</label><input id="dashInvestmentDesc" maxlength="40" placeholder="Ex.: Tesouro IPCA+"></div><div><label>Valor (R$)</label><input id="dashInvestmentValue" inputmode="numeric" placeholder="0"></div><div><label>Faz parte da aposentadoria?</label><select id="dashInvestmentRetirement"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveInvestment" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelInvestment" type="button">Cancelar</button></div></div>
-    </section>
+     <div class="original-grid4 investment-kpis">
+      <div class="dash-kpi"><small>Patrimônio financeiro</small><strong id="dashFinancialWealth">—</strong><em id="dashFinancialMonthNote">Última posição</em></div>
+      <div class="dash-kpi retire-focus"><small>Patrimônio visando aposentadoria</small><strong id="dashRetirementWealth">—</strong><em>Valor efetivamente registrado</em></div>
+      <div class="dash-kpi"><small>Meta patrimonial deste mês</small><strong id="dashMonthlyWealthGoal">—</strong><em>Trajetória necessária para o plano</em></div>
+      <div class="dash-kpi"><small>Status da meta</small><strong id="dashWealthGoalStatus">—</strong><em id="dashWealthGoalDifference">—</em></div>
+     </div>
 
+     <div class="wealth-goal-card">
+      <div>
+       <span class="game-eyebrow">PATRIMÔNIO × META</span>
+       <h3 id="dashWealthGoalTitle">Acompanhamento patrimonial</h3>
+       <p id="dashWealthGoalText">Registre sua posição mensal para acompanhar a evolução.</p>
+      </div>
+      <div class="wealth-goal-values"><span><small>Você tem</small><strong id="dashWealthGoalActual">—</strong></span><span><small>Deveria ter</small><strong id="dashWealthGoalExpected">—</strong></span></div>
+      <div class="game-progress-line"><span id="dashWealthGoalPct">0%</span><span id="dashWealthGoalGap">—</span></div>
+      <div class="game-progress"><div id="dashWealthGoalBar"></div></div>
+     </div>
+
+     <div class="dash-card original-invest-card">
+      <div class="original-chart-head"><div><h3>Evolução do patrimônio de aposentadoria</h3><p>Patrimônio registrado versus a meta patrimonial de cada mês. O histórico cresce conforme novas posições são informadas.</p></div><span class="original-pill">Real × esperado</span></div>
+      <canvas id="retirementGoalHistory" class="chart-canvas original-tall-chart"></canvas>
+     </div>
+
+     <div class="dash-card original-invest-card">
+      <div class="original-chart-head"><div><h3>Alocação de capital ao longo do tempo</h3><p>Cada coluna representa uma posição mensal e as categorias aparecem empilhadas.</p></div><span class="original-pill">Histórico mensal</span></div>
+      <canvas id="investmentAllocation" class="chart-canvas original-tall-chart"></canvas>
+     </div>
+
+     <div class="original-grid3">
+      <div class="dash-kpi"><small>Aporte esperado</small><strong id="dashExpectedContribution">—</strong></div>
+      <div class="dash-kpi"><small>Aporte usado na projeção</small><strong id="dashProjectionContributionKpi">—</strong></div>
+      <div class="dash-kpi"><small>Horizonte até aposentadoria</small><strong id="dashProjectionYears">—</strong></div>
+     </div>
+
+     <div class="dash-card original-invest-card">
+      <div class="original-chart-head"><div><h3>Projeção patrimonial para aposentadoria</h3><p>Partindo da última posição registrada, compare o futuro com o aporte que você pretende fazer e a trajetória necessária.</p></div><span class="original-pill">Projeção futura</span></div>
+      <canvas id="retirementProjection" class="chart-canvas original-tall-chart"></canvas>
+      <div class="projection-legend"><span><i class="legend-retirement"></i>Com o aporte projetado</span><span><i class="legend-goal"></i>Trajetória necessária</span></div>
+      <div id="projectionOutcomeText" class="projection-outcome">—</div>
+     </div>
+
+     <div class="dash-card original-invest-card">
+       <div class="original-chart-head"><div><h3>Premissas da aposentadoria</h3><p>Ajuste as premissas usadas para construir a trajetória futura.</p></div><button class="dash-secondary-btn" id="dashAdjustPremises" type="button">Ajustar premissas</button></div>
+       <div id="dashPremiseEditor" class="premise-editor hidden">
+        <div class="dash-form-grid">
+         <div><label>Rentabilidade esperada (% a.a.)</label><input id="dashReturnInput" type="number" min="0" max="30" step="0.1"></div>
+         <div><label>Inflação estimada (% a.a.)</label><input id="dashInflationInput" type="number" min="0" max="20" step="0.1"></div>
+         <div><label>Aporte mensal considerado na projeção (R$ de hoje)</label><input id="dashProjectionContributionInput" inputmode="numeric" placeholder="0"></div>
+        </div>
+        <div class="callout" style="margin-top:10px"><b>Tributação:</b> a meta considera 15% de IR sobre o rendimento resgatado. O aporte projetado é reajustado pela inflação.</div>
+        <div class="dash-form-actions"><button class="dash-primary-btn" id="dashSavePremises" type="button">Salvar premissas</button></div>
+       </div>
+       <div class="assumption-grid tax-grid" id="dashPremiseSummary">
+        <div class="assumption"><small>Rentabilidade</small><strong id="dashReturnLabel">—</strong></div>
+        <div class="assumption"><small>Inflação</small><strong id="dashInflationLabel">—</strong></div>
+        <div class="assumption"><small>IR sobre rendimento</small><strong id="dashTaxLabel">15,0%</strong></div>
+        <div class="assumption"><small>Aporte projetado</small><strong id="dashProjectionContributionLabel">—</strong></div>
+       </div>
+     </div>
+
+     <div class="dash-card original-invest-card">
+      <div class="original-chart-head"><div><h3>Posição financeira do mês</h3><p>Os registros abaixo formam a fotografia usada nos gráficos históricos.</p></div><span class="original-pill" id="dashInvestmentPositionLabel">—</span></div>
+      <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th>Aposentadoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashInvestmentBody"></tbody></table></div>
+     </div>
+
+     <div id="dashInvestmentForm" class="dash-card dash-inline-editor hidden"><h4 id="dashInvestmentFormTitle">Adicionar investimento ou reserva</h4><div class="dash-form-grid"><div><label>Categoria</label><select id="dashInvestmentCat"></select></div><div><label>Descrição</label><input id="dashInvestmentDesc" maxlength="40" placeholder="Ex.: Tesouro IPCA+"></div><div><label>Valor (R$)</label><input id="dashInvestmentValue" inputmode="numeric" placeholder="0"></div><div><label>Faz parte da aposentadoria?</label><select id="dashInvestmentRetirement"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveInvestment" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelInvestment" type="button">Cancelar</button></div></div>
+    </section>
     <section id="tab-settings" class="dash-section">
      <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Gerencie a origem dos dados e as categorias usadas em novos lançamentos.</p></div></div>
 
@@ -1229,7 +1396,7 @@ function defaultData(){
   despesasFixas:[{categoria:'Moradia',descricao:'Condomínio',valor:650},{categoria:'Contas da casa',descricao:'Internet',valor:120}],
   despesasVariaveis:[],
   investimentos:[{categoria:'Renda fixa',descricao:'Tesouro IPCA+',valor:100000,aposentadoria:true},{categoria:'Reserva de emergência',descricao:'Reserva de emergência',valor:30000,aposentadoria:false}],
-  outrosPatrimonios:[{tipo:'Imóvel',descricao:'Apartamento',valor:350000},{tipo:'Veículo',descricao:'Carro',valor:90000}],
+  outrosPatrimonios:[],
   parcelas:[],
   historicoDemo:true
  };
@@ -1594,7 +1761,6 @@ function resetFirstAccessForms(){
  clearDataRows('incomeRows');addIncomeHydrated({pessoa:person1.value,descricao:'',valor:0});
  clearDataRows('fixedRows');
  clearDataRows('investmentRows');
- clearDataRows('assetRows');
  /* Mantém as categorias genéricas visíveis/pré-selecionadas na interface.
     Elas só passam a fazer parte do JSON quando o usuário salva as etapas correspondentes. */
  updateLive();
@@ -1717,13 +1883,15 @@ document.getElementById('saveStep1').onclick=async()=>{
 let calcAnnual=.10,calcInfl=.04,calcTax=.15;
 
 function retirementParams(){
+ const a=data?.aposentadoria||{};
+ const storedBase=Number(a.patrimonioBaseCalculo||0);
  return {
-   age:+ageEl().value||0,
-   retAge:+retAgeEl().value||0,
-   useYears:+useYearsEl().value||0,
-   income:parseMoney(retIncome.value),
-   current:parseMoney(retCurrent.value),
-   currentMonthly:parseMoney(retMonthlyCurrent.value)
+   age:+ageEl().value||Number(a.idadeAtual||0),
+   retAge:+retAgeEl().value||Number(a.idadeAposentadoria||0),
+   useYears:+useYearsEl().value||Number(a.anosUsufruto||0),
+   income:parseMoney(retIncome.value)||Number(a.rendaMensalHoje||0),
+   current:storedBase||parseMoney(retCurrent.value)||Number(a.patrimonioInicialInformado||0),
+   currentMonthly:parseMoney(retMonthlyCurrent.value)||Number(a.aporteAtual||0)
  };
 }
 function retirementRates(){
@@ -1967,38 +2135,84 @@ addInvestment.onclick=()=>{
  setSelectOptions(r.querySelector('.invCat'),getCheckedLabels('investmentCategories'),false);
  r.children[2].replaceWith(makeMoney('investmentValue'));bindDelete(r.querySelector('.del'));bindRetFlag(r.querySelector('.retirementFlag'));investmentRows.appendChild(r);
 };
-addAsset.onclick=()=>{const r=document.createElement('div');r.className='data-row asset data';r.innerHTML='<select><option>Imóvel</option><option>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('assetValue'));bindDelete(r.querySelector('.del'));assetRows.appendChild(r)};
 addInvestmentCategory.onclick=()=>addCategory('investmentCategories','newInvestmentCategory');
 function updateStep4(){
- const inv=[...document.querySelectorAll('#investmentRows .data')],fin=inv.reduce((a,r)=>a+parseMoney(r.querySelector('.investmentValue').value),0),ret=inv.reduce((a,r)=>a+(r.querySelector('.retirementFlag').checked?parseMoney(r.querySelector('.investmentValue').value):0),0),assets=[...document.querySelectorAll('.assetValue')].reduce((a,e)=>a+parseMoney(e.value),0);
- financialTotal.textContent=brl(fin);assetsTotal.textContent=brl(assets);sumFinancial.textContent=brl(fin);sumRetirement.textContent=brl(ret);sumAssets.textContent=brl(assets);sumTotalAssets.textContent=brl(fin+assets);
+ const inv=[...document.querySelectorAll('#investmentRows .data')],
+       fin=inv.reduce((a,r)=>a+parseMoney(r.querySelector('.investmentValue').value),0),
+       ret=inv.reduce((a,r)=>a+(r.querySelector('.retirementFlag').checked?parseMoney(r.querySelector('.investmentValue').value):0),0),
+       outside=Math.max(0,fin-ret);
+ financialTotal.textContent=brl(fin);
+ sumFinancial.textContent=brl(fin);
+ sumRetirement.textContent=brl(ret);
+ sumOutsideRetirement.textContent=brl(outside);
+ const m=retirementModel();
+ sumExpectedContribution.textContent=m.monthly?brl(m.monthly)+'/mês':'—';
 }
 document.getElementById('saveStep4').onclick=async()=>{
- data.investimentos=[...document.querySelectorAll('#investmentRows .data')].map((r,i)=>({
+ const month=currentMonthKey();
+ const rows=[...document.querySelectorAll('#investmentRows .data')].map((r,i)=>({
    id:r.dataset.id||('inv-'+Date.now()+'-'+i),
    categoria:r.children[0].value,
    descricao:r.children[1].value.trim(),
    valor:parseMoney(r.querySelector('.investmentValue').value),
    aposentadoria:r.querySelector('.retirementFlag').checked,
-   mesReferencia:currentMonthKey()
+   mesReferencia:month
  })).filter(x=>x.descricao||x.valor);
- data.outrosPatrimonios=[...document.querySelectorAll('#assetRows .data')].map((r,i)=>({
-   id:r.dataset.id||('bem-'+Date.now()+'-'+i),
-   tipo:r.children[0].value,descricao:r.children[1].value.trim(),
-   valor:parseMoney(r.querySelector('.assetValue').value)
- })).filter(x=>x.descricao||x.valor);
+
+ const historical=(data.investimentos||[]).filter(x=>recordMonth(x)!==month);
+ data.investimentos=[...historical,...rows];
  data.categorias.investimentos=getCheckedLabels('investmentCategories');
- const ret=data.investimentos.filter(x=>x.aposentadoria).reduce((a,x)=>a+x.valor,0);
- if(data.aposentadoria)data.aposentadoria.patrimonioDetalhado=ret;
+
+ const ret=rows.filter(x=>x.aposentadoria).reduce((a,x)=>a+Number(x.valor||0),0);
+ if(data.aposentadoria){
+   data.aposentadoria.patrimonioDetalhado=ret;
+   if(!data.aposentadoria.inicioAcompanhamentoMes){
+     data.aposentadoria.inicioAcompanhamentoMes=month;
+     data.aposentadoria.patrimonioInicialAcompanhamento=ret;
+     data.aposentadoria.patrimonioBaseCalculo=ret;
+   }
+
+   // A posição detalhada passa a ser a referência inicial do cálculo.
+   const m=retirementModel();
+   data.aposentadoria.patrimonioNecessario=m.need;
+   data.aposentadoria.patrimonioNecessarioNominalAposentadoria=m.needNominalAtRetirement;
+   data.aposentadoria.aporteEstimado=m.monthly;
+   data.aposentadoria.aporteEstimadoSemImposto=m.monthlyNoTax;
+   data.aposentadoria.impactoImpostoNoAporte=m.taxImpact;
+   data.aposentadoria.premissas={
+     ...(data.aposentadoria.premissas||{}),
+     impostoSobreRendimento:calcTax,
+     aporteProjecao:Number(data.aposentadoria.premissas?.aporteProjecao ?? data.aposentadoria.aporteAtual ?? m.monthly)
+   };
+ }
  try{await saveDataAndWait(4);preparePlan();showScreen('step5')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 function updateLive(){updateRetirementSummary();updateStep3();updateStep4()}
 function totals(){
- const financial=(data.investimentos||[]).reduce((a,x)=>a+x.valor,0),ret=(data.investimentos||[]).filter(x=>x.aposentadoria).reduce((a,x)=>a+x.valor,0),assets=(data.outrosPatrimonios||[]).reduce((a,x)=>a+x.valor,0),rev=(data.receitas||[]).reduce((a,x)=>a+x.valor,0),fix=(data.despesasFixas||[]).reduce((a,x)=>a+x.valor,0);return {financial,ret,assets,total:financial+assets,rev,fix}
+ const invMonth=latestInvestmentMonth();
+ const positions=investmentPositionsForMonth(invMonth);
+ const financial=positions.reduce((a,x)=>a+Number(x.valor||0),0);
+ const ret=positions.filter(x=>x.aposentadoria).reduce((a,x)=>a+Number(x.valor||0),0);
+ const month=currentMonthKey();
+ const rev=(data.receitas||[]).filter(x=>recordMonth(x)===month||(!x.data&&!x.mesReferencia)).reduce((a,x)=>a+Number(x.valor||0),0);
+ const fix=(data.despesasFixas||[]).filter(x=>recordMonth(x)===month||(!x.data&&!x.mesReferencia)).reduce((a,x)=>a+Number(x.valor||0),0);
+ return {financial,ret,outside:Math.max(0,financial-ret),total:financial,rev,fix,investmentMonth:invMonth}
 }
 function preparePlan(){
- const t=totals(),a=data.aposentadoria,need=a.aporteEstimado||retirementModel().monthly,cur=a.aporteAtual||0,pct=need?Math.min(100,Math.round(cur/need*100)):100,gap=Math.max(0,need-cur);
- planIncome.textContent=brl(a.rendaMensalHoje)+'/mês';planRetAge.textContent='em poder de compra de hoje · aposentadoria aos '+a.idadeAposentadoria+' anos';planFinancial.textContent=brl(t.financial);planRetirement.textContent=brl(t.ret);planMonthly.textContent=brl(need)+'/mês';planTotal.textContent=brl(t.total);planRevenue.textContent=brl(t.rev);planFixed.textContent=brl(t.fix);planCurrentMonthly.textContent=brl(cur)+'/mês';planNeededMonthly.textContent=brl(need)+'/mês';planPct.textContent=pct+'%';planBar.style.width=pct+'%';planGap.innerHTML=gap>0?'Existe uma diferença estimada de <b>'+brl(gap)+' por mês</b>. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.':'Seu aporte atual já atende ou supera a estimativa inicial do plano.';
+ const t=totals(),a=data.aposentadoria||{},need=a.aporteEstimado||retirementModel().monthly,cur=a.aporteAtual||0,
+       pct=need?Math.min(100,Math.round(cur/need*100)):0,gap=Math.max(0,need-cur);
+ planIncome.textContent=brl(a.rendaMensalHoje)+'/mês';
+ planRetAge.textContent='em poder de compra de hoje · aposentadoria aos '+a.idadeAposentadoria+' anos';
+ planFinancial.textContent=brl(t.financial);
+ planRetirement.textContent=brl(t.ret);
+ planMonthly.textContent=need?brl(need)+'/mês':'—';
+ planOutsideRetirement.textContent=brl(t.outside);
+ planRevenue.textContent=brl(t.rev);
+ planFixed.textContent=brl(t.fix);
+ planCurrentMonthly.textContent=brl(cur)+'/mês';
+ planNeededMonthly.textContent=need?brl(need)+'/mês':'—';
+ planPct.textContent=pct+'%';planBar.style.width=pct+'%';
+ planGap.innerHTML=gap>0?'Existe uma diferença estimada de <b>'+brl(gap)+' por mês</b>. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.':'Seu aporte atual já atende ou supera a estimativa inicial do plano.';
 }
 finishOnboarding.onclick=async()=>{
  data.onboarding.completed=true;delete data.historicoDemo;
@@ -2038,14 +2252,7 @@ function addInvestmentHydrated(item={}){
  bindRetFlag(r.querySelector('.retirementFlag'));bindDelete(r.querySelector('.del'));investmentRows.appendChild(r);
  r.querySelector('.retirementFlag').dispatchEvent(new Event('change'));
 }
-function addAssetHydrated(item={}){
- const r=document.createElement('div');r.className='data-row asset data';
- const opts=['Imóvel','Veículo','Empresa','Terreno','Outro bem'];
- r.innerHTML='<select>'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><button class="del">×</button>';
- r.children[0].value=item.tipo||'Imóvel';r.children[1].value=item.descricao||'';
- r.children[2].replaceWith(makeMoney('assetValue'));r.querySelector('.assetValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
- bindDelete(r.querySelector('.del'));assetRows.appendChild(r);
-}
+
 function hydrateCategoryChecks(containerId,selected=[]){
  const wanted=new Set(selected||[]);
  document.querySelectorAll('#'+containerId+' .cat').forEach(label=>{
@@ -2067,11 +2274,79 @@ function hydrateFormsFromData(){
  hydrateCategoryChecks('fixedCategories',data.categorias?.fixas||[]);hydrateCategoryChecks('variableCategories',data.categorias?.variaveis||[]);
  clearDataRows('fixedRows');(data.despesasFixas||[]).forEach(addFixedHydrated);
  hydrateCategoryChecks('investmentCategories',data.categorias?.investimentos||[]);syncCategorySelects();
- clearDataRows('investmentRows');(data.investimentos||[]).forEach(addInvestmentHydrated);
- clearDataRows('assetRows');(data.outrosPatrimonios||[]).forEach(addAssetHydrated);
+ clearDataRows('investmentRows');investmentPositionsForMonth(latestInvestmentMonth()).forEach(addInvestmentHydrated);
  syncCategorySelects();updateLive();
 }
 
+
+function monthDiff(start,end){
+ if(!start||!end)return 0;
+ const [sy,sm]=start.split('-').map(Number),[ey,em]=end.split('-').map(Number);
+ return (ey-sy)*12+(em-sm);
+}
+function shiftMonthKey(key,delta){
+ const [y,m]=key.split('-').map(Number);
+ const d=new Date(Date.UTC(y,m-1+delta,1));
+ return d.toISOString().slice(0,7);
+}
+function investmentMonths(){
+ return [...new Set((data.investimentos||[]).map(recordMonth).filter(Boolean))].sort();
+}
+function latestInvestmentMonth(){
+ const months=investmentMonths();
+ return months.length?months[months.length-1]:currentMonthKey();
+}
+function investmentPositionsForMonth(month){
+ return (data.investimentos||[]).filter(x=>recordMonth(x)===month);
+}
+function financialAtMonth(month){
+ return investmentPositionsForMonth(month).reduce((a,x)=>a+Number(x.valor||0),0);
+}
+function retirementAtMonth(month){
+ return investmentPositionsForMonth(month).filter(x=>x.aposentadoria).reduce((a,x)=>a+Number(x.valor||0),0);
+}
+function retirementTrackingStartMonth(){
+ return data.aposentadoria?.inicioAcompanhamentoMes||investmentMonths()[0]||currentMonthKey();
+}
+function retirementTrackingBase(){
+ const a=data.aposentadoria||{};
+ return Number(a.patrimonioInicialAcompanhamento ?? a.patrimonioBaseCalculo ?? a.patrimonioDetalhado ?? a.patrimonioInicialInformado ?? 0);
+}
+function retirementTargetAtMonth(month){
+ const a=data.aposentadoria||{},start=retirementTrackingStartMonth(),elapsed=Math.max(0,monthDiff(start,month));
+ const rg=Math.pow(1+calcAnnual,1/12)-1,im=Math.pow(1+calcInfl,1/12)-1;
+ const contribution=Number(a.aporteEstimado||0);
+ let balance=retirementTrackingBase();
+ for(let m=1;m<=elapsed;m++){
+   balance*=1+rg;
+   balance+=contribution*Math.pow(1+im,m-1);
+ }
+ return balance;
+}
+function retirementGoalHistoryData(){
+ return investmentMonths().map(month=>({
+   month,
+   actual:retirementAtMonth(month),
+   target:retirementTargetAtMonth(month)
+ }));
+}
+function simulateFutureFromMonth(startMonth,startBalance,baseContribution){
+ const a=data.aposentadoria||{};
+ const trackingStart=retirementTrackingStartMonth();
+ const elapsed=Math.max(0,monthDiff(trackingStart,startMonth));
+ const total=Math.max(0,Math.round(((Number(a.idadeAposentadoria||0)-Number(a.idadeAtual||0))*12)));
+ const remaining=Math.max(0,total-elapsed);
+ const rg=Math.pow(1+calcAnnual,1/12)-1,im=Math.pow(1+calcInfl,1/12)-1;
+ let balance=startBalance;
+ const pts=[{month:startMonth,balance}];
+ for(let j=1;j<=remaining;j++){
+   const globalMonth=elapsed+j;
+   balance*=1+rg;
+   balance+=baseContribution*Math.pow(1+im,globalMonth-1);
+   if(j%12===0||j===remaining)pts.push({month:shiftMonthKey(startMonth,j),balance});
+ }
+ return {pts,endBalance:balance,remaining};
+}
 function currentMonthKey(){
  const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
 }
@@ -2142,7 +2417,7 @@ function prepareDashboard(){
  ovRevenueNote.textContent=data.receitas.length?'Com base nos registros disponíveis':'Nenhuma receita cadastrada';
  ovExpenses.textContent=brl(knownExpenses);
  ovInstallments.textContent=brl(futureParcels);
- ovPatrimony.textContent=brl(t.total);
+ ovPatrimony.textContent=brl(t.financial);
 
  // gamificação de aporte
  const expected=Number(a.aporteEstimado||m.monthly||0);
@@ -2174,25 +2449,50 @@ function prepareDashboard(){
  renderDashboardInstallments();
 
  // investimentos
- const ret=t.ret||a.patrimonioDetalhado||a.patrimonioInicialInformado||0;
- const goal=a.patrimonioNecessario||m.need||0;
- dashFinancialWealth.textContent=brl(t.financial);
+ const invMonth=latestInvestmentMonth();
+ const ret=retirementAtMonth(invMonth);
+ const fin=financialAtMonth(invMonth);
+ const monthlyGoal=retirementTargetAtMonth(invMonth);
+ const goalPct=monthlyGoal?Math.round(ret/monthlyGoal*100):0;
+ const goalGap=ret-monthlyGoal;
+
+ dashFinancialWealth.textContent=brl(fin);
  dashRetirementWealth.textContent=brl(ret);
- dashOtherAssets.textContent=brl(t.assets);
- dashTotalWealth.textContent=brl(t.total);
- dashRetirementGoal.textContent=goal?brl(goal):'—';
- dashRetirementGap.textContent=goal?brl(Math.max(0,goal-ret)):'—';
- dashProjectionYears.textContent=(a.idadeAposentadoria&&a.idadeAtual)?Math.max(0,a.idadeAposentadoria-a.idadeAtual)+' anos':'—';
+ dashMonthlyWealthGoal.textContent=monthlyGoal?brl(monthlyGoal):'—';
+ dashFinancialMonthNote.textContent='Posição de '+monthLabelPt(invMonth);
+ dashWealthGoalStatus.textContent=monthlyGoal?(goalPct>=100?'Meta atingida':goalPct+'% da meta'):'—';
+ dashWealthGoalStatus.className=monthlyGoal?(goalPct>=100?'goal-positive':'goal-negative'):'goal-neutral';
+ dashWealthGoalDifference.textContent=monthlyGoal?(goalGap>=0?'Acima em '+brl(goalGap):'Abaixo em '+brl(Math.abs(goalGap))):'Sem meta calculada';
+ dashWealthGoalActual.textContent=brl(ret);
+ dashWealthGoalExpected.textContent=monthlyGoal?brl(monthlyGoal):'—';
+ dashWealthGoalPct.textContent=monthlyGoal?Math.min(999,Math.max(0,goalPct))+'%':'0%';
+ dashWealthGoalBar.style.width=Math.min(100,Math.max(0,goalPct))+'%';
+ dashWealthGoalGap.textContent=monthlyGoal?(goalGap>=0?'+'+brl(goalGap):'Faltam '+brl(Math.abs(goalGap))):'—';
+ if(monthlyGoal){
+   if(goalPct>=100){
+     dashWealthGoalTitle.textContent='Você está dentro da trajetória';
+     dashWealthGoalText.textContent='Seu patrimônio destinado à aposentadoria está igual ou acima do valor esperado para este mês.';
+   }else{
+     dashWealthGoalTitle.textContent='Sua meta está ao alcance';
+     dashWealthGoalText.textContent='Seu patrimônio está em '+goalPct+'% do valor esperado para este mês. O histórico ajuda a acompanhar a recuperação dessa diferença.';
+   }
+ }
 
  const pr=a.premissas||{};
  calcAnnual=Number(pr.rentabilidadeAnual??calcAnnual);calcInfl=Number(pr.inflacaoAnual??calcInfl);calcTax=Number(pr.impostoSobreRendimento??calcTax);
  const projectedContribution=Number(pr.aporteProjecao ?? a.aporteAtual ?? m.monthly ?? 0);
+ dashExpectedContribution.textContent=m.monthly?brl(m.monthly)+'/mês':'—';
+ dashProjectionContributionKpi.textContent=projectedContribution?brl(projectedContribution)+'/mês':'—';
+ dashProjectionYears.textContent=(a.idadeAposentadoria&&a.idadeAtual)?Math.max(0,a.idadeAposentadoria-a.idadeAtual)+' anos':'—';
+
  dashReturnInput.value=(calcAnnual*100).toFixed(1);dashInflationInput.value=(calcInfl*100).toFixed(1);
  dashProjectionContributionInput.value=projectedContribution?Math.round(projectedContribution).toLocaleString('pt-BR'):'';
  dashReturnLabel.textContent=(calcAnnual*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
  dashInflationLabel.textContent=(calcInfl*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
  dashTaxLabel.textContent=(calcTax*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'%';
  dashProjectionContributionLabel.textContent=projectedContribution?brl(projectedContribution)+'/mês':'—';
+
+ if(!dashInvestmentMonth.value)dashInvestmentMonth.value=invMonth;
  renderDashboardInvestments();
  renderSettingsCategories();
 }
@@ -2503,19 +2803,72 @@ document.querySelectorAll('[data-settings-category]').forEach(btn=>btn.onclick=(
 document.getElementById('settingsAddCategory').onclick=addSettingsCategory;
 document.getElementById('settingsCategoryInput').addEventListener('keydown',e=>{if(e.key==='Enter')addSettingsCategory()});
 
+let dashInvestmentEditingId=null;
 function renderDashboardInvestments(){
  syncCategorySelects();
- const rows=data.investimentos||[];
- dashInvestmentBody.innerHTML=rows.map(x=>`<tr><td>${escapeHtml(x.descricao||'—')}</td><td>${escapeHtml(x.categoria||'—')}</td><td><span class="tag">${x.aposentadoria?'Sim':'Não'}</span></td><td class="num">${brl(x.valor)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty-table">Nenhum investimento cadastrado.</td></tr>';
+ const month=dashInvestmentMonth?.value||latestInvestmentMonth();
+ const rows=investmentPositionsForMonth(month);
+ dashInvestmentPositionLabel.textContent=monthLabelPt(month);
+ dashInvestmentBody.innerHTML=rows.map(x=>`<tr>
+   <td>${escapeHtml(x.descricao||'—')}</td>
+   <td>${escapeHtml(x.categoria||'—')}</td>
+   <td><span class="tag">${x.aposentadoria?'Sim':'Não'}</span></td>
+   <td class="num">${brl(x.valor)}</td>
+   <td class="num"><div class="row-actions">
+    <button class="icon-action" data-invest-edit="${x.id}" title="Editar">${pencilSvg}</button>
+    <button class="icon-action danger-icon" data-invest-delete="${x.id}" title="Excluir">${trashSvg}</button>
+   </div></td>
+  </tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma posição registrada neste mês.</td></tr>';
+
+ document.querySelectorAll('[data-invest-edit]').forEach(btn=>btn.onclick=()=>openInvestmentEditor(btn.dataset.investEdit));
+ document.querySelectorAll('[data-invest-delete]').forEach(btn=>btn.onclick=()=>{
+   const idx=(data.investimentos||[]).findIndex(x=>x.id===btn.dataset.investDelete);
+   if(idx<0)return;
+   if(confirm('Excluir este investimento desta posição mensal?')){
+     data.investimentos.splice(idx,1);
+     saveData(undefined,true);prepareDashboard();drawDashboardCharts();showToast('Investimento removido');
+   }
+ });
 }
-dashAddInvestment.onclick=()=>{syncCategorySelects();dashInvestmentForm.classList.remove('hidden');dashInvestmentDesc.value='';dashInvestmentValue.value='';dashInvestmentRetirement.value='true'};
-dashCancelInvestment.onclick=()=>dashInvestmentForm.classList.add('hidden');
+function openInvestmentEditor(id=null){
+ syncCategorySelects();
+ dashInvestmentEditingId=id;
+ const rec=id?(data.investimentos||[]).find(x=>x.id===id):null;
+ dashInvestmentForm.classList.remove('hidden');
+ dashInvestmentFormTitle.textContent=rec?'Editar investimento ou reserva':'Adicionar investimento ou reserva';
+ setSelectOptions(dashInvestmentCat,[...getCheckedLabels('investmentCategories'),rec?.categoria].filter(Boolean),false);
+ if(rec){
+   dashInvestmentCat.value=rec.categoria;
+   dashInvestmentDesc.value=rec.descricao||'';
+   dashInvestmentValue.value=Number(rec.valor||0).toLocaleString('pt-BR');
+   dashInvestmentRetirement.value=rec.aposentadoria?'true':'false';
+ }else{
+   dashInvestmentDesc.value='';dashInvestmentValue.value='';dashInvestmentRetirement.value='true';
+ }
+}
+dashInvestmentMonth.onchange=()=>{renderDashboardInvestments();drawDashboardCharts()};
+dashAddInvestment.onclick=()=>openInvestmentEditor();
+dashCancelInvestment.onclick=()=>{dashInvestmentForm.classList.add('hidden');dashInvestmentEditingId=null};
 dashSaveInvestment.onclick=()=>{
  const categoria=dashInvestmentCat.value,descricao=dashInvestmentDesc.value.trim(),valor=parseMoney(dashInvestmentValue.value),aposentadoria=dashInvestmentRetirement.value==='true';
+ const month=dashInvestmentMonth.value||currentMonthKey();
  if(!categoria||!descricao||!valor){alert('Preencha categoria, descrição e valor.');return}
- data.investimentos.push({id:'inv-'+Date.now(),categoria,descricao,valor,aposentadoria,mesReferencia:currentMonthKey()});
- if(data.aposentadoria)data.aposentadoria.patrimonioDetalhado=data.investimentos.filter(x=>x.aposentadoria).reduce((a,x)=>a+Number(x.valor||0),0);
- saveData(undefined,true);dashInvestmentForm.classList.add('hidden');preparePlan();prepareDashboard();drawDashboardCharts();showToast('Investimento adicionado');
+ if(dashInvestmentEditingId){
+   const rec=(data.investimentos||[]).find(x=>x.id===dashInvestmentEditingId);
+   if(rec)Object.assign(rec,{categoria,descricao,valor,aposentadoria,mesReferencia:month});
+ }else{
+   data.investimentos.push({id:'inv-'+Date.now(),categoria,descricao,valor,aposentadoria,mesReferencia:month});
+ }
+ saveData(undefined,true);dashInvestmentForm.classList.add('hidden');dashInvestmentEditingId=null;prepareDashboard();drawDashboardCharts();showToast('Posição atualizada');
+};
+dashCopyInvestmentMonth.onclick=()=>{
+ const target=dashInvestmentMonth.value||currentMonthKey();
+ if(investmentPositionsForMonth(target).length){alert('Este mês já possui registros. Ajuste a posição existente ou escolha outro mês.');return}
+ const previous=investmentMonths().filter(m=>m<target).sort().pop();
+ if(!previous){showToast('Não há mês anterior para copiar');return}
+ const source=investmentPositionsForMonth(previous);
+ source.forEach((x,i)=>data.investimentos.push({...x,id:'inv-'+Date.now()+'-'+i+'-'+Math.random().toString(16).slice(2),mesReferencia:target}));
+ saveData(undefined,true);prepareDashboard();dashInvestmentMonth.value=target;renderDashboardInvestments();drawDashboardCharts();showToast('Posição anterior copiada para '+monthLabelPt(target));
 };
 
 /* Ajuste de premissas também disponível na aba Investimentos */
@@ -2557,6 +2910,48 @@ function drawCategoryBar(id,items,keyFn,base='red'){
  const top=grouped.slice(0,6),colors=shades(base,top.length);
  barChart(id,[{label:'Valor',data:top.map(x=>x[1]),color:colors}],top.map(x=>x[0].slice(0,16)));
 }
+
+const investmentPalette=['#CC092F','#B81570','#333B8F','#4566A9','#7A577B','#D66B77','#8A7E82','#C59B55','#5E879B','#A54455'];
+function stackedInvestmentAllocation(id){
+ const months=investmentMonths();
+ if(!months.length){canvasMessage(id,'Registre sua primeira posição de investimentos.');return}
+ const categories=[...new Set((data.investimentos||[]).map(x=>x.categoria).filter(Boolean))];
+ if(!categories.length){canvasMessage(id,'Nenhuma categoria registrada.');return}
+ const el=document.getElementById(id);if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
+ destroyDashChart(id);
+ const labels=months.map(m=>monthLabelPt(m).replace(' de ','/'));
+ const datasets=categories.map((cat,i)=>({
+   label:cat,
+   data:months.map(m=>investmentPositionsForMonth(m).filter(x=>x.categoria===cat).reduce((a,x)=>a+Number(x.valor||0),0)),
+   backgroundColor:investmentPalette[i%investmentPalette.length],
+   borderColor:investmentPalette[i%investmentPalette.length],
+   borderWidth:0,
+   borderRadius:3,
+   stack:'capital'
+ }));
+ dashCharts[id]=new Chart(el,{
+   type:'bar',
+   data:{labels,datasets},
+   options:{
+     ...chartOpts({stacked:true,indexMode:true,legend:true}),
+     plugins:{
+       ...chartOpts({stacked:true,indexMode:true,legend:true}).plugins,
+       tooltip:{
+         enabled:true,backgroundColor:'#392F33',titleColor:'#fff',bodyColor:'#F7F1F2',padding:10,cornerRadius:8,
+         callbacks:{label:ctx=>`${ctx.dataset.label}: ${brl(ctx.raw)}`,footer:items=>'Total: '+brl(items.reduce((a,x)=>a+Number(x.raw||0),0))}
+       }
+     }
+   }
+ });
+}
+function retirementHistoryChart(){
+ const hist=retirementGoalHistoryData();
+ if(!hist.length){canvasMessage('retirementGoalHistory','Registre sua primeira posição mensal.');return}
+ lineChart('retirementGoalHistory',[
+   {label:'Patrimônio registrado',data:hist.map(x=>x.actual),color:'#CC092F',borderWidth:2.6,pointRadius:3},
+   {label:'Meta patrimonial',data:hist.map(x=>x.target),color:'#111111',dash:[5,5],borderWidth:1.8,pointRadius:2}
+ ],hist.map(x=>monthLabelPt(x.month).replace(' de ','/')));
+}
 function drawDashboardCharts(){
  ensureDashboardMetadata();
  const month=currentMonthKey();
@@ -2578,7 +2973,7 @@ function drawDashboardCharts(){
    barChart('overviewInstallmentChart',[{label:'Parcela',data:values,color:'#B81570'}],labels);
  }else canvasMessage('overviewInstallmentChart','Nenhuma parcela cadastrada.');
 
- drawCategoryBar('allocationChart',inv,x=>x.categoria,'neutral');
+ stackedInvestmentAllocation('allocationChart');
 
  // Despesas: meses efetivamente existentes
  const expMonths=availableMonths([...data.despesasFixas,...data.despesasVariaveis]);
@@ -2604,34 +2999,35 @@ function drawDashboardCharts(){
  }else canvasMessage('installmentChart','Nenhuma parcela cadastrada.');
 
  // Investimentos
- drawCategoryBar('investmentAllocation',inv,x=>x.categoria,'neutral');
+ stackedInvestmentAllocation('investmentAllocation');
+ retirementHistoryChart();
 
- // Projeção da aposentadoria: aporte escolhido × trajetória necessária
+ // Projeção futura: parte da última posição efetivamente registrada
  const a=data.aposentadoria||{};
  if(a.idadeAtual&&a.idadeAposentadoria&&a.anosUsufruto&&a.rendaMensalHoje){
    const m=retirementModel();
+   const latestMonth=latestInvestmentMonth();
+   const actualStart=retirementAtMonth(latestMonth);
+   const targetStart=retirementTargetAtMonth(latestMonth);
    const projectedContribution=Number(a.premissas?.aporteProjecao ?? a.aporteAtual ?? m.monthly ?? 0);
-   const projected=simulateAccumulationOnly(projectedContribution);
-   const required=simulateAccumulationOnly(m.monthly);
-   const maxLen=Math.max(projected.pts.length,required.pts.length);
-   const labels=required.pts.map((p,i)=>i===0?'Hoje':Math.round(p.age)+' anos');
-   const projectedVals=projected.pts.map(p=>p.balance);
-   const requiredVals=required.pts.map(p=>p.balance);
+   const projected=simulateFutureFromMonth(latestMonth,actualStart,projectedContribution);
+   const required=simulateFutureFromMonth(latestMonth,targetStart,m.monthly);
 
+   const labels=required.pts.map((p,i)=>i===0?'Agora':monthLabelPt(p.month).split(' de ')[1]||p.month);
    lineChart('retirementProjection',[
-     {label:'Com o aporte projetado',data:projectedVals,color:'#CC092F',borderWidth:2.6},
-     {label:'Trajetória necessária',data:requiredVals,color:'#111111',dash:[5,5],borderWidth:1.9}
+     {label:'Com o aporte projetado',data:projected.pts.map(p=>p.balance),color:'#CC092F',borderWidth:2.6},
+     {label:'Trajetória necessária',data:required.pts.map(p=>p.balance),color:'#111111',dash:[5,5],borderWidth:1.9}
    ],labels);
 
-   const projectedEnd=projected.endBalanceReal,requiredEnd=required.endBalanceReal,gap=Math.max(0,requiredEnd-projectedEnd);
-   if(projectedContribution>=m.monthly-0.5){
-     projectionOutcomeText.innerHTML=`Com um aporte inicial de <b>${brl(projectedContribution)}/mês</b>, reajustado pela inflação, sua trajetória está compatível com a meta calculada.`;
+   const gap=projected.endBalance-required.endBalance;
+   if(gap>=0){
+     projectionOutcomeText.innerHTML=`Partindo da sua posição de <b>${monthLabelPt(latestMonth)}</b> e mantendo um aporte inicial de <b>${brl(projectedContribution)}/mês</b>, a projeção termina cerca de <b>${brl(gap)}</b> acima da trajetória necessária.`;
    }else{
-     projectionOutcomeText.innerHTML=`Com um aporte inicial de <b>${brl(projectedContribution)}/mês</b>, a projeção chega à aposentadoria com cerca de <b>${brl(projectedEnd)}</b> em dinheiro de hoje. A trajetória necessária chega a aproximadamente <b>${brl(requiredEnd)}</b>, uma diferença estimada de <b>${brl(gap)}</b>.`;
+     projectionOutcomeText.innerHTML=`Partindo da sua posição de <b>${monthLabelPt(latestMonth)}</b> e mantendo um aporte inicial de <b>${brl(projectedContribution)}/mês</b>, a projeção termina cerca de <b>${brl(Math.abs(gap))}</b> abaixo da trajetória necessária.`;
    }
  }else{
    canvasMessage('retirementProjection','Defina sua meta de aposentadoria para visualizar a projeção.');
-   projectionOutcomeText.textContent='Defina sua meta para comparar o aporte projetado com a trajetória necessária.';
+   projectionOutcomeText.textContent='Defina sua meta para comparar o patrimônio projetado com a trajetória necessária.';
  }
 }
 window.addEventListener('resize',()=>{if(!screenDashboard.classList.contains('hidden'))drawDashboardCharts()});
