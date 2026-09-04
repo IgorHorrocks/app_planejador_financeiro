@@ -164,6 +164,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     <div class="login-status" id="loginStatus">
       Entre com sua conta Microsoft. No primeiro acesso, o aplicativo criará automaticamente o arquivo <b>organizador_financeiro.json</b> dentro da pasta privada do aplicativo no seu OneDrive.
     </div>
+    <button id="continueAfterMicrosoft" class="btn btn-secondary hidden" type="button" style="width:100%;margin-top:10px">Continuar conexão com o OneDrive</button>
     <div id="hostWarning" class="host-warning hidden"><b>Para testar o login real:</b> abra <b>https://igorhorrocks.github.io/app_planejador_financeiro/</b>.</div><div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
   </div>
 </section>
@@ -618,6 +619,21 @@ async function initMicrosoftAuth(){
    if(accounts.length){
      activeMicrosoftAccount=accounts[0];
      msalInstance.setActiveAccount(activeMicrosoftAccount);
+
+     // Alguns navegadores podem voltar da Microsoft com a conta já gravada
+     // no cache, mas sem um redirectResult utilizável. Se existe uma intenção
+     // de acesso pendente, continuamos o fluxo em vez de deixar o usuário
+     // parado na tela inicial.
+     const pendingIntent=readLoginIntent();
+     if(pendingIntent && pendingIntent!=='auto'){
+       accessMode=pendingIntent;
+       document.getElementById('loginTitle').textContent='Conexão Microsoft concluída.';
+       document.getElementById('loginLead').innerHTML='Estamos preparando seu <b>organizador_financeiro.json</b> no OneDrive.';
+       setLoginStatus('working','<b>Conta Microsoft reconhecida.</b><br>Conectando ao seu OneDrive…');
+       showScreen('login');
+       await completeMicrosoftLogin(pendingIntent,null);
+       return;
+     }
    }
  }catch(err){
    console.error('Falha ao inicializar MSAL',err);
@@ -735,8 +751,33 @@ async function completeMicrosoftLogin(intent,loginResult){
 
    if(intent==='first'){
      if(existing){
+       const loaded=normalizeLoadedData(existing);
+
+       // Uma tentativa anterior pode já ter criado o JSON, mas não ter aberto
+       // a Etapa 1. Nesse caso, continuar normalmente é mais seguro do que
+       // bloquear o usuário.
+       if(!loaded.onboarding?.completed){
+         data=loaded;
+         cacheLocal();
+         clearLoginIntent();
+
+         const last=Math.max(0,Number(data.onboarding?.lastStep||0));
+         setLoginStatus('success','<b>✓ Seu organizador já estava criado.</b><br>Vamos continuar do ponto em que o cadastro parou.');
+
+         setTimeout(()=>{
+           if(last<=0){
+             resetFirstAccessForms();
+             showScreen('step1');
+           }else{
+             hydrateFormsFromData();
+             resumeFromLoadedData();
+           }
+         },500);
+         return;
+       }
+
        clearLoginIntent();
-       setLoginStatus('error','<b>Já existe um '+JSON_FILENAME+' nesta conta.</b><br>Para não sobrescrever seus dados, volte e escolha “Já tenho uma conta”.');
+       setLoginStatus('error','<b>Esta conta já possui um organizador financeiro configurado.</b><br>Use “Já tenho uma conta” para carregar seus dados sem sobrescrevê-los.');
        return;
      }
 
@@ -750,7 +791,7 @@ async function completeMicrosoftLogin(intent,loginResult){
      setTimeout(()=>{
        resetFirstAccessForms();
        showScreen('step1');
-     },600);
+     },500);
      return;
    }
 
@@ -1178,6 +1219,30 @@ window.addEventListener('resize',()=>{if(!screenDashboard.classList.contains('hi
 const screenDashboard=document.getElementById('screen-dashboard');
 
 updateLive();
+document.getElementById('continueAfterMicrosoft').onclick=async()=>{
+ try{
+   if(!msalInstance)await initMicrosoftAuth();
+   const accounts=msalInstance?.getAllAccounts?.()||[];
+   if(!accounts.length){setLoginStatus('error','<b>Nenhuma conta Microsoft foi encontrada nesta sessão.</b><br>Clique novamente em “Entrar com Microsoft”.');return}
+   activeMicrosoftAccount=msalInstance.getActiveAccount()||accounts[0];
+   msalInstance.setActiveAccount(activeMicrosoftAccount);
+   const intent=readLoginIntent()==='auto'?accessMode:readLoginIntent();
+   setLoginStatus('working','<b>Retomando a conexão.</b><br>Acessando seu OneDrive…');
+   await completeMicrosoftLogin(intent,null);
+ }catch(err){
+   setLoginStatus('error','<b>Não foi possível retomar a conexão.</b><br>'+escapeHtml(err?.message||String(err)));
+ }
+};
+
+function refreshRecoveryButton(){
+ const btn=document.getElementById('continueAfterMicrosoft');
+ if(!btn||!msalInstance)return;
+ const hasAccount=msalInstance.getAllAccounts().length>0;
+ const hasIntent=readLoginIntent()!=='auto';
+ btn.classList.toggle('hidden',!(hasAccount&&hasIntent));
+}
+setTimeout(refreshRecoveryButton,1200);
+
 if(!isRegisteredHost())document.getElementById('hostWarning')?.classList.remove('hidden');
 initMicrosoftAuth();
 </script>
