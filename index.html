@@ -1111,6 +1111,47 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   }
 }
 
+
+/* ===== v13: confiança e privacidade no primeiro acesso ===== */
+.privacy-trust{
+  margin-top:12px;
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  padding:13px 14px;
+  border:1px solid #DDE9E2;
+  border-radius:13px;
+  background:#F4FAF6;
+  color:#355B46;
+}
+.privacy-trust .privacy-icon{
+  width:32px;height:32px;min-width:32px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:10px;
+  background:#E4F3E9;
+  color:#237047;
+}
+.privacy-trust .privacy-icon svg{width:18px;height:18px;fill:currentColor}
+.privacy-trust strong{display:block;font-size:11.5px;margin-bottom:4px;color:#27553D}
+.privacy-trust p{margin:0;font-size:10.5px;line-height:1.5;color:#557064}
+@media(max-width:600px){
+  .privacy-trust{padding:12px;gap:9px}
+  .privacy-trust strong{font-size:12.5px}
+  .privacy-trust p{font-size:11.5px}
+}
+
+
+/* ===== v15: consolidação dentro do card + eixos mês/ano ===== */
+#screen-dashboard .consolidated-results-card{margin-top:15px}
+#screen-dashboard .consolidated-results-card .original-chart-head{margin-bottom:4px}
+#screen-dashboard .consolidated-results-card .original-chart-head h3{
+  font-size:13px!important;
+  margin:0 0 3px!important;
+}
+#screen-dashboard .consolidated-results-card .original-chart-head p{
+  margin:0!important;
+}
+
 </style>
 </head>
 <body>
@@ -1142,7 +1183,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
         <p>Entre com a Microsoft para carregar seu arquivo e continuar de onde parou.</p>
       </div>
     </div>
-    <p class="landing-note">Versão inicial conectada ao Microsoft OneDrive. Para o login real funcionar, publique este arquivo como <b>index.html</b> no endereço cadastrado no Microsoft Entra.</p>
+    
   </div>
 </section>
 
@@ -1167,8 +1208,19 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     <div class="login-status" id="loginStatus">
       Entre com sua conta Microsoft pessoal. No primeiro acesso, o aplicativo criará automaticamente o arquivo <b>organizador_financeiro.json</b> dentro da pasta privada do aplicativo no seu OneDrive.
     </div>
+    <div class="privacy-trust" id="privacyTrust">
+      <div class="privacy-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2 4.8 5v5.3c0 5 3 9.6 7.2 11.7 4.2-2.1 7.2-6.7 7.2-11.7V5L12 2zm0 2.2 5.2 2.1v4c0 3.9-2.1 7.6-5.2 9.5-3.1-1.9-5.2-5.6-5.2-9.5v-4L12 4.2zm-1 4.3v2.2H8.9v2H11V15h2v-2.3h2.1v-2H13V8.5h-2z"/>
+        </svg>
+      </div>
+      <div>
+        <strong>Suas informações permanecem privadas.</strong>
+        <p>Seu arquivo financeiro fica no OneDrive da conta Microsoft conectada. O Organizador Financeiro não mantém uma cópia central dos seus dados financeiros.</p>
+      </div>
+    </div>
     <button id="continueAfterMicrosoft" class="btn btn-secondary hidden" type="button" style="width:100%;margin-top:10px">Continuar conexão com o OneDrive</button>
-    <div id="hostWarning" class="host-warning hidden"><b>Para testar o login real:</b> abra <b>https://igorhorrocks.github.io/app_planejador_financeiro/</b>.</div><div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
+    <div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
   </div>
 </section>
 
@@ -1509,14 +1561,19 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
       <div class="game-progress"><div id="dashContributionBar"></div></div>
      </div>
 
-     <div class="dashboard-section-title"><h2>Consolida resultados</h2><p>Receitas, despesas conhecidas e valor disponível com os dados atuais.</p></div>
-     <div class="dash-card"><canvas id="overviewChart" class="chart-canvas"></canvas></div>
+     <div class="dash-card consolidated-results-card">
+      <div class="original-chart-head">
+       <div><h3>Consolida resultados</h3><p>Receitas, despesas conhecidas e valor disponível ao longo dos meses registrados.</p></div>
+       <span class="original-pill">Histórico mensal</span>
+      </div>
+      <canvas id="overviewChart" class="chart-canvas"></canvas>
+     </div>
 
      <div class="reference-chart-grid">
-      <div class="dash-card"><h3>Gastos fixos</h3><p class="sub">Composição atual por categoria.</p><canvas id="overviewFixedChart" class="chart-canvas"></canvas></div>
-      <div class="dash-card"><h3>Gastos variáveis</h3><p class="sub">Os lançamentos passam a aparecer aqui conforme forem cadastrados.</p><canvas id="overviewVariableChart" class="chart-canvas"></canvas></div>
-      <div class="dash-card"><h3>Parcelas</h3><p class="sub">Comprometimento futuro já registrado.</p><canvas id="overviewInstallmentChart" class="chart-canvas"></canvas></div>
-      <div class="dash-card"><h3>Alocação de capital</h3><p class="sub">Categorias empilhadas ao longo dos meses registrados.</p><canvas id="allocationChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Gastos fixos ao longo do tempo</h3><p class="sub">Total mensal de gastos fixos. Eixo X: mês/ano.</p><canvas id="overviewFixedChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Gastos variáveis ao longo do tempo</h3><p class="sub">Total mensal de gastos variáveis. Eixo X: mês/ano.</p><canvas id="overviewVariableChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Parcelas ao longo do tempo</h3><p class="sub">Comprometimento mensal das parcelas. Eixo X: mês/ano.</p><canvas id="overviewInstallmentChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Alocação de capital ao longo do tempo</h3><p class="sub">Categorias empilhadas por posição mensal. Eixo X: mês/ano.</p><canvas id="allocationChart" class="chart-canvas"></canvas></div>
      </div>
     </section>
 
@@ -1524,7 +1581,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
      <div class="dash-heading"><div><h1>Despesas</h1><p>Despesas fixas e variáveis organizadas no mesmo padrão visual do seu painel.</p></div><button class="dash-primary-btn" id="dashTopAddVariable" type="button">+ Adicionar despesa variável</button></div>
      <div class="original-filterbar"><div class="original-filter-group"><select id="dashExpenseTypeFilter"><option value="all">Fixas + variáveis</option><option value="fixas">Somente fixas</option><option value="variaveis">Somente variáveis</option></select><select id="dashExpenseCategoryFilter"><option value="all">Todas as categorias</option></select></div></div>
      <div class="dash-kpis"><div class="dash-kpi"><small>Fixas • mês</small><strong id="dashFixedKpi">—</strong></div><div class="dash-kpi"><small>Variáveis • mês</small><strong id="dashVariableKpi">—</strong></div><div class="dash-kpi"><small>Total • mês</small><strong id="dashExpenseTotalKpi">—</strong></div><div class="dash-kpi"><small>Média dos meses registrados</small><strong id="dashExpenseAverageKpi">—</strong></div></div>
-     <div class="chart-grid"><div class="dash-card"><h3>Evolução das despesas</h3><p class="sub">Sem inventar histórico: o gráfico usa apenas meses efetivamente registrados.</p><canvas id="expenseEvolutionChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por categoria</h3><p class="sub">Total do período disponível.</p><canvas id="expenseCategoryChart" class="chart-canvas"></canvas></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Evolução das despesas</h3><p class="sub">Gastos fixos e variáveis por mês. Eixo X: mês/ano.</p><canvas id="expenseEvolutionChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Despesas por categoria ao longo do tempo</h3><p class="sub">Categorias empilhadas por mês para mostrar como a composição muda ao longo do tempo.</p><canvas id="expenseCategoryChart" class="chart-canvas"></canvas></div></div>
 
      <div class="expense-switcher">
       <div class="expense-switcher-head"><div><h3>Lançamentos de despesas</h3><p>Alterne entre gastos fixos e variáveis.</p></div><div class="expense-toggle"><button class="active" data-dash-expense-view="fixas" type="button">Gastos Fixos</button><button data-dash-expense-view="variaveis" type="button">Gastos Variáveis</button></div></div>
@@ -1549,7 +1606,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     <section id="tab-revenues" class="dash-section">
      <div class="dash-heading"><div><h1>Receitas</h1><p>Composição das entradas informadas no cadastro e nos lançamentos posteriores.</p></div><button class="dash-primary-btn" id="dashAddRevenue" type="button">+ Adicionar receita</button></div>
      <div class="dash-kpis"><div class="dash-kpi"><small>Receita do mês</small><strong id="dashRevenueMonth">—</strong></div><div class="dash-kpi"><small>Média dos meses registrados</small><strong id="dashRevenueAverage">—</strong></div><div class="dash-kpi"><small id="dashPerson1Label">Pessoa 1</small><strong id="dashPerson1Share">—</strong></div><div class="dash-kpi"><small id="dashPerson2Label">Pessoa 2</small><strong id="dashPerson2Share">—</strong></div></div>
-     <div class="chart-grid"><div class="dash-card"><h3>Receitas atuais</h3><p class="sub">Valores por pessoa/origem.</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição da receita</h3><p class="sub">Participação percentual pela base disponível.</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Evolução das receitas</h3><p class="sub">Receitas mensais por pessoa/origem. Eixo X: mês/ano.</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição da receita</h3><p class="sub">Participação percentual pela base disponível.</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
      <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Receitas cadastradas</h3><p>Os valores abaixo vêm diretamente do organizador_financeiro.json.</p></div></div><div class="original-table-wrap table-container"><table class="original-table financial-table revenue-table"><thead><tr><th>Data</th><th>Pessoa</th><th>Descrição</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashRevenueBody"></tbody></table></div></div>
      <div id="dashRevenueForm" class="dash-card dash-inline-editor hidden"><h4 id="dashRevenueFormTitle">Adicionar receita</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashRevenueDate" type="date"></div><div><label>Pessoa</label><select id="dashRevenuePerson"></select></div><div><label>Descrição</label><input id="dashRevenueDesc" maxlength="60" placeholder="Ex.: Salário"></div><div><label>Valor (R$)</label><input id="dashRevenueValue" inputmode="decimal" placeholder="0,00"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveRevenue" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelRevenue" type="button">Cancelar</button></div></div>
     </section>
@@ -1568,7 +1625,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 
      <div class="dash-card">
       <h3>Histórico e projeção das parcelas</h3>
-      <p class="sub">Valores mensais calculados a partir das compras parceladas registradas.</p>
+      <p class="sub">Valores mensais calculados a partir das compras parceladas registradas. Eixo X: mês/ano.</p>
       <canvas id="installmentChart" class="chart-canvas"></canvas>
      </div>
 
@@ -2245,9 +2302,9 @@ function addCategory(containerId,inputId){
 
 document.getElementById('firstAccessBtn').onclick=()=>{
  accessMode='first';
- document.getElementById('loginTitle').textContent='Vamos criar sua base financeira.';
- document.getElementById('loginLead').innerHTML='Faça login com a Microsoft. Depois da autenticação, o Organizador Financeiro criará automaticamente um <b>organizador_financeiro.json</b> privado no seu OneDrive. Esse arquivo será a origem das informações do seu organizador financeiro.';
- setLoginStatus('','Entre com sua conta Microsoft para continuar.');
+ document.getElementById('loginTitle').textContent='Vamos criar seu espaço financeiro privado.';
+ document.getElementById('loginLead').innerHTML='Faça login com a Microsoft para criar seu organizador. As informações que você preencher <b>não ficam disponíveis para outros usuários do aplicativo</b> e não são enviadas para um banco de dados central do Organizador Financeiro. Elas ficam salvas no <b>seu próprio OneDrive</b>, dentro da pasta privada usada pelo aplicativo.';
+ setLoginStatus('','<b>Seus dados continuam na sua conta Microsoft.</b><br>O aplicativo acessa apenas a pasta própria dele no seu OneDrive para ler e atualizar o arquivo <b>organizador_financeiro.json</b>.');
  showScreen('login');
 };
 document.getElementById('existingAccessBtn').onclick=()=>{
@@ -2670,6 +2727,26 @@ function hydrateFormsFromData(){
 }
 
 
+function monthAxisLabel(key){
+ if(!key||!String(key).includes('-'))return String(key||'');
+ const [y,m]=String(key).slice(0,7).split('-');
+ return `${m}/${y}`;
+}
+function continuousMonthRange(keys){
+ const valid=[...new Set((keys||[]).filter(k=>/^\d{4}-\d{2}$/.test(String(k))))].sort();
+ if(!valid.length)return [];
+ const first=valid[0],last=valid[valid.length-1],count=Math.max(0,monthDiff(first,last));
+ return Array.from({length:count+1},(_,i)=>shiftMonthKey(first,i));
+}
+function actualFinancialMonths(){
+ const keys=[
+   ...(data.receitas||[]).map(recordMonth),
+   ...(data.despesasFixas||[]).map(recordMonth),
+   ...(data.despesasVariaveis||[]).map(recordMonth)
+ ].filter(Boolean);
+ if(!keys.length)return [currentMonthKey()];
+ return continuousMonthRange(keys);
+}
 function monthDiff(start,end){
  if(!start||!end)return 0;
  const [sy,sm]=start.split('-').map(Number),[ey,em]=end.split('-').map(Number);
@@ -2954,7 +3031,7 @@ function axisMoney(v){
  if(Math.abs(n)>=1_000)return 'R$ '+(n/1_000).toLocaleString('pt-BR',{maximumFractionDigits:0})+' mil';
  return 'R$ '+n.toLocaleString('pt-BR',{maximumFractionDigits:0});
 }
-function chartOpts({stacked=false,indexMode=true,legend=true}={}){
+function chartOpts({stacked=false,indexMode=true,legend=true,temporal=false}={}){
  return {
    responsive:true,maintainAspectRatio:false,resizeDelay:80,animation:false,
    interaction:{mode:indexMode?'index':'nearest',intersect:false},
@@ -2967,7 +3044,12 @@ function chartOpts({stacked=false,indexMode=true,legend=true}={}){
      }
    },
    scales:{
-     x:{stacked,grid:{display:false},ticks:{color:'#7C7074',font:{size:8},maxRotation:0,autoSkip:true,maxTicksLimit:12}},
+     x:{
+       stacked,
+       grid:{display:false},
+       title:{display:temporal,text:'Mês/ano',color:'#85787C',font:{size:8,weight:'600'},padding:{top:5}},
+       ticks:{color:'#7C7074',font:{size:8},maxRotation:0,autoSkip:true,maxTicksLimit:12}
+     },
      y:{stacked,grid:{color:'#EEE6E3'},ticks:{color:'#7C7074',font:{size:8},callback:v=>axisMoney(v)}}
    }
  };
@@ -2975,6 +3057,7 @@ function chartOpts({stacked=false,indexMode=true,legend=true}={}){
 function lineChart(id,series,labels,opts={}){
  const el=document.getElementById(id);if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
  destroyDashChart(id);
+ const {temporal=false,...overrides}=opts;
  dashCharts[id]=new Chart(el,{
    type:'line',
    data:{labels,datasets:series.map((s,i)=>({
@@ -2982,19 +3065,20 @@ function lineChart(id,series,labels,opts={}){
      borderWidth:s.borderWidth||2.3,pointRadius:s.pointRadius??1.8,pointHoverRadius:5,tension:.2,
      fill:false,borderDash:s.dash||[],spanGaps:true
    }))},
-   options:{...chartOpts({indexMode:true,legend:series.length>1}),...opts}
+   options:{...chartOpts({indexMode:true,legend:series.length>1,temporal}),...overrides}
  });
 }
-function barChart(id,series,labels){
+function barChart(id,series,labels,opts={}){
  const el=document.getElementById(id);if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
  destroyDashChart(id);
+ const {temporal=false,stacked=false,...overrides}=opts;
  dashCharts[id]=new Chart(el,{
    type:'bar',
    data:{labels,datasets:series.map((s,i)=>({
      label:s.label||'Valor',data:s.data,backgroundColor:s.color,borderColor:s.borderColor||s.color,
-     borderWidth:s.borderWidth??0,borderRadius:5,maxBarThickness:48
+     borderWidth:s.borderWidth??0,borderRadius:5,maxBarThickness:48,stack:s.stack
    }))},
-   options:chartOpts({stacked:false,indexMode:true,legend:series.length>1})
+   options:{...chartOpts({stacked,indexMode:true,legend:series.length>1,temporal}),...overrides}
  });
 }
 function pieChart(id,vals,colors,labels=[]){
@@ -3475,6 +3559,42 @@ function drawCategoryBar(id,items,keyFn,base='red'){
  barChart(id,[{label:'Valor',data:top.map(x=>x[1]),color:colors}],top.map(x=>x[0].slice(0,16)));
 }
 
+const temporalPalette=['#CC092F','#B81570','#333B8F','#4566A9','#7A577B','#D66B77','#8A7E82','#C59B55','#5E879B','#A54455'];
+
+function temporalCategoryStackedChart(id,items,months,keyFn,base='red'){
+ if(!months.length){canvasMessage(id,'Ainda não há meses registrados.');return}
+ const categories=[...new Set((items||[]).map(keyFn).filter(Boolean))];
+ if(!categories.length){canvasMessage(id,'Ainda não há dados para exibir.');return}
+ const el=document.getElementById(id);if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
+ destroyDashChart(id);
+ const colors=base==='blue'?shades('blue',Math.max(categories.length,6)):temporalPalette;
+ const datasets=categories.map((cat,i)=>({
+   label:cat,
+   data:months.map(month=>(items||[]).filter(x=>recordMonth(x)===month&&keyFn(x)===cat).reduce((a,x)=>a+Number(x.valor||0),0)),
+   backgroundColor:colors[i%colors.length],
+   borderColor:colors[i%colors.length],
+   borderWidth:0,
+   borderRadius:3,
+   stack:'total'
+ }));
+ dashCharts[id]=new Chart(el,{
+   type:'bar',
+   data:{labels:months.map(monthAxisLabel),datasets},
+   options:chartOpts({stacked:true,indexMode:true,legend:true,temporal:true})
+ });
+}
+function temporalRevenueChart(id,months){
+ const items=data.receitas||[];
+ const groups=[...new Set(items.map(x=>x.pessoa||x.descricao||'Receita').filter(Boolean))];
+ if(!groups.length){canvasMessage(id,'Nenhuma receita cadastrada.');return}
+ const colors=shades('blue',Math.max(groups.length,6));
+ lineChart(id,groups.map((group,i)=>({
+   label:group,
+   data:months.map(month=>items.filter(x=>recordMonth(x)===month&&(x.pessoa||x.descricao||'Receita')===group).reduce((a,x)=>a+Number(x.valor||0),0)),
+   color:colors[i%colors.length],
+   pointRadius:3
+ })),months.map(monthAxisLabel),{temporal:true});
+}
 const investmentPalette=['#CC092F','#B81570','#333B8F','#4566A9','#7A577B','#D66B77','#8A7E82','#C59B55','#5E879B','#A54455'];
 function stackedInvestmentAllocation(id){
  const months=investmentMonths();
@@ -3483,7 +3603,7 @@ function stackedInvestmentAllocation(id){
  if(!categories.length){canvasMessage(id,'Nenhuma categoria registrada.');return}
  const el=document.getElementById(id);if(!el||el.offsetParent===null||typeof Chart==='undefined')return;
  destroyDashChart(id);
- const labels=months.map(m=>monthLabelPt(m).replace(' de ','/'));
+ const labels=months.map(monthAxisLabel);
  const datasets=categories.map((cat,i)=>({
    label:cat,
    data:months.map(m=>investmentPositionsForMonth(m).filter(x=>x.categoria===cat).reduce((a,x)=>a+Number(x.valor||0),0)),
@@ -3497,7 +3617,7 @@ function stackedInvestmentAllocation(id){
    type:'bar',
    data:{labels,datasets},
    options:{
-     ...chartOpts({stacked:true,indexMode:true,legend:true}),
+     ...chartOpts({stacked:true,indexMode:true,legend:true,temporal:true}),
      plugins:{
        ...chartOpts({stacked:true,indexMode:true,legend:true}).plugins,
        tooltip:{
@@ -3514,63 +3634,101 @@ function retirementHistoryChart(){
  lineChart('retirementGoalHistory',[
    {label:'Patrimônio registrado',data:hist.map(x=>x.actual),color:'#CC092F',borderWidth:2.6,pointRadius:3},
    {label:'Meta patrimonial',data:hist.map(x=>x.target),color:'#111111',dash:[5,5],borderWidth:1.8,pointRadius:2}
- ],hist.map(x=>monthLabelPt(x.month).replace(' de ','/')));
+ ],hist.map(x=>monthAxisLabel(x.month)),{temporal:true});
 }
 function drawDashboardCharts(){
  ensureDashboardMetadata();
- const month=currentMonthKey();
- const fixed=data.despesasFixas.filter(x=>recordMonth(x)===month),vars=data.despesasVariaveis.filter(x=>recordMonth(x)===month),revs=data.receitas.filter(x=>recordMonth(x)===month || (!x.data&&!x.mesReferencia));
- const parcels=data.parcelas||[],inv=data.investimentos||[];
+ const current=currentMonthKey();
+ const parcels=data.parcelas||[];
+ const allMonths=actualFinancialMonths();
 
- const revenue=revs.reduce((a,x)=>a+Number(x.valor||0),0);
- const fixedTotal=fixed.reduce((a,x)=>a+Number(x.valor||0),0),variableTotal=vars.reduce((a,x)=>a+Number(x.valor||0),0),parcelMonth=installmentMonthlyTotal(month);
- const expenses=fixedTotal+variableTotal+parcelMonth,available=Math.max(0,revenue-expenses);
+ // VISÃO GERAL — todos temporais
+ const revenuesByMonth=allMonths.map(m=>monthlySum(data.receitas,m));
+ const fixedByMonth=allMonths.map(m=>monthlySum(data.despesasFixas,m));
+ const variableByMonth=allMonths.map(m=>monthlySum(data.despesasVariaveis,m));
+ const installmentsByMonth=allMonths.map(m=>installmentMonthlyTotal(m));
+ const expensesByMonth=allMonths.map((m,i)=>fixedByMonth[i]+variableByMonth[i]+installmentsByMonth[i]);
+ const availableByMonth=allMonths.map((m,i)=>revenuesByMonth[i]-expensesByMonth[i]);
 
- if(revenue||expenses)barChart('overviewChart',[{label:'Valor',data:[revenue,expenses,available],color:['#4566A9','#CC092F','rgba(204,9,47,.22)']}],['Receitas','Despesas','Disponível']);
- else canvasMessage('overviewChart','Preencha receitas e despesas para visualizar o consolidado.');
+ if(allMonths.some((m,i)=>revenuesByMonth[i]||expensesByMonth[i])){
+   lineChart('overviewChart',[
+     {label:'Receitas',data:revenuesByMonth,color:'#4566A9',pointRadius:3},
+     {label:'Despesas',data:expensesByMonth,color:'#CC092F',pointRadius:3},
+     {label:'Disponível',data:availableByMonth,color:'#8A7E82',pointRadius:3}
+   ],allMonths.map(monthAxisLabel),{temporal:true});
+ }else canvasMessage('overviewChart','Preencha receitas e despesas para visualizar o histórico.');
 
- drawCategoryBar('overviewFixedChart',fixed,x=>x.categoria,'red');
- drawCategoryBar('overviewVariableChart',vars,x=>x.categoria,'red');
+ if(data.despesasFixas.length){
+   lineChart('overviewFixedChart',[
+     {label:'Gastos fixos',data:allMonths.map(m=>monthlySum(data.despesasFixas,m)),color:'#CC092F',pointRadius:3}
+   ],allMonths.map(monthAxisLabel),{temporal:true});
+ }else canvasMessage('overviewFixedChart','Ainda não há gastos fixos registrados.');
+
+ if(data.despesasVariaveis.length){
+   lineChart('overviewVariableChart',[
+     {label:'Gastos variáveis',data:allMonths.map(m=>monthlySum(data.despesasVariaveis,m)),color:'#B81570',pointRadius:3}
+   ],allMonths.map(monthAxisLabel),{temporal:true});
+ }else canvasMessage('overviewVariableChart','Ainda não há gastos variáveis registrados.');
 
  if(parcels.length){
-   const pMonths=Array.from({length:6},(_,i)=>shiftMonthKey(currentMonthKey(),i));
-   const values=pMonths.map(m=>installmentMonthlyTotal(m));
-   const labels=pMonths.map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3));
-   barChart('overviewInstallmentChart',[{label:'Compromisso mensal',data:values,color:'#B81570'}],labels);
+   const pMonths=Array.from({length:9},(_,i)=>shiftMonthKey(current,i));
+   barChart('overviewInstallmentChart',[
+     {label:'Compromisso mensal',data:pMonths.map(m=>installmentMonthlyTotal(m)),color:'#B81570'}
+   ],pMonths.map(monthAxisLabel),{temporal:true});
  }else canvasMessage('overviewInstallmentChart','Nenhuma parcela cadastrada.');
 
  stackedInvestmentAllocation('allocationChart');
 
- // Despesas: meses efetivamente existentes
- const expMonths=availableMonths([...data.despesasFixas,...data.despesasVariaveis]);
- if(expMonths.length){
-   const labels=expMonths.slice(-6).map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3));
-   const fixedVals=expMonths.slice(-6).map(m=>monthlySum(data.despesasFixas,m));
-   const varVals=expMonths.slice(-6).map(m=>monthlySum(data.despesasVariaveis,m));
-   lineChart('expenseEvolutionChart',[{label:'Gastos fixos',data:fixedVals,color:'#8A7E82'},{label:'Gastos variáveis',data:varVals,color:'#CC092F'}],labels);
- }else canvasMessage('expenseEvolutionChart','Ainda não há meses registrados.');
- drawCategoryBar('expenseCategoryChart',[...fixed,...vars],x=>x.categoria,'red');
+ // DESPESAS
+ const expenseMonths=continuousMonthRange([
+   ...(data.despesasFixas||[]).map(recordMonth),
+   ...(data.despesasVariaveis||[]).map(recordMonth)
+ ]);
+ if(expenseMonths.length){
+   lineChart('expenseEvolutionChart',[
+     {label:'Gastos fixos',data:expenseMonths.map(m=>monthlySum(data.despesasFixas,m)),color:'#8A7E82',pointRadius:3},
+     {label:'Gastos variáveis',data:expenseMonths.map(m=>monthlySum(data.despesasVariaveis,m)),color:'#CC092F',pointRadius:3}
+   ],expenseMonths.map(monthAxisLabel),{temporal:true});
+   temporalCategoryStackedChart(
+     'expenseCategoryChart',
+     [...data.despesasFixas,...data.despesasVariaveis],
+     expenseMonths,
+     x=>x.categoria,
+     'red'
+   );
+ }else{
+   canvasMessage('expenseEvolutionChart','Ainda não há meses registrados.');
+   canvasMessage('expenseCategoryChart','Ainda não há despesas registradas.');
+ }
 
- // Receitas
- const revGrouped=groupSum(revs,x=>x.pessoa||x.descricao||'Receita');
- if(revGrouped.length){
-   barChart('revenueChart',[{label:'Receita',data:revGrouped.map(x=>x[1]),color:shades('blue',revGrouped.length)}],revGrouped.map(x=>x[0].slice(0,14)));
-   pieChart('revenuePie',revGrouped.map(x=>x[1]),shades('blue',revGrouped.length),revGrouped.map(x=>x[0]));
- }else{canvasMessage('revenueChart','Nenhuma receita cadastrada.');canvasMessage('revenuePie','Nenhuma receita cadastrada.');}
+ // RECEITAS — evolução temporal; composição continua sendo o único gráfico não temporal
+ const revenueMonths=continuousMonthRange((data.receitas||[]).map(recordMonth));
+ if(revenueMonths.length){
+   temporalRevenueChart('revenueChart',revenueMonths);
+   const latestRevenueMonth=revenueMonths[revenueMonths.length-1];
+   const latestRevenues=(data.receitas||[]).filter(x=>recordMonth(x)===latestRevenueMonth);
+   const revGrouped=groupSum(latestRevenues,x=>x.pessoa||x.descricao||'Receita');
+   if(revGrouped.length){
+     pieChart('revenuePie',revGrouped.map(x=>x[1]),shades('blue',revGrouped.length),revGrouped.map(x=>x[0]));
+   }else canvasMessage('revenuePie','Nenhuma receita cadastrada.');
+ }else{
+   canvasMessage('revenueChart','Nenhuma receita cadastrada.');
+   canvasMessage('revenuePie','Nenhuma receita cadastrada.');
+ }
 
- // Parcelas
+ // PARCELAS — temporal
  if(parcels.length){
-   const months=Array.from({length:9},(_,i)=>shiftMonthKey(currentMonthKey(),i));
-   const vals=months.map(m=>installmentMonthlyTotal(m));
-   const labs=months.map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3)+(monthDiff(currentMonthKey(),m)>=12?'/'+m.slice(2,4):''));
-   barChart('installmentChart',[{label:'Parcelas do mês',data:vals,color:'#B81570'}],labs);
+   const months=Array.from({length:12},(_,i)=>shiftMonthKey(current,i));
+   barChart('installmentChart',[
+     {label:'Parcelas do mês',data:months.map(m=>installmentMonthlyTotal(m)),color:'#B81570'}
+   ],months.map(monthAxisLabel),{temporal:true});
  }else canvasMessage('installmentChart','Nenhuma parcela cadastrada.');
 
- // Investimentos
+ // INVESTIMENTOS — históricos temporais
  stackedInvestmentAllocation('investmentAllocation');
  retirementHistoryChart();
 
- // Projeção futura: parte da última posição efetivamente registrada
+ // PROJEÇÃO PATRIMONIAL — exceção solicitada: mantém eixo atual
  const a=data.aposentadoria||{};
  if(a.idadeAtual&&a.idadeAposentadoria&&a.anosUsufruto&&a.rendaMensalHoje){
    const m=retirementModel();
@@ -3627,7 +3785,6 @@ function refreshRecoveryButton(){
 setTimeout(refreshRecoveryButton,1200);
 
 showScreen('landing');
-if(!isRegisteredHost())document.getElementById('hostWarning')?.classList.remove('hidden');
 initMicrosoftAuth();
 </script>
 </body>
