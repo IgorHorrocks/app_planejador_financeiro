@@ -164,7 +164,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     <div class="login-status" id="loginStatus">
       Entre com sua conta Microsoft. No primeiro acesso, o aplicativo criará automaticamente o arquivo <b>organizador_financeiro.json</b> dentro da pasta privada do aplicativo no seu OneDrive.
     </div>
-    <div id="hostWarning" class="host-warning hidden"><b>Para testar o login real:</b> publique este arquivo como <b>index.html</b> em https://igorhorrocks.github.io/controle_financeiro/. Esse é o endereço cadastrado como SPA no Microsoft Entra.</div><div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
+    <div id="hostWarning" class="host-warning hidden"><b>Para testar o login real:</b> abra <b>https://igorhorrocks.github.io/app_planejador_financeiro/</b>. O arquivo <b>redirect.html</b> também precisa estar na raiz do repositório.</div><div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
   </div>
 </section>
 
@@ -457,9 +457,10 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <script>
 const STORE='cf_local_cache_dados_financeiros';
 const LOGIN_INTENT_KEY='cf_microsoft_login_intent';
-const CLIENT_ID='219bb9ea-ed0a-4ac0-9c28-16da10ada408';
-const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/controle_financeiro/';
+const CLIENT_ID='fd3cc9af-c84d-47c0-9c9a-7f663cfdd94e';
+const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/app_planejador_financeiro/';
 const GRAPH_SCOPES=['Files.ReadWrite.AppFolder'];
+const MSAL_REDIRECT_URI='https://igorhorrocks.github.io/app_planejador_financeiro/redirect.html';
 const GRAPH_BASE='https://graph.microsoft.com/v1.0';
 const JSON_FILENAME='organizador_financeiro.json';
 
@@ -556,10 +557,10 @@ function showScreen(name){
 }
 
 function isRegisteredHost(){
- return location.origin==='https://igorhorrocks.github.io' && location.pathname.startsWith('/controle_financeiro/');
+ return location.origin==='https://igorhorrocks.github.io' && location.pathname.startsWith('/app_planejador_financeiro/');
 }
 function authRedirectUri(){
- return REGISTERED_REDIRECT_URI;
+ return MSAL_REDIRECT_URI;
 }
 async function initMicrosoftAuth(){
  try{
@@ -568,21 +569,12 @@ async function initMicrosoftAuth(){
      auth:{
        clientId:CLIENT_ID,
        authority:'https://login.microsoftonline.com/common',
-       redirectUri:authRedirectUri(),
-       postLogoutRedirectUri:authRedirectUri()
+       redirectUri:MSAL_REDIRECT_URI,
+       postLogoutRedirectUri:REGISTERED_REDIRECT_URI
      },
      cache:{cacheLocation:msalModule.BrowserCacheLocation.LocalStorage}
    });
    await msalInstance.initialize();
-   const redirectResult=await msalInstance.handleRedirectPromise();
-   if(redirectResult?.account){
-     activeMicrosoftAccount=redirectResult.account;
-     msalInstance.setActiveAccount(activeMicrosoftAccount);
-     const intent=localStorage.getItem(LOGIN_INTENT_KEY)||'existing';
-     localStorage.removeItem(LOGIN_INTENT_KEY);
-     await completeMicrosoftLogin(intent,redirectResult);
-     return;
-   }
    const accounts=msalInstance.getAllAccounts();
    if(accounts.length){
      activeMicrosoftAccount=accounts[0];
@@ -595,14 +587,28 @@ async function initMicrosoftAuth(){
 }
 async function startMicrosoftLogin(mode){
  if(!isRegisteredHost()){
-   setLoginStatus('error','<b>O login real precisa ser testado no endereço registrado.</b><br>Publique este arquivo como <b>index.html</b> em '+REGISTERED_REDIRECT_URI+' e tente novamente.');
+   setLoginStatus('error','<b>O login real precisa ser testado no endereço publicado.</b><br>Abra '+REGISTERED_REDIRECT_URI+' e tente novamente.');
    return;
  }
  if(!msalInstance) await initMicrosoftAuth();
  accessMode=mode;
- localStorage.setItem(LOGIN_INTENT_KEY,mode);
  setLoginStatus('working','Abrindo a Microsoft para autenticação…');
- await msalInstance.loginRedirect({scopes:GRAPH_SCOPES,prompt:'select_account'});
+ try{
+   const result=await msalInstance.loginPopup({
+     scopes:GRAPH_SCOPES,
+     prompt:'select_account',
+     redirectUri:MSAL_REDIRECT_URI
+   });
+   activeMicrosoftAccount=result.account;
+   msalInstance.setActiveAccount(activeMicrosoftAccount);
+   await completeMicrosoftLogin(mode,result);
+ }catch(err){
+   console.error('Falha no login Microsoft',err);
+   const msg=(err?.errorCode==='user_cancelled')
+     ? 'O login foi cancelado.'
+     : 'Não foi possível concluir o login Microsoft. Verifique se o Redirect URI e a permissão do Microsoft Graph estão configurados no Entra.';
+   setLoginStatus('error','<b>'+msg+'</b><br>'+escapeHtml(err?.message||''));
+ }
 }
 async function getGraphToken(){
  if(!msalInstance) await initMicrosoftAuth();
@@ -612,10 +618,13 @@ async function getGraphToken(){
    const result=await msalInstance.acquireTokenSilent({scopes:GRAPH_SCOPES,account});
    return result.accessToken;
  }catch(err){
-   console.error('Token silencioso indisponível',err);
-   localStorage.setItem(LOGIN_INTENT_KEY,'resume');
-   await msalInstance.acquireTokenRedirect({scopes:GRAPH_SCOPES,account});
-   throw err;
+   console.warn('Token silencioso indisponível; solicitando novamente.',err);
+   const result=await msalInstance.acquireTokenPopup({
+     scopes:GRAPH_SCOPES,
+     account,
+     redirectUri:MSAL_REDIRECT_URI
+   });
+   return result.accessToken;
  }
 }
 async function graphFetch(url,options={}){
