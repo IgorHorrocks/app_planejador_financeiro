@@ -600,8 +600,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 #dashVariablePane .original-table td:nth-child(5){width:18%;text-align:right!important}
 
 /* Demais tabelas */
-#screen-dashboard .reference-table-card .original-table td:last-child,
-#screen-dashboard .reference-table-card .original-table th:last-child{
+#screen-dashboard .reference-table-card .original-table td:last-child{
   text-align:right!important;
 }
 
@@ -999,6 +998,117 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
   }
   #screen-dashboard .installment-table{min-width:0!important}
   #screen-dashboard .compact-add-btn{display:none}
+}
+
+
+/* ===== v12: alternância à esquerda + cabeçalhos 100% uniformes ===== */
+
+/* Alternância de despesas: título e botões ficam agrupados à esquerda */
+#screen-dashboard .expense-switcher-head{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-start!important;
+  gap:9px!important;
+  margin-bottom:10px!important;
+}
+#screen-dashboard .expense-toggle{
+  align-self:flex-start!important;
+  margin:0!important;
+}
+#screen-dashboard .expense-toggle button{
+  min-width:96px;
+  text-align:center;
+}
+
+/* 
+   A classe .num também é usada em outra parte do onboarding para bolinhas numeradas.
+   Dentro das tabelas ela precisa ser completamente neutralizada, senão Valor/Ações
+   herdam width/height/border-radius/display:grid e ficam com aparência circular.
+*/
+#screen-dashboard table th.num,
+#screen-dashboard table td.num,
+.calc-table th.num,
+.calc-table td.num{
+  width:auto!important;
+  height:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:11px 12px!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:inherit!important;
+  display:table-cell!important;
+  place-items:initial!important;
+  font-weight:inherit!important;
+  text-align:right!important;
+  white-space:nowrap!important;
+}
+
+/* Cabeçalho único para TODAS as tabelas do HTML */
+#screen-dashboard table thead th,
+.calc-table thead th{
+  box-sizing:border-box!important;
+  position:sticky!important;
+  top:0!important;
+  z-index:2!important;
+  height:42px!important;
+  min-height:42px!important;
+  padding:11px 12px!important;
+  margin:0!important;
+  border-radius:0!important;
+  border-top:0!important;
+  border-right:0!important;
+  border-left:0!important;
+  border-bottom:1px solid #E5CDD3!important;
+  background:#F5E8EB!important;
+  color:#6E3542!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+  font-weight:850!important;
+  letter-spacing:.02em!important;
+  text-transform:none!important;
+  white-space:nowrap!important;
+  display:table-cell!important;
+  vertical-align:middle!important;
+}
+
+/* Valor e ações mantêm o mesmo fundo/cor dos demais cabeçalhos */
+#screen-dashboard table thead th.num,
+.calc-table thead th.num{
+  background:#F5E8EB!important;
+  color:#6E3542!important;
+  font-weight:850!important;
+}
+
+/* primeira/última coluna não ganham estilo independente */
+#screen-dashboard table thead th:first-child,
+#screen-dashboard table thead th:last-child,
+.calc-table thead th:first-child,
+.calc-table thead th:last-child{
+  border-radius:0!important;
+  background:#F5E8EB!important;
+}
+
+/* bordas arredondadas pertencem ao container, nunca à célula do cabeçalho */
+#screen-dashboard .table-container,
+.calc-table-wrap{
+  overflow:hidden auto;
+}
+#screen-dashboard .table-container{
+  overflow-x:auto;
+}
+
+/* No mobile, manter os botões à esquerda antes dos cards */
+@media(max-width:760px){
+  #screen-dashboard .expense-switcher-head{
+    align-items:flex-start!important;
+  }
+  #screen-dashboard .expense-toggle{
+    width:auto!important;
+    max-width:100%;
+  }
 }
 
 </style>
