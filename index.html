@@ -457,6 +457,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <script>
 const STORE='cf_local_cache_dados_financeiros';
 const LOGIN_INTENT_KEY='cf_microsoft_login_intent';
+const LOGIN_INTENT_SESSION_KEY='cf_microsoft_login_intent_session';
 const CLIENT_ID='fd3cc9af-c84d-47c0-9c9a-7f663cfdd94e';
 const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/app_planejador_financeiro/';
 const GRAPH_SCOPES=['Files.ReadWrite.AppFolder'];
@@ -470,6 +471,8 @@ let activeMicrosoftAccount=null;
 let appRootId=null;
 let appRootWebUrl=null;
 let cloudReady=false;
+let bootstrapGraphToken=null;
+let bootstrapGraphTokenExpiresAt=0;
 let syncChain=Promise.resolve();
 
 function emptyData(){
@@ -561,6 +564,26 @@ function isRegisteredHost(){
 function authRedirectUri(){
  return 'https://igorhorrocks.github.io/app_planejador_financeiro/';
 }
+
+function rememberLoginIntent(mode){
+ localStorage.setItem(LOGIN_INTENT_KEY,mode);
+ try{sessionStorage.setItem(LOGIN_INTENT_SESSION_KEY,mode)}catch(e){}
+}
+function readLoginIntent(){
+ let intent=null;
+ try{intent=sessionStorage.getItem(LOGIN_INTENT_SESSION_KEY)}catch(e){}
+ return intent||localStorage.getItem(LOGIN_INTENT_KEY)||'auto';
+}
+function clearLoginIntent(){
+ localStorage.removeItem(LOGIN_INTENT_KEY);
+ try{sessionStorage.removeItem(LOGIN_INTENT_SESSION_KEY)}catch(e){}
+}
+function rememberBootstrapToken(result){
+ if(result?.accessToken){
+   bootstrapGraphToken=result.accessToken;
+   bootstrapGraphTokenExpiresAt=(result.expiresOn instanceof Date?result.expiresOn.getTime():Date.now()+5*60*1000);
+ }
+}
 async function initMicrosoftAuth(){
  try{
    msalModule=await import('https://cdn.jsdelivr.net/npm/@azure/msal-browser@5.21.0/+esm');
@@ -579,9 +602,15 @@ async function initMicrosoftAuth(){
    if(redirectResult?.account){
      activeMicrosoftAccount=redirectResult.account;
      msalInstance.setActiveAccount(activeMicrosoftAccount);
-     const intent=localStorage.getItem(LOGIN_INTENT_KEY)||'existing';
-     localStorage.removeItem(LOGIN_INTENT_KEY);
-     await completeMicrosoftLogin(intent,redirectResult);
+     rememberBootstrapToken(redirectResult);
+     accessMode=readLoginIntent();
+
+     document.getElementById('loginTitle').textContent='Conexão Microsoft concluída.';
+     document.getElementById('loginLead').innerHTML='Estamos preparando seu <b>organizador_financeiro.json</b> no OneDrive.';
+     setLoginStatus('working','<b>Login realizado.</b><br>Conectando ao seu OneDrive…');
+     showScreen('login');
+
+     await completeMicrosoftLogin(accessMode,redirectResult);
      return;
    }
 
@@ -592,7 +621,8 @@ async function initMicrosoftAuth(){
    }
  }catch(err){
    console.error('Falha ao inicializar MSAL',err);
-   setLoginStatus('error','<b>Não foi possível carregar a autenticação Microsoft.</b><br>Verifique sua conexão com a internet e recarregue a página.');
+   showScreen('login');
+   setLoginStatus('error','<b>Não foi possível concluir a autenticação Microsoft.</b><br>'+escapeHtml(err?.message||String(err)));
  }
 }
 async function startMicrosoftLogin(mode){
@@ -602,7 +632,7 @@ async function startMicrosoftLogin(mode){
  }
  if(!msalInstance) await initMicrosoftAuth();
  accessMode=mode;
- localStorage.setItem(LOGIN_INTENT_KEY,mode);
+ rememberLoginIntent(mode);
  setLoginStatus('working','Redirecionando para a Microsoft…');
  try{
    await msalInstance.loginRedirect({
@@ -612,26 +642,24 @@ async function startMicrosoftLogin(mode){
    });
  }catch(err){
    console.error('Falha no login Microsoft',err);
-   localStorage.removeItem(LOGIN_INTENT_KEY);
+   clearLoginIntent();
    setLoginStatus('error','<b>Não foi possível iniciar o login Microsoft.</b><br>'+escapeHtml(err?.message||''));
  }
 }
 async function getGraphToken(){
+ if(bootstrapGraphToken && Date.now() < bootstrapGraphTokenExpiresAt-30000){
+   return bootstrapGraphToken;
+ }
  if(!msalInstance) await initMicrosoftAuth();
  const account=msalInstance.getActiveAccount()||activeMicrosoftAccount||msalInstance.getAllAccounts()[0];
  if(!account) throw new Error('Nenhuma conta Microsoft autenticada.');
  try{
    const result=await msalInstance.acquireTokenSilent({scopes:GRAPH_SCOPES,account});
+   rememberBootstrapToken(result);
    return result.accessToken;
  }catch(err){
-   console.warn('Token silencioso indisponível; novo consentimento pode ser necessário.',err);
-   localStorage.setItem(LOGIN_INTENT_KEY,'resume');
-   await msalInstance.acquireTokenRedirect({
-     scopes:GRAPH_SCOPES,
-     account,
-     redirectUri:authRedirectUri()
-   });
-   throw err;
+   console.error('Não foi possível obter token do Microsoft Graph',err);
+   throw new Error('A conta foi autenticada, mas o acesso ao OneDrive não foi autorizado. Confirme a permissão delegada Files.ReadWrite.AppFolder no Microsoft Entra e tente novamente.');
  }
 }
 async function graphFetch(url,options={}){
@@ -689,40 +717,64 @@ function normalizeLoadedData(obj){
 }
 async function completeMicrosoftLogin(intent,loginResult){
  try{
-   setLoginStatus('working','<b>Microsoft conectada.</b><br>Preparando sua pasta privada no OneDrive…');
+   showScreen('login');
+   setLoginStatus('working','<b>Microsoft conectada.</b><br>Acessando a pasta privada do aplicativo no seu OneDrive…');
+
    activeMicrosoftAccount=loginResult?.account||msalInstance.getActiveAccount();
    if(activeMicrosoftAccount) msalInstance.setActiveAccount(activeMicrosoftAccount);
+   rememberBootstrapToken(loginResult);
+
    await ensureAppRoot();
    cloudReady=true;
+   setCloudStatus('connected','OneDrive conectado');
+
+   setLoginStatus('working','<b>OneDrive conectado.</b><br>Verificando <b>'+JSON_FILENAME+'</b>…');
+   const existing=await readJsonFromOneDrive();
+
+   if(intent==='auto') intent=existing?'existing':'first';
+
    if(intent==='first'){
-     const existing=await readJsonFromOneDrive().catch(err=>{if(String(err).includes('(404)'))return null;throw err});
      if(existing){
-       setLoginStatus('error','<b>Já existe um organizador_financeiro.json nesta conta.</b><br>Para evitar sobrescrever seus dados, use a opção “Já tenho uma conta”.');
+       clearLoginIntent();
+       setLoginStatus('error','<b>Já existe um '+JSON_FILENAME+' nesta conta.</b><br>Para não sobrescrever seus dados, volte e escolha “Já tenho uma conta”.');
        return;
      }
+
+     setLoginStatus('working','<b>Pasta encontrada.</b><br>Criando seu organizador financeiro…');
      data=emptyData();
      await uploadJsonToOneDrive(data);
      cacheLocal();
-     setLoginStatus('success','<b>✓ Tudo certo.</b><br>Seu organizador financeiro foi criado no OneDrive como <b>'+JSON_FILENAME+'</b>. Agora podemos começar.');
-     setTimeout(()=>{resetFirstAccessForms();showScreen('step1')},850);
-   }else if(intent==='resume'){
-     const loaded=await readJsonFromOneDrive();
-     if(loaded){data=normalizeLoadedData(loaded);cacheLocal();resumeFromLoadedData()}
-   }else{
-     const loaded=await readJsonFromOneDrive();
-     if(!loaded){
+     clearLoginIntent();
+
+     setLoginStatus('success','<b>✓ Organizador criado com sucesso.</b><br>O arquivo <b>'+JSON_FILENAME+'</b> já está salvo no OneDrive. Abrindo a primeira etapa…');
+     setTimeout(()=>{
+       resetFirstAccessForms();
+       showScreen('step1');
+     },600);
+     return;
+   }
+
+   if(intent==='existing' || intent==='resume'){
+     if(!existing){
+       clearLoginIntent();
        setLoginStatus('error','<b>Não encontramos o '+JSON_FILENAME+'.</b><br>Se este é seu primeiro acesso, volte e escolha “É meu primeiro acesso”.');
        return;
      }
-     data=normalizeLoadedData(loaded);cacheLocal();
-     setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Carregando seu Controle Financeiro…');
-     setTimeout(resumeFromLoadedData,650);
+     data=normalizeLoadedData(existing);
+     cacheLocal();
+     clearLoginIntent();
+     setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Carregando suas informações…');
+     setTimeout(resumeFromLoadedData,450);
+     return;
    }
+
+   throw new Error('Não foi possível determinar o tipo de acesso.');
  }catch(err){
-   console.error(err);
+   console.error('Falha ao preparar OneDrive',err);
    cloudReady=false;
    setCloudStatus('error','OneDrive desconectado');
-   setLoginStatus('error','<b>Não foi possível concluir a conexão com o OneDrive.</b><br>'+escapeHtml(err.message||String(err)));
+   showScreen('login');
+   setLoginStatus('error','<b>Não foi possível preparar seu organizador financeiro.</b><br>'+escapeHtml(err?.message||String(err))+'<br><br><small>Confirme no Entra a permissão <b>Files.ReadWrite.AppFolder</b>.</small>');
  }
 }
 function prefillNameFromMicrosoft(){
@@ -782,7 +834,7 @@ document.getElementById('existingAccessBtn').onclick=()=>{
  setLoginStatus('','Entre com sua conta Microsoft para carregar seus dados.');
  showScreen('login');
 };
-document.getElementById('loginBack').onclick=()=>showScreen('landing');
+document.getElementById('loginBack').onclick=()=>{clearLoginIntent();showScreen('landing')};
 document.getElementById('microsoftLoginBtn').onclick=()=>startMicrosoftLogin(accessMode);
 
 document.querySelectorAll('[data-prev]').forEach(b=>b.onclick=()=>showScreen(b.dataset.prev));
