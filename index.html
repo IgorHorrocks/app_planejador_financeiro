@@ -122,6 +122,149 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 .login-status.working{background:#fff8e8;border-color:#f0dfae;color:#735d30}
 .host-warning{margin-top:12px;background:#fff8e8;border:1px solid #f0dfae;border-radius:12px;padding:11px 12px;font-size:11px;line-height:1.5;color:#735d30}
 
+
+.empty-table{text-align:center!important;color:#8a9099;padding:18px!important}
+#screen-dashboard .original-filterbar{margin-bottom:9px}
+#screen-dashboard .original-filter-group select{height:34px;border-radius:7px}
+#screen-dashboard .expense-switcher{margin-top:10px}
+/* ===== Dashboard — alinhado ao Controle Financeiro de referência ===== */
+#screen-dashboard{
+  --cf-brand:#c41446;
+  --cf-brand-dark:#9f1039;
+  --cf-expense:#cf3156;
+  --cf-blue:#3f6fa3;
+  --cf-blue-soft:#7896b7;
+  --cf-sidebar:#20232a;
+  --cf-sidebar-2:#17191f;
+  --cf-bg:#f4f5f7;
+  --cf-line:#e1e4e9;
+  --cf-muted:#737b87;
+  --cf-green:#147a52;
+  background:var(--cf-bg);
+}
+#screen-dashboard .dash-shell{grid-template-columns:218px minmax(0,1fr)}
+#screen-dashboard .sidebar{
+  background:linear-gradient(180deg,var(--cf-sidebar),var(--cf-sidebar-2));
+  padding:18px 12px;color:#fff
+}
+#screen-dashboard .side-logo{padding:4px 8px 18px;align-items:center}
+#screen-dashboard .side-logo .mark{width:31px;height:31px;border-radius:8px;background:var(--cf-brand);font-size:10px}
+#screen-dashboard .side-logo div{display:grid;gap:1px}
+#screen-dashboard .side-logo strong{font-size:12px}
+#screen-dashboard .side-logo small{font-size:8px;color:#989faa;font-weight:600}
+#screen-dashboard .side-section-label{padding:8px 11px 6px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#777f8b;font-weight:800}
+#screen-dashboard .nav{gap:2px}
+#screen-dashboard .nav button{
+  border-radius:7px;padding:9px 11px;color:#b9bec7;font-size:10.5px;font-weight:700
+}
+#screen-dashboard .nav button:hover{background:#ffffff08;color:#fff}
+#screen-dashboard .nav button.active{
+  background:#ffffff0d;color:#fff;box-shadow:inset 3px 0 0 var(--cf-brand)
+}
+#screen-dashboard .side-bottom button{border-color:#3c414a;border-radius:8px;font-size:10px}
+#screen-dashboard .dash-top{
+  height:56px;padding:0 22px;border-bottom:1px solid var(--cf-line);box-shadow:0 1px 3px rgba(20,25,35,.025)
+}
+#screen-dashboard .dash-title{font-size:12px}
+#screen-dashboard .dash-content{padding:20px 22px 45px;background:var(--cf-bg)}
+#screen-dashboard .dash-heading{margin-bottom:13px}
+#screen-dashboard .dash-heading h1{font-size:20px;letter-spacing:-.02em}
+#screen-dashboard .dash-heading p{font-size:10px}
+#screen-dashboard .dash-kpis{gap:9px}
+#screen-dashboard .dash-kpi,
+#screen-dashboard .dash-card{
+  border:1px solid var(--cf-line);
+  border-radius:10px;
+  box-shadow:0 1px 3px rgba(20,25,35,.025);
+  background:#fff
+}
+#screen-dashboard .dash-kpi{padding:12px 13px}
+#screen-dashboard .dash-kpi small{font-size:8.5px;margin-bottom:5px;color:var(--cf-muted)}
+#screen-dashboard .dash-kpi strong{font-size:17px}
+#screen-dashboard .dash-kpi em{font-size:8.5px}
+#screen-dashboard .dash-card{padding:14px}
+#screen-dashboard .dash-card h3{font-size:11px}
+#screen-dashboard .dash-card .sub{font-size:9px}
+#screen-dashboard .chart-canvas{height:225px}
+#screen-dashboard .reference-period,
+#screen-dashboard .original-pill{font-size:8px;background:#eef1f4;border:1px solid #e1e4e8;color:#66707d;border-radius:999px;padding:5px 8px;font-weight:750}
+#screen-dashboard .dash-primary-btn{
+  border:0;border-radius:7px;background:var(--cf-brand);color:#fff;padding:8px 10px;min-height:33px;font-size:9px;font-weight:800
+}
+#screen-dashboard .dash-primary-btn:hover{background:var(--cf-brand-dark)}
+#screen-dashboard .dash-secondary-btn{
+  border:1px solid #d9dde3;border-radius:7px;background:#fff;color:#475160;padding:7px 9px;min-height:33px;font-size:9px;font-weight:750
+}
+#screen-dashboard .reference-chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+#screen-dashboard .dashboard-section-title{margin:15px 0 7px}
+#screen-dashboard .dashboard-section-title h2{font-size:11.5px;margin:0 0 2px}
+#screen-dashboard .dashboard-section-title p{font-size:9px;color:var(--cf-muted);margin:0}
+#screen-dashboard .retire-focus{background:#fff9fb;border-color:#ebc9d3}
+#screen-dashboard .retire-focus strong{color:var(--cf-brand)}
+
+/* gamificação do aporte — elemento novo preservado do planejador */
+#screen-dashboard .retirement-game-card{
+  margin-top:10px;background:#fff;border:1px solid #e6cdd5;border-left:4px solid var(--cf-brand);
+  border-radius:10px;padding:14px 15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 22px
+}
+#screen-dashboard .game-copy h3{font-size:12px;margin:2px 0 4px}
+#screen-dashboard .game-copy p{font-size:9.5px;color:#67707c;margin:0}
+#screen-dashboard .game-eyebrow{font-size:7.5px;color:var(--cf-brand);letter-spacing:.08em;font-weight:900}
+#screen-dashboard .game-numbers{display:flex;gap:24px}
+#screen-dashboard .game-numbers small{display:block;font-size:7.5px;color:#7b838e;margin-bottom:3px}
+#screen-dashboard .game-numbers strong{font-size:15px}
+#screen-dashboard .game-progress-line{grid-column:1/-1;display:flex;justify-content:space-between;font-size:8.5px;color:#6a7380}
+#screen-dashboard .game-progress-line span:first-child{font-weight:900;color:var(--cf-brand)}
+#screen-dashboard .game-progress{grid-column:1/-1;height:7px;background:#f0e8eb;border-radius:999px;overflow:hidden}
+#screen-dashboard .game-progress div{height:100%;background:var(--cf-brand);width:0;border-radius:999px;transition:.3s}
+
+/* despesas */
+#screen-dashboard .expense-toggle{background:#eef0f3}
+#screen-dashboard .expense-toggle button.active{background:var(--cf-expense)}
+#screen-dashboard .fixed-progress-track div{background:var(--cf-green)}
+#screen-dashboard .fixed-mini.paid strong{color:var(--cf-green)}
+#screen-dashboard .fixed-mini.pending strong{color:var(--cf-expense)}
+#screen-dashboard .pay-status.paid{background:#e9f8f1;color:#0f7751}
+#screen-dashboard .pay-status.pending{background:#fff0f3;color:#a51c3f}
+#screen-dashboard .danger-icon{color:#af193d}
+
+/* investimentos / gráficos */
+#screen-dashboard .legend-retirement{background:var(--cf-brand)}
+#screen-dashboard .legend-goal{background:#22252b}
+#screen-dashboard .projection-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+#screen-dashboard .reference-table-card{margin-top:10px}
+#screen-dashboard .original-invest-card{margin-top:10px}
+#screen-dashboard .original-tall-chart{height:280px}
+#screen-dashboard .original-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+#screen-dashboard .original-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:9px}
+#screen-dashboard .original-chart-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:8px}
+#screen-dashboard .original-chart-head h3{font-size:11px;margin:0 0 2px}
+#screen-dashboard .original-chart-head p{font-size:8.5px;color:var(--cf-muted);margin:0}
+#screen-dashboard .original-table th{font-size:7.5px}
+#screen-dashboard .original-table td{font-size:9.5px}
+#screen-dashboard .original-table-wrap{max-height:350px}
+
+/* dashboard responsivo */
+@media(max-width:980px){
+ #screen-dashboard .reference-chart-grid{grid-template-columns:1fr}
+ #screen-dashboard .original-grid4{grid-template-columns:1fr 1fr}
+ #screen-dashboard .retirement-game-card{grid-template-columns:1fr}
+ #screen-dashboard .game-numbers{justify-content:flex-start}
+}
+@media(max-width:760px){
+ #screen-dashboard .dash-shell{grid-template-columns:1fr}
+ #screen-dashboard .sidebar{position:relative;height:auto;display:block}
+ #screen-dashboard .nav{grid-template-columns:repeat(3,1fr)}
+ #screen-dashboard .side-bottom{position:static;margin-top:10px}
+ #screen-dashboard .dash-top{position:relative}
+ #screen-dashboard .dash-user .cloud-status{display:none}
+}
+@media(max-width:520px){
+ #screen-dashboard .nav{grid-template-columns:1fr 1fr}
+ #screen-dashboard .original-grid4,#screen-dashboard .original-grid3{grid-template-columns:1fr}
+ #screen-dashboard .game-numbers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+}
+
 </style>
 </head>
 <body>
@@ -300,8 +443,8 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
    <div class="divider"></div>
    <div class="card-head"><div><h3 class="subsection-title" style="margin:0 0 4px">Agora cadastre suas despesas fixas</h3><p class="desc">Use as categorias definidas acima e informe descrição e valor mensal.</p></div><span class="badge">PREENCHA AGORA</span></div>
    <div class="rows" id="fixedRows"><div class="data-row row-head"><span>Categoria</span><span>Descrição</span><span>Valor mensal</span><span></span></div>
-    <div class="data-row data"><select><option selected>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Condomínio"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="650"></div><button class="del">×</button></div>
-    <div class="data-row data"><select><option>Moradia</option><option selected>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Internet"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="120"></div><button class="del">×</button></div>
+    <div class="data-row data"><select class="fixedCat"><option selected>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Condomínio"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="650"></div><button class="del">×</button></div>
+    <div class="data-row data"><select class="fixedCat"><option>Moradia</option><option selected>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input value="Internet"><div class="money"><span>R$</span><input class="moneyField fixedValue" inputmode="numeric" value="120"></div><button class="del">×</button></div>
    </div>
    <button class="add" id="addFixed">+ Adicionar despesa fixa</button><div class="total-line">Despesas fixas informadas <strong id="fixedTotal">R$ 770</strong></div>
   </div>
@@ -372,7 +515,8 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
 <section id="screen-dashboard" class="screen hidden">
  <div class="dash-shell">
   <aside class="sidebar">
-   <div class="side-logo"><div class="mark">CF</div>Controle Financeiro</div>
+   <div class="side-logo"><span class="mark">CF</span><div><strong>Controle Financeiro</strong><small>Organizador + Planejamento</small></div></div>
+   <div class="side-section-label">Navegação</div>
    <nav class="nav">
     <button class="active" data-tab="overview">Visão Geral</button>
     <button data-tab="expenses">Despesas</button>
@@ -381,80 +525,125 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(201
     <button data-tab="investments">Investimentos</button>
     <button data-tab="settings">Configuração / Importação</button>
    </nav>
-   <div class="side-bottom"><button id="backToLanding">Sair da demonstração</button></div>
+   <div class="side-bottom"><button id="backToLanding">Sair da conta</button></div>
   </aside>
-  <div class="dash-main">
-   <div class="dash-top"><div class="dash-title" id="dashTitle">Visão Geral</div><div class="dash-user"><span id="dashboardCloudStatus" class="cloud-status connected"><i></i><span>OneDrive conectado</span></span><div class="avatar" id="avatar">L</div><span id="dashUser">Laura</span></div></div>
-   <main class="dash-content">
+
+  <main class="dash-main">
+   <div class="dash-top">
+    <div class="dash-title" id="dashTitle">Visão Geral</div>
+    <div class="dash-user">
+     <span id="dashboardCloudStatus" class="cloud-status connected"><i></i><span>OneDrive conectado</span></span>
+     <div class="avatar" id="avatar">U</div><span id="dashUser">Usuário</span>
+    </div>
+   </div>
+
+   <div class="dash-content">
     <section id="tab-overview" class="dash-section active">
-     <div class="dash-heading"><div><h1>Visão Geral</h1><p>Uma leitura rápida do seu mês e do seu patrimônio.</p></div><div class="period"><button>3m</button><button class="active">6m</button><button>12m</button><button>Todo histórico</button></div></div>
-     <div class="dash-kpis"><div class="dash-kpi"><small>Média de receitas · 3 meses</small><strong>R$ 14.450</strong><em>+2,8% vs. trimestre anterior</em></div><div class="dash-kpi"><small>Média de despesas · 3 meses</small><strong>R$ 9.180</strong><em>63,5% da renda média</em></div><div class="dash-kpi"><small>Parcelas futuras</small><strong>R$ 7.940</strong><em>saldo projetado</em></div><div class="dash-kpi retire-focus"><small>Patrimônio total</small><strong>R$ 570.000</strong><em>inclui bens e objetivos diversos</em></div></div>
-     <div class="chart-grid"><div class="dash-card"><h3>Consolida Resultado</h3><p class="sub">Receitas, gastos e sobra mensal</p><canvas id="overviewChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Alocação de capital ao longo do tempo</h3><p class="sub">Composição do patrimônio financeiro</p><canvas id="allocationChart" class="chart-canvas"></canvas></div></div>
-     <div class="chart-grid"><div class="dash-card retire-focus"><h3>Aposentadoria</h3><p class="sub">Patrimônio visando aposentadoria × meta definida</p><div class="split-2"><div><small style="color:var(--muted);font-size:10px">Hoje</small><div style="font-size:21px;font-weight:850;color:var(--brand);margin-top:4px">R$ 100.000</div></div><div><small style="color:var(--muted);font-size:10px">Aporte estimado</small><div style="font-size:21px;font-weight:850;margin-top:4px">R$ 2.298/mês</div></div></div><div class="bar" style="margin-top:18px"><div style="width:7%"></div></div><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px"><span>Patrimônio visando aposentadoria</span><span>Meta: ~R$ 1,46 mi</span></div></div><div class="dash-card"><h3>Próximo passo</h3><p class="sub">O que merece sua atenção</p><div class="callout warn" style="margin-top:0"><b>Complete seu primeiro mês de gastos variáveis.</b> A partir disso, conseguiremos comparar sua capacidade real de aporte com o plano de aposentadoria.</div></div></div>
+     <div class="dash-heading">
+      <div><h1>Visão Geral</h1><p>Resumo construído com as informações do seu organizador financeiro.</p></div>
+      <span class="reference-period" id="dashReferenceMonth">Dados atuais</span>
+     </div>
+
+     <div class="dash-kpis">
+      <div class="dash-kpi"><small>Receitas mensais informadas</small><strong id="ovRevenue">—</strong><em id="ovRevenueNote">Base disponível</em></div>
+      <div class="dash-kpi"><small>Despesas conhecidas</small><strong id="ovExpenses">—</strong><em>Fixas + variáveis + parcelas cadastradas</em></div>
+      <div class="dash-kpi"><small>Parcelas futuras</small><strong id="ovInstallments">—</strong><em>Compromissos já cadastrados</em></div>
+      <div class="dash-kpi"><small>Patrimônio</small><strong id="ovPatrimony">—</strong><em>Financeiro + outros bens informados</em></div>
+     </div>
+
+     <div class="retirement-game-card">
+      <div class="game-copy">
+       <span class="game-eyebrow">META DO MÊS</span>
+       <h3>Aporte para aposentadoria</h3>
+       <p id="dashContributionSentence">Aguardando sua meta de aposentadoria.</p>
+      </div>
+      <div class="game-numbers">
+       <div><small>Aporte informado</small><strong id="dashContributionCurrent">—</strong></div>
+       <div><small>Aporte esperado</small><strong id="dashContributionExpected">—</strong></div>
+      </div>
+      <div class="game-progress-line"><span id="dashContributionPct">0%</span><span id="dashContributionGap">—</span></div>
+      <div class="game-progress"><div id="dashContributionBar"></div></div>
+     </div>
+
+     <div class="dashboard-section-title"><h2>Consolida resultados</h2><p>Receitas, despesas conhecidas e valor disponível com os dados atuais.</p></div>
+     <div class="dash-card"><canvas id="overviewChart" class="chart-canvas"></canvas></div>
+
+     <div class="reference-chart-grid">
+      <div class="dash-card"><h3>Gastos fixos</h3><p class="sub">Composição atual por categoria.</p><canvas id="overviewFixedChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Gastos variáveis</h3><p class="sub">Os lançamentos passam a aparecer aqui conforme forem cadastrados.</p><canvas id="overviewVariableChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Parcelas</h3><p class="sub">Comprometimento futuro já registrado.</p><canvas id="overviewInstallmentChart" class="chart-canvas"></canvas></div>
+      <div class="dash-card"><h3>Alocação de capital</h3><p class="sub">Composição do patrimônio financeiro informado.</p><canvas id="allocationChart" class="chart-canvas"></canvas></div>
+     </div>
     </section>
 
     <section id="tab-expenses" class="dash-section">
-     <div class="dash-heading"><div><h1>Despesas</h1><p>Despesas fixas e variáveis com gestão contextual, como no dashboard original.</p></div><button class="dash-green-btn" id="dashTopAddVariable" type="button">+ Adicionar despesa variável</button></div>
-     <div class="original-filterbar"><div class="original-filter-group"><select id="dashExpenseTypeFilter"><option value="all">Fixas + variáveis</option><option value="fixas">Somente fixas</option><option value="variaveis">Somente variáveis</option></select><select id="dashExpenseCategoryFilter"><option value="all">Todas as categorias</option><option>Moradia</option><option>Contas da casa</option><option>Mercado</option><option>Alimentação</option><option>Transporte</option><option>Lazer</option></select></div></div>
-     <div class="dash-kpis"><div class="dash-kpi"><small>Fixas • mês</small><strong id="dashFixedKpi">R$ 4.380</strong></div><div class="dash-kpi"><small>Variáveis • mês</small><strong id="dashVariableKpi">R$ 3.920</strong></div><div class="dash-kpi"><small>Total • mês</small><strong id="dashExpenseTotalKpi">R$ 8.300</strong></div><div class="dash-kpi"><small>Média no período</small><strong>R$ 8.180</strong></div></div>
-     <div class="chart-grid"><div class="dash-card"><h3>Evolução das despesas</h3><p class="sub">Fixas e variáveis por mês.</p><canvas id="expenseEvolutionChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por categoria</h3><p class="sub">Total no período selecionado.</p><canvas id="expenseCategoryChart" class="chart-canvas"></canvas></div></div>
+     <div class="dash-heading"><div><h1>Despesas</h1><p>Despesas fixas e variáveis organizadas no mesmo padrão do Controle Financeiro.</p></div><button class="dash-primary-btn" id="dashTopAddVariable" type="button">+ Adicionar despesa variável</button></div>
+     <div class="original-filterbar"><div class="original-filter-group"><select id="dashExpenseTypeFilter"><option value="all">Fixas + variáveis</option><option value="fixas">Somente fixas</option><option value="variaveis">Somente variáveis</option></select><select id="dashExpenseCategoryFilter"><option value="all">Todas as categorias</option></select></div></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Fixas • mês</small><strong id="dashFixedKpi">—</strong></div><div class="dash-kpi"><small>Variáveis • mês</small><strong id="dashVariableKpi">—</strong></div><div class="dash-kpi"><small>Total • mês</small><strong id="dashExpenseTotalKpi">—</strong></div><div class="dash-kpi"><small>Média dos meses registrados</small><strong id="dashExpenseAverageKpi">—</strong></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Evolução das despesas</h3><p class="sub">Sem inventar histórico: o gráfico usa apenas meses efetivamente registrados.</p><canvas id="expenseEvolutionChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por categoria</h3><p class="sub">Total do período disponível.</p><canvas id="expenseCategoryChart" class="chart-canvas"></canvas></div></div>
 
      <div class="expense-switcher">
-      <div class="expense-switcher-head"><div><h3>Lançamentos de despesas</h3><p>Alterne entre gastos fixos e variáveis na mesma área.</p></div><div class="expense-toggle"><button class="active" data-dash-expense-view="fixas" type="button">Gastos Fixos</button><button data-dash-expense-view="variaveis" type="button">Gastos Variáveis</button></div></div>
+      <div class="expense-switcher-head"><div><h3>Lançamentos de despesas</h3><p>Alterne entre gastos fixos e variáveis.</p></div><div class="expense-toggle"><button class="active" data-dash-expense-view="fixas" type="button">Gastos Fixos</button><button data-dash-expense-view="variaveis" type="button">Gastos Variáveis</button></div></div>
 
       <div class="dash-card original-expense-pane" id="dashFixedPane">
-       <div class="fixed-pane-head"><div><h3>Gastos Fixos</h3><p>Acompanhe pagamentos e vencimentos do mês.</p></div><div class="fixed-pane-actions"><div class="month-nav"><button id="dashMonthPrev" type="button">‹</button><input id="dashFixedMonth" type="month" value="2026-09"><button id="dashMonthNext" type="button">›</button></div><button class="dash-secondary-btn" id="dashReplicateFixed" type="button">Replicar para o mês seguinte</button><button class="dash-green-btn" id="dashAddFixed" type="button">Adicionar gasto fixo</button></div></div>
+       <div class="fixed-pane-head"><div><h3>Gastos Fixos</h3><p>Acompanhe pagamentos e vencimentos do mês.</p></div><div class="fixed-pane-actions"><div class="month-nav"><button id="dashMonthPrev" type="button">‹</button><input id="dashFixedMonth" type="month"><button id="dashMonthNext" type="button">›</button></div><button class="dash-secondary-btn" id="dashReplicateFixed" type="button">Replicar para o mês seguinte</button><button class="dash-primary-btn" id="dashAddFixed" type="button">Adicionar gasto fixo</button></div></div>
        <div class="fixed-mini-grid"><div class="fixed-mini"><span>Total previsto</span><strong id="dashFixedTotal">—</strong><small id="dashFixedCount">—</small></div><div class="fixed-mini paid"><span>Já pago</span><strong id="dashFixedPaid">—</strong><small id="dashFixedPaidCount">—</small></div><div class="fixed-mini pending"><span>Pendente</span><strong id="dashFixedPending">—</strong><small id="dashFixedPendingCount">—</small></div><div class="fixed-mini"><span>Percentual pago</span><strong id="dashFixedPct">—</strong><small>do total previsto</small></div></div>
        <div class="fixed-progress"><div class="fixed-progress-line"><span>Progresso dos pagamentos</span><strong id="dashProgressText">—</strong></div><div class="fixed-progress-track"><div id="dashProgressBar"></div></div></div>
        <div class="fixed-toolbar"><div class="fixed-status-tabs"><button class="active" data-fixed-status="all" type="button">Todos</button><button data-fixed-status="pending" type="button">Pendentes</button><button data-fixed-status="paid" type="button">Pagos</button></div><span id="dashFixedTableCount"></span></div>
        <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Vencimento</th><th class="num">Valor</th><th>Status</th><th class="num">Ações</th></tr></thead><tbody id="dashFixedBody"></tbody></table></div>
-       <div id="dashFixedForm" class="dash-inline-editor hidden"><h4 id="dashFixedFormTitle">Adicionar gasto fixo</h4><div class="dash-form-grid"><div><label>Vencimento</label><input id="dashFixedDate" type="date" value="2026-09-10"></div><div><label>Descrição</label><input id="dashFixedDesc" maxlength="20" placeholder="Ex.: Condomínio"></div><div><label>Categoria</label><select id="dashFixedCat"><option>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select></div><div><label>Valor (R$)</label><input id="dashFixedValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSaveFixed" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelFixed" type="button">Cancelar</button></div></div>
+       <div id="dashFixedForm" class="dash-inline-editor hidden"><h4 id="dashFixedFormTitle">Adicionar gasto fixo</h4><div class="dash-form-grid"><div><label>Vencimento</label><input id="dashFixedDate" type="date"></div><div><label>Descrição</label><input id="dashFixedDesc" maxlength="40" placeholder="Ex.: Condomínio"></div><div><label>Categoria</label><select id="dashFixedCat"></select></div><div><label>Valor (R$)</label><input id="dashFixedValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveFixed" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelFixed" type="button">Cancelar</button></div></div>
       </div>
 
       <div class="dash-card original-expense-pane hidden" id="dashVariablePane">
-       <div class="fixed-pane-head"><div><h3>Gastos Variáveis</h3><p>Lançamentos do período selecionado.</p></div><button class="dash-green-btn" id="dashAddVariable" type="button">Adicionar despesa variável</button></div>
+       <div class="fixed-pane-head"><div><h3>Gastos Variáveis</h3><p>Lançamentos do período selecionado.</p></div><button class="dash-primary-btn" id="dashAddVariable" type="button">Adicionar despesa variável</button></div>
        <div class="original-table-wrap"><table class="original-table"><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody id="dashVariableBody"></tbody></table></div>
-       <div id="dashVariableForm" class="dash-inline-editor hidden"><h4 id="dashVariableFormTitle">Adicionar despesa variável</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashVariableDate" type="date" value="2026-09-03"></div><div><label>Descrição</label><input id="dashVariableDesc" maxlength="20" placeholder="Ex.: Restaurante"></div><div><label>Categoria</label><select id="dashVariableCat"><option>Alimentação</option><option>Mercado</option><option>Transporte</option><option>Saúde</option><option>Lazer</option><option>Compras</option><option>Pets</option><option>Cuidados pessoais</option></select></div><div><label>Valor (R$)</label><input id="dashVariableValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSaveVariable" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelVariable" type="button">Cancelar</button></div></div>
+       <div id="dashVariableForm" class="dash-inline-editor hidden"><h4 id="dashVariableFormTitle">Adicionar despesa variável</h4><div class="dash-form-grid"><div><label>Data</label><input id="dashVariableDate" type="date"></div><div><label>Descrição</label><input id="dashVariableDesc" maxlength="40" placeholder="Ex.: Restaurante"></div><div><label>Categoria</label><select id="dashVariableCat"></select></div><div><label>Valor (R$)</label><input id="dashVariableValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveVariable" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelVariable" type="button">Cancelar</button></div></div>
       </div>
      </div>
     </section>
 
     <section id="tab-revenues" class="dash-section">
-     <div class="dash-heading"><div><h1>Receitas</h1><p>Acompanhe a composição das entradas do casal.</p></div><button class="btn btn-primary">+ Adicionar receita</button></div>
-     <div class="dash-kpis"><div class="dash-kpi"><small>Receita do mês</small><strong>R$ 14.600</strong></div><div class="dash-kpi"><small>Média · 3 meses</small><strong>R$ 14.450</strong></div><div class="dash-kpi"><small>Laura</small><strong>57%</strong></div><div class="dash-kpi"><small>Victor</small><strong>43%</strong></div></div>
-     <div class="chart-grid"><div class="dash-card"><h3>Evolução das receitas</h3><p class="sub">Últimos 6 meses</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição por pessoa</h3><p class="sub">Participação média no período</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
+     <div class="dash-heading"><div><h1>Receitas</h1><p>Composição das entradas informadas no cadastro e nos lançamentos posteriores.</p></div><button class="dash-primary-btn" id="dashAddRevenue" type="button">+ Adicionar receita</button></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Receita do mês</small><strong id="dashRevenueMonth">—</strong></div><div class="dash-kpi"><small>Média dos meses registrados</small><strong id="dashRevenueAverage">—</strong></div><div class="dash-kpi"><small id="dashPerson1Label">Pessoa 1</small><strong id="dashPerson1Share">—</strong></div><div class="dash-kpi"><small id="dashPerson2Label">Pessoa 2</small><strong id="dashPerson2Share">—</strong></div></div>
+     <div class="chart-grid"><div class="dash-card"><h3>Receitas atuais</h3><p class="sub">Valores por pessoa/origem.</p><canvas id="revenueChart" class="chart-canvas"></canvas></div><div class="dash-card"><h3>Composição da receita</h3><p class="sub">Participação percentual pela base disponível.</p><canvas id="revenuePie" class="chart-canvas"></canvas></div></div>
+     <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Receitas cadastradas</h3><p>Os valores abaixo vêm diretamente do organizador_financeiro.json.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Pessoa</th><th>Descrição</th><th class="num">Valor</th></tr></thead><tbody id="dashRevenueBody"></tbody></table></div></div>
+     <div id="dashRevenueForm" class="dash-card dash-inline-editor hidden"><h4>Adicionar receita</h4><div class="dash-form-grid"><div><label>Pessoa</label><select id="dashRevenuePerson"></select></div><div><label>Descrição</label><input id="dashRevenueDesc" maxlength="40" placeholder="Ex.: Salário"></div><div><label>Valor (R$)</label><input id="dashRevenueValue" inputmode="numeric" placeholder="0"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveRevenue" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelRevenue" type="button">Cancelar</button></div></div>
     </section>
 
     <section id="tab-installments" class="dash-section">
-     <div class="dash-heading"><div><h1>Parcelas</h1><p>Histórico e compromissos futuros.</p></div><button class="btn btn-primary">+ Adicionar parcela</button></div>
-     <div class="dash-kpis"><div class="dash-kpi"><small>Parcelas deste mês</small><strong>R$ 1.180</strong></div><div class="dash-kpi"><small>Saldo futuro</small><strong>R$ 7.940</strong></div><div class="dash-kpi"><small>Próximo encerramento</small><strong>Nov/26</strong></div><div class="dash-kpi"><small>Categorias ativas</small><strong>4</strong></div></div>
-     <div class="dash-card" style="margin-top:14px"><h3>Projeção de parcelas</h3><p class="sub">Saldo mensal por categoria</p><canvas id="installmentChart" class="chart-canvas"></canvas></div>
+     <div class="dash-heading"><div><h1>Parcelas</h1><p>Histórico e compromissos futuros cadastrados.</p></div></div>
+     <div class="dash-kpis"><div class="dash-kpi"><small>Parcelas • mês</small><strong id="dashInstallmentsMonth">—</strong></div><div class="dash-kpi"><small>Próximos 3 meses</small><strong id="dashInstallments3">—</strong></div><div class="dash-kpi"><small>Próximos 6 meses</small><strong id="dashInstallments6">—</strong></div><div class="dash-kpi"><small>Total futuro</small><strong id="dashInstallmentsFuture">—</strong></div></div>
+     <div class="dash-card"><h3>Histórico e projeção das parcelas</h3><p class="sub">Quando não há parcelas cadastradas, o painel não inventa valores.</p><canvas id="installmentChart" class="chart-canvas"></canvas></div>
+     <div class="dash-card reference-table-card"><div class="original-chart-head"><div><h3>Parcelas cadastradas</h3><p>Compromissos registrados no arquivo financeiro.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Descrição</th><th>Categoria</th><th>Parcelas</th><th class="num">Valor</th></tr></thead><tbody id="dashInstallmentBody"></tbody></table></div></div>
     </section>
 
     <section id="tab-investments" class="dash-section">
-     <div class="dash-heading"><div><h1>Investimentos</h1><p>Investimentos, patrimônio e projeção da aposentadoria reunidos em uma única área.</p></div><button class="dash-green-btn" type="button">+ Adicionar investimento</button></div>
-     <div class="original-grid5"><div class="dash-kpi"><small>Laura • aplicações</small><strong>R$ 72.000</strong></div><div class="dash-kpi"><small>Victor • aplicações</small><strong>R$ 28.000</strong></div><div class="dash-kpi"><small>Previdência</small><strong>R$ 18.000</strong></div><div class="dash-kpi"><small>FGTS total</small><strong>R$ 12.000</strong></div><div class="dash-kpi"><small>Patrimônio total</small><strong>R$ 570.000</strong></div></div>
-     <div class="original-grid3"><div class="dash-kpi retire-focus"><small>Patrimônio visando aposentadoria</small><strong id="dashRetirementWealth">R$ 100.000</strong></div><div class="dash-kpi"><small>Meta para aposentadoria</small><strong id="dashRetirementGoal">R$ 1.460.000</strong></div><div class="dash-kpi"><small>Diferença para meta</small><strong id="dashRetirementGap">R$ 1.360.000</strong></div></div>
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Alocação de capital ao longo do tempo</h3><p>Evolução histórica da composição patrimonial.</p></div><span class="original-pill">Histórico</span></div><canvas id="investmentAllocation" class="chart-canvas original-tall-chart"></canvas></div>
-     <div class="original-grid4"><div class="dash-kpi"><small>Patrimônio da aposentadoria no fim</small><strong>R$ 1,46 mi</strong></div><div class="dash-kpi"><small>Meta no fim</small><strong>R$ 1,46 mi</strong></div><div class="dash-kpi"><small>Diferença p/ meta</small><strong>R$ 0</strong></div><div class="dash-kpi"><small>Horizonte</small><strong id="dashProjectionYears">28 anos</strong></div></div>
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Projeção patrimonial para aposentadoria</h3><p>Patrimônio visando aposentadoria comparado à meta necessária para a renda definida no onboarding.</p></div><span class="original-pill">Real + projeção + meta</span></div><canvas id="retirementProjection" class="chart-canvas original-tall-chart"></canvas><div class="projection-legend"><span><i style="background:var(--brand)"></i>Patrimônio visando aposentadoria</span><span><i style="background:#222"></i>Meta para aposentadoria</span></div></div>
+     <div class="dash-heading"><div><h1>Investimentos</h1><p>Patrimônio, alocação e projeção da aposentadoria.</p></div><button class="dash-primary-btn" id="dashAddInvestment" type="button">+ Adicionar investimento</button></div>
+     <div class="original-grid4"><div class="dash-kpi"><small>Patrimônio financeiro</small><strong id="dashFinancialWealth">—</strong></div><div class="dash-kpi retire-focus"><small>Patrimônio visando aposentadoria</small><strong id="dashRetirementWealth">—</strong></div><div class="dash-kpi"><small>Outros bens</small><strong id="dashOtherAssets">—</strong></div><div class="dash-kpi"><small>Patrimônio total</small><strong id="dashTotalWealth">—</strong></div></div>
+     <div class="original-grid3"><div class="dash-kpi"><small>Meta para aposentadoria</small><strong id="dashRetirementGoal">—</strong></div><div class="dash-kpi"><small>Diferença para meta</small><strong id="dashRetirementGap">—</strong></div><div class="dash-kpi"><small>Horizonte</small><strong id="dashProjectionYears">—</strong></div></div>
+
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Alocação de capital</h3><p>Composição atual do patrimônio financeiro informado.</p></div><span class="original-pill">Dados atuais</span></div><canvas id="investmentAllocation" class="chart-canvas original-tall-chart"></canvas></div>
+
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Projeção patrimonial para aposentadoria</h3><p>Patrimônio projetado com as premissas do seu plano, comparado à meta necessária.</p></div><span class="original-pill">Projeção + meta</span></div><canvas id="retirementProjection" class="chart-canvas original-tall-chart"></canvas><div class="projection-legend"><span><i class="legend-retirement"></i>Patrimônio visando aposentadoria</span><span><i class="legend-goal"></i>Meta para aposentadoria</span></div></div>
+
      <div class="dash-card original-invest-card">
-       <div class="original-chart-head"><div><h3>Premissas da aposentadoria</h3><p>Ajuste as duas premissas que influenciam a projeção.</p></div><button class="dash-secondary-btn" id="dashAdjustPremises" type="button">Ajustar premissas</button></div>
-       <div id="dashPremiseEditor" class="premise-editor hidden"><div class="dash-form-grid"><div><label>Rentabilidade esperada (% a.a.)</label><input id="dashReturnInput" type="number" min="0" max="30" step="0.1" value="10"></div><div><label>Inflação estimada (% a.a.)</label><input id="dashInflationInput" type="number" min="0" max="20" step="0.1" value="4"></div></div><div class="dash-form-actions"><button class="dash-green-btn" id="dashSavePremises" type="button">Salvar premissas</button></div></div>
-       <div class="assumption-grid" id="dashPremiseSummary"><div class="assumption"><small>Rentabilidade</small><strong id="dashReturnLabel">10,0% a.a.</strong></div><div class="assumption"><small>Inflação</small><strong id="dashInflationLabel">4,0% a.a.</strong></div><div class="assumption"><small>Referência</small><strong>Renda fixa</strong></div></div>
+       <div class="original-chart-head"><div><h3>Premissas da aposentadoria</h3><p>Ajuste apenas as premissas que influenciam a projeção.</p></div><button class="dash-secondary-btn" id="dashAdjustPremises" type="button">Ajustar premissas</button></div>
+       <div id="dashPremiseEditor" class="premise-editor hidden"><div class="dash-form-grid"><div><label>Rentabilidade esperada (% a.a.)</label><input id="dashReturnInput" type="number" min="0" max="30" step="0.1"></div><div><label>Inflação estimada (% a.a.)</label><input id="dashInflationInput" type="number" min="0" max="20" step="0.1"></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSavePremises" type="button">Salvar premissas</button></div></div>
+       <div class="assumption-grid" id="dashPremiseSummary"><div class="assumption"><small>Rentabilidade</small><strong id="dashReturnLabel">—</strong></div><div class="assumption"><small>Inflação</small><strong id="dashInflationLabel">—</strong></div><div class="assumption"><small>Referência</small><strong>Renda fixa</strong></div></div>
      </div>
-     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Últimos registros de investimentos</h3><p>Registros mais recentes com edição e exclusão contextual.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th class="num">Valor</th><th class="num">Ações</th></tr></thead><tbody><tr><td>Tesouro IPCA+</td><td>Renda fixa</td><td class="num">R$ 100.000</td><td class="num"><div class="row-actions"><button class="icon-action" title="Editar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg></button><button class="icon-action danger-icon" title="Excluir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div></td></tr><tr><td>Reserva de emergência</td><td>Reserva</td><td class="num">R$ 30.000</td><td class="num"><div class="row-actions"><button class="icon-action" title="Editar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg></button><button class="icon-action danger-icon" title="Excluir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg></button></div></td></tr></tbody></table></div></div>
+
+     <div class="dash-card original-invest-card"><div class="original-chart-head"><div><h3>Investimentos cadastrados</h3><p>Valores coletados durante o onboarding e atualizações posteriores.</p></div></div><div class="original-table-wrap"><table class="original-table"><thead><tr><th>Investimento</th><th>Categoria</th><th>Aposentadoria</th><th class="num">Valor</th></tr></thead><tbody id="dashInvestmentBody"></tbody></table></div></div>
+     <div id="dashInvestmentForm" class="dash-card dash-inline-editor hidden"><h4>Adicionar investimento ou reserva</h4><div class="dash-form-grid"><div><label>Categoria</label><select id="dashInvestmentCat"></select></div><div><label>Descrição</label><input id="dashInvestmentDesc" maxlength="40" placeholder="Ex.: Tesouro IPCA+"></div><div><label>Valor (R$)</label><input id="dashInvestmentValue" inputmode="numeric" placeholder="0"></div><div><label>Faz parte da aposentadoria?</label><select id="dashInvestmentRetirement"><option value="true">Sim</option><option value="false">Não</option></select></div></div><div class="dash-form-actions"><button class="dash-primary-btn" id="dashSaveInvestment" type="button">Salvar</button><button class="dash-secondary-btn" id="dashCancelInvestment" type="button">Cancelar</button></div></div>
     </section>
 
     <section id="tab-settings" class="dash-section">
      <div class="dash-heading"><div><h1>Configuração / Importação</h1><p>Controle da origem dos seus dados.</p></div></div>
-     <div class="split-2"><div class="dash-card"><h3>Microsoft / OneDrive</h3><p class="sub">Origem principal: organizador_financeiro.json</p><div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div><button class="btn btn-secondary" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button></div><div class="dash-card"><h3>Seu onboarding</h3><p class="sub">As etapas foram salvas progressivamente.</p><div class="callout" style="margin-top:0">Cada etapa do onboarding é salva no OneDrive antes de avançar. Se você fechar a aplicação no meio do processo, poderá retomar a partir do último ponto salvo.</div><button class="btn btn-secondary" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button></div></div>
+     <div class="split-2"><div class="dash-card"><h3>Microsoft OneDrive</h3><p class="sub">Origem principal: organizador_financeiro.json</p><div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div><button class="dash-secondary-btn" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button></div><div class="dash-card"><h3>Seu onboarding</h3><p class="sub">As etapas foram salvas progressivamente.</p><div class="callout" style="margin-top:0">Cada etapa é salva no OneDrive antes de avançar.</div><button class="dash-secondary-btn" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button></div></div>
     </section>
-   </main>
-  </div>
+   </div>
+  </main>
  </div>
 </section>
-
 <script>
 const AUTH_RETURN_DETECTED =
   /(?:^|[#?&])(code|error|error_description|state)=/i.test(location.hash + '&' + location.search);
@@ -897,14 +1086,64 @@ function bindMoney(el){if(el.dataset.bound)return;el.dataset.bound='1';el.addEve
 document.querySelectorAll('.moneyField').forEach(bindMoney);
 
 function getCheckedLabels(containerId){
- return [...document.querySelectorAll('#'+containerId+' .cat')].filter(x=>x.querySelector('input').checked).map(x=>x.textContent.trim());
+ return [...document.querySelectorAll('#'+containerId+' .cat')]
+   .filter(x=>x.querySelector('input')?.checked)
+   .map(x=>x.textContent.trim());
 }
-function addCategory(containerId,inputId,alsoSelectClass){
- const input=document.getElementById(inputId),name=input.value.trim();if(!name)return;
- const label=document.createElement('label');label.className='cat';label.innerHTML='<input type="checkbox" checked> '+name;document.getElementById(containerId).appendChild(label);
- if(alsoSelectClass) document.querySelectorAll('.'+alsoSelectClass).forEach(sel=>{if(![...sel.options].some(o=>o.text===name)){const op=document.createElement('option');op.textContent=name;sel.appendChild(op)}});
+function allCategoryLabels(containerId){
+ return [...document.querySelectorAll('#'+containerId+' .cat')].map(x=>x.textContent.trim());
+}
+function setSelectOptions(select,names,preserveValue=true){
+ if(!select)return;
+ const previous=preserveValue?select.value:'';
+ const unique=[...new Set((names||[]).filter(Boolean))];
+ if(previous && !unique.includes(previous)) unique.push(previous);
+ select.innerHTML='';
+ unique.forEach(name=>{const op=document.createElement('option');op.value=name;op.textContent=name;select.appendChild(op)});
+ if(previous && unique.includes(previous))select.value=previous;
+}
+function syncCategorySelects(){
+ const fixed=getCheckedLabels('fixedCategories');
+ const variable=getCheckedLabels('variableCategories');
+ const investment=getCheckedLabels('investmentCategories');
+
+ document.querySelectorAll('.fixedCat').forEach(s=>setSelectOptions(s,fixed));
+ document.querySelectorAll('.invCat').forEach(s=>setSelectOptions(s,investment));
+ setSelectOptions(document.getElementById('dashFixedCat'),fixed);
+ setSelectOptions(document.getElementById('dashVariableCat'),variable);
+ setSelectOptions(document.getElementById('dashInvestmentCat'),investment);
+
+ const filter=document.getElementById('dashExpenseCategoryFilter');
+ if(filter){
+   const previous=filter.value;
+   const names=[...new Set([...fixed,...variable])];
+   filter.innerHTML='<option value="all">Todas as categorias</option>';
+   names.forEach(name=>{const op=document.createElement('option');op.value=name;op.textContent=name;filter.appendChild(op)});
+   if([...filter.options].some(o=>o.value===previous))filter.value=previous;
+ }
+}
+function bindCategoryCheckboxes(containerId){
+ document.querySelectorAll('#'+containerId+' .cat input[type="checkbox"]').forEach(cb=>{
+   if(cb.dataset.categoryBound)return;
+   cb.dataset.categoryBound='1';
+   cb.addEventListener('change',syncCategorySelects);
+ });
+}
+function addCategory(containerId,inputId){
+ const input=document.getElementById(inputId),name=input.value.trim();
+ if(!name)return;
+ const exists=[...document.querySelectorAll('#'+containerId+' .cat')].some(x=>x.textContent.trim().toLocaleLowerCase('pt-BR')===name.toLocaleLowerCase('pt-BR'));
+ if(exists){showToast('Essa categoria já existe');return}
+ const label=document.createElement('label');label.className='cat';
+ const cb=document.createElement('input');cb.type='checkbox';cb.checked=true;
+ label.appendChild(cb);label.appendChild(document.createTextNode(' '+name));
+ document.getElementById(containerId).appendChild(label);
+ bindCategoryCheckboxes(containerId);
  input.value='';
+ syncCategorySelects();
+ showToast('Categoria criada');
 }
+['fixedCategories','variableCategories','investmentCategories'].forEach(bindCategoryCheckboxes);
 
 document.getElementById('firstAccessBtn').onclick=()=>{
  accessMode='first';
@@ -1015,7 +1254,12 @@ function bindDelete(btn){if(btn.dataset.bound)return;btn.dataset.bound='1';btn.o
 document.querySelectorAll('.del').forEach(bindDelete);
 function makeMoney(cls){const d=document.createElement('div');d.className='money';d.innerHTML='<span>R$</span><input class="moneyField '+cls+'" inputmode="numeric" value="">';bindMoney(d.querySelector('input'));return d}
 addIncome.onclick=()=>{const r=document.createElement('div');r.className='data-row data';r.innerHTML='<input placeholder="Pessoa / origem"><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('incomeValue'));bindDelete(r.querySelector('.del'));incomeRows.appendChild(r)};
-addFixed.onclick=()=>{const r=document.createElement('div');r.className='data-row data';r.innerHTML='<select><option>Moradia</option><option>Contas da casa</option><option>Transporte</option><option>Saúde</option><option>Educação</option><option>Assinaturas</option><option>Seguros</option><option>Outros</option></select><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('fixedValue'));bindDelete(r.querySelector('.del'));fixedRows.appendChild(r)};
+addFixed.onclick=()=>{
+ const r=document.createElement('div');r.className='data-row data';
+ r.innerHTML='<select class="fixedCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ r.children[2].replaceWith(makeMoney('fixedValue'));bindDelete(r.querySelector('.del'));fixedRows.appendChild(r);
+ setSelectOptions(r.querySelector('.fixedCat'),getCheckedLabels('fixedCategories'),false);
+};
 addFixedCategory.onclick=()=>addCategory('fixedCategories','newFixedCategory');
 addVariableCategory.onclick=()=>addCategory('variableCategories','newVariableCategory');
 function updateStep3(){
@@ -1023,24 +1267,56 @@ function updateStep3(){
  incomeTotal.textContent=brl(inc);fixedTotal.textContent=brl(fix);previewIncome.textContent=brl(inc);previewFixed.textContent=brl(fix);previewFree.textContent=brl(inc-fix);
 }
 document.getElementById('saveStep3').onclick=async()=>{
- data.receitas=[...document.querySelectorAll('#incomeRows .data')].map(r=>({pessoa:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.incomeValue').value)})).filter(x=>x.descricao||x.valor);
- data.despesasFixas=[...document.querySelectorAll('#fixedRows .data')].map(r=>({categoria:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.fixedValue').value)})).filter(x=>x.descricao||x.valor);
- data.categorias.fixas=getCheckedLabels('fixedCategories');data.categorias.variaveis=getCheckedLabels('variableCategories');
+ const month=currentMonthKey();
+ data.receitas=[...document.querySelectorAll('#incomeRows .data')].map((r,i)=>({
+   id:r.dataset.id||('rec-'+Date.now()+'-'+i),
+   pessoa:r.children[0].value.trim(),
+   descricao:r.children[1].value.trim(),
+   valor:parseMoney(r.querySelector('.incomeValue').value),
+   mesReferencia:month
+ })).filter(x=>x.descricao||x.valor);
+ data.despesasFixas=[...document.querySelectorAll('#fixedRows .data')].map((r,i)=>({
+   id:r.dataset.id||('fx-'+Date.now()+'-'+i),
+   categoria:r.children[0].value,
+   descricao:r.children[1].value.trim(),
+   valor:parseMoney(r.querySelector('.fixedValue').value),
+   mesReferencia:month,
+   pago:false
+ })).filter(x=>x.descricao||x.valor);
+ data.categorias.fixas=getCheckedLabels('fixedCategories');
+ data.categorias.variaveis=getCheckedLabels('variableCategories');
+ syncCategorySelects();
  try{await saveDataAndWait(3);showScreen('step4')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 
 function bindRetFlag(el){if(el.dataset.bound)return;el.dataset.bound='1';el.onchange=()=>{el.closest('.toggle').querySelector('.toggle-label').innerHTML=el.checked?'Sim, faz parte<br>da meta':'Não, outro<br>objetivo';updateLive()}}
 document.querySelectorAll('.retirementFlag').forEach(bindRetFlag);
-addInvestment.onclick=()=>{const r=document.createElement('div');r.className='data-row invest data';r.innerHTML='<select class="invCat"><option>Conta corrente</option><option>Reserva de emergência</option><option>Renda fixa</option><option>Renda variável</option><option>Previdência privada</option><option>FGTS</option><option>Outros</option></select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';r.children[2].replaceWith(makeMoney('investmentValue'));bindDelete(r.querySelector('.del'));bindRetFlag(r.querySelector('.retirementFlag'));investmentRows.appendChild(r)};
+addInvestment.onclick=()=>{
+ const r=document.createElement('div');r.className='data-row invest data';
+ r.innerHTML='<select class="invCat"></select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';
+ setSelectOptions(r.querySelector('.invCat'),getCheckedLabels('investmentCategories'),false);
+ r.children[2].replaceWith(makeMoney('investmentValue'));bindDelete(r.querySelector('.del'));bindRetFlag(r.querySelector('.retirementFlag'));investmentRows.appendChild(r);
+};
 addAsset.onclick=()=>{const r=document.createElement('div');r.className='data-row asset data';r.innerHTML='<select><option>Imóvel</option><option>Veículo</option><option>Empresa</option><option>Terreno</option><option>Outro bem</option></select><input placeholder="Descrição"><span></span><button class="del">×</button>';r.children[2].replaceWith(makeMoney('assetValue'));bindDelete(r.querySelector('.del'));assetRows.appendChild(r)};
-addInvestmentCategory.onclick=()=>addCategory('investmentCategories','newInvestmentCategory','invCat');
+addInvestmentCategory.onclick=()=>addCategory('investmentCategories','newInvestmentCategory');
 function updateStep4(){
  const inv=[...document.querySelectorAll('#investmentRows .data')],fin=inv.reduce((a,r)=>a+parseMoney(r.querySelector('.investmentValue').value),0),ret=inv.reduce((a,r)=>a+(r.querySelector('.retirementFlag').checked?parseMoney(r.querySelector('.investmentValue').value):0),0),assets=[...document.querySelectorAll('.assetValue')].reduce((a,e)=>a+parseMoney(e.value),0);
  financialTotal.textContent=brl(fin);assetsTotal.textContent=brl(assets);sumFinancial.textContent=brl(fin);sumRetirement.textContent=brl(ret);sumAssets.textContent=brl(assets);sumTotalAssets.textContent=brl(fin+assets);
 }
 document.getElementById('saveStep4').onclick=async()=>{
- data.investimentos=[...document.querySelectorAll('#investmentRows .data')].map(r=>({categoria:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.investmentValue').value),aposentadoria:r.querySelector('.retirementFlag').checked})).filter(x=>x.descricao||x.valor);
- data.outrosPatrimonios=[...document.querySelectorAll('#assetRows .data')].map(r=>({tipo:r.children[0].value,descricao:r.children[1].value,valor:parseMoney(r.querySelector('.assetValue').value)})).filter(x=>x.descricao||x.valor);
+ data.investimentos=[...document.querySelectorAll('#investmentRows .data')].map((r,i)=>({
+   id:r.dataset.id||('inv-'+Date.now()+'-'+i),
+   categoria:r.children[0].value,
+   descricao:r.children[1].value.trim(),
+   valor:parseMoney(r.querySelector('.investmentValue').value),
+   aposentadoria:r.querySelector('.retirementFlag').checked,
+   mesReferencia:currentMonthKey()
+ })).filter(x=>x.descricao||x.valor);
+ data.outrosPatrimonios=[...document.querySelectorAll('#assetRows .data')].map((r,i)=>({
+   id:r.dataset.id||('bem-'+Date.now()+'-'+i),
+   tipo:r.children[0].value,descricao:r.children[1].value.trim(),
+   valor:parseMoney(r.querySelector('.assetValue').value)
+ })).filter(x=>x.descricao||x.valor);
  data.categorias.investimentos=getCheckedLabels('investmentCategories');
  const ret=data.investimentos.filter(x=>x.aposentadoria).reduce((a,x)=>a+x.valor,0);
  if(data.aposentadoria)data.aposentadoria.patrimonioDetalhado=ret;
@@ -1055,7 +1331,7 @@ function preparePlan(){
  planIncome.textContent=brl(a.rendaMensalHoje)+'/mês';planRetAge.textContent='em poder de compra de hoje · aposentadoria aos '+a.idadeAposentadoria+' anos';planFinancial.textContent=brl(t.financial);planRetirement.textContent=brl(t.ret);planMonthly.textContent=brl(need)+'/mês';planTotal.textContent=brl(t.total);planRevenue.textContent=brl(t.rev);planFixed.textContent=brl(t.fix);planCurrentMonthly.textContent=brl(cur)+'/mês';planNeededMonthly.textContent=brl(need)+'/mês';planPct.textContent=pct+'%';planBar.style.width=pct+'%';planGap.innerHTML=gap>0?'Existe uma diferença estimada de <b>'+brl(gap)+' por mês</b>. O plano poderá ser ajustado conforme conhecermos melhor seu orçamento real.':'Seu aporte atual já atende ou supera a estimativa inicial do plano.';
 }
 finishOnboarding.onclick=async()=>{
- data.onboarding.completed=true;
+ data.onboarding.completed=true;delete data.historicoDemo;
  try{await saveDataAndWait(5);prepareDashboard();showScreen('dashboard')}catch(err){data.onboarding.completed=false;alert('Não foi possível concluir e salvar seu plano no OneDrive. Tente novamente.')}
 };
 
@@ -1072,19 +1348,21 @@ function addIncomeHydrated(item={}){
 }
 function addFixedHydrated(item={}){
  const r=document.createElement('div');r.className='data-row data';
- const opts=['Moradia','Contas da casa','Transporte','Saúde','Educação','Assinaturas','Seguros','Outros'];
- r.innerHTML='<select>'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><button class="del">×</button>';
- if(item.categoria&&!opts.includes(item.categoria)){const op=document.createElement('option');op.textContent=item.categoria;r.children[0].appendChild(op)}
- r.children[0].value=item.categoria||'Moradia';r.children[1].value=item.descricao||'';
+ r.innerHTML='<select class="fixedCat"></select><input placeholder="Descrição"><span></span><button class="del">×</button>';
+ const names=getCheckedLabels('fixedCategories');
+ setSelectOptions(r.children[0],[...names,item.categoria].filter(Boolean),false);
+ r.children[0].value=item.categoria||names[0]||'';
+ r.children[1].value=item.descricao||'';
  r.children[2].replaceWith(makeMoney('fixedValue'));r.querySelector('.fixedValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
  bindDelete(r.querySelector('.del'));fixedRows.appendChild(r);
 }
 function addInvestmentHydrated(item={}){
  const r=document.createElement('div');r.className='data-row invest data';
- const opts=['Conta corrente','Reserva de emergência','Renda fixa','Renda variável','Previdência privada','FGTS','Outros'];
- r.innerHTML='<select class="invCat">'+opts.map(x=>'<option>'+x+'</option>').join('')+'</select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';
- if(item.categoria&&!opts.includes(item.categoria)){const op=document.createElement('option');op.textContent=item.categoria;r.children[0].appendChild(op)}
- r.children[0].value=item.categoria||'Renda fixa';r.children[1].value=item.descricao||'';
+ r.innerHTML='<select class="invCat"></select><input placeholder="Descrição"><span></span><div class="toggle"><label class="switch"><input class="retirementFlag" type="checkbox"><span class="slider"></span></label><span class="toggle-label">Não, outro<br>objetivo</span></div><button class="del">×</button>';
+ const names=getCheckedLabels('investmentCategories');
+ setSelectOptions(r.children[0],[...names,item.categoria].filter(Boolean),false);
+ r.children[0].value=item.categoria||names[0]||'';
+ r.children[1].value=item.descricao||'';
  r.children[2].replaceWith(makeMoney('investmentValue'));r.querySelector('.investmentValue').value=item.valor?Number(item.valor).toLocaleString('pt-BR'):'';
  r.querySelector('.retirementFlag').checked=!!item.aposentadoria;
  bindRetFlag(r.querySelector('.retirementFlag'));bindDelete(r.querySelector('.del'));investmentRows.appendChild(r);
@@ -1118,19 +1396,130 @@ function hydrateFormsFromData(){
  clearDataRows('incomeRows');(data.receitas||[]).forEach(addIncomeHydrated);if(!(data.receitas||[]).length)addIncomeHydrated();
  hydrateCategoryChecks('fixedCategories',data.categorias?.fixas||[]);hydrateCategoryChecks('variableCategories',data.categorias?.variaveis||[]);
  clearDataRows('fixedRows');(data.despesasFixas||[]).forEach(addFixedHydrated);
- hydrateCategoryChecks('investmentCategories',data.categorias?.investimentos||[]);
+ hydrateCategoryChecks('investmentCategories',data.categorias?.investimentos||[]);syncCategorySelects();
  clearDataRows('investmentRows');(data.investimentos||[]).forEach(addInvestmentHydrated);
  clearDataRows('assetRows');(data.outrosPatrimonios||[]).forEach(addAssetHydrated);
- updateLive();
+ syncCategorySelects();updateLive();
 }
 
+function currentMonthKey(){
+ const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function todayIso(){
+ const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function monthLabelPt(key){
+ if(!key)return 'Dados atuais';
+ const [y,m]=key.split('-').map(Number);
+ return new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric'}).format(new Date(y,m-1,1));
+}
+function recordMonth(x){
+ return monthKeyDash(x?.data)||x?.mesReferencia||currentMonthKey();
+}
+function ensureDashboardMetadata(){
+ ['receitas','despesasFixas','despesasVariaveis','investimentos','parcelas'].forEach(k=>{if(!Array.isArray(data[k]))data[k]=[]});
+ data.receitas.forEach((x,i)=>{if(!x.id)x.id='rec-'+Date.now()+'-'+i});
+ data.despesasFixas.forEach((x,i)=>{if(!x.id)x.id='fx-'+Date.now()+'-'+i;if(x.pago===undefined)x.pago=false});
+ data.despesasVariaveis.forEach((x,i)=>{if(!x.id)x.id='var-'+Date.now()+'-'+i});
+ data.investimentos.forEach((x,i)=>{if(!x.id)x.id='inv-'+Date.now()+'-'+i});
+ data.parcelas.forEach((x,i)=>{if(!x.id)x.id='par-'+Date.now()+'-'+i});
+}
+function groupSum(items,keyFn,valueFn=x=>Number(x.valor||0)){
+ const map=new Map();
+ items.forEach(x=>{const k=keyFn(x)||'Outros';map.set(k,(map.get(k)||0)+Number(valueFn(x)||0))});
+ return [...map.entries()].sort((a,b)=>b[1]-a[1]);
+}
+function availableMonths(items){
+ return [...new Set(items.map(recordMonth).filter(Boolean))].sort();
+}
+function monthlySum(items,month,valueFn=x=>Number(x.valor||0)){
+ return items.filter(x=>recordMonth(x)===month).reduce((a,x)=>a+Number(valueFn(x)||0),0);
+}
+function installmentValue(x){
+ if(Number(x.valorParcela))return Number(x.valorParcela);
+ if(Number(x.valor))return Number(x.valor);
+ if(Number(x.valorTotal)&&Number(x.numeroParcelas))return Number(x.valorTotal)/Number(x.numeroParcelas);
+ return 0;
+}
+function futureInstallmentTotal(){
+ return (data.parcelas||[]).reduce((a,x)=>{
+   const v=installmentValue(x);
+   const rest=Number(x.parcelasRestantes ?? x.numeroParcelas ?? 1);
+   return a+v*Math.max(0,rest);
+ },0);
+}
 function prepareDashboard(){
- const p=data.perfil?.pessoas?.[0]||'Usuário';dashUser.textContent=p;avatar.textContent=p.charAt(0).toUpperCase();
- ensureDashboardExpenseDemo();
- const t=totals(),a=data.aposentadoria||{},m=retirementModel(),ret=t.ret||a.patrimonioDetalhado||a.patrimonioInicialInformado||0,goal=a.patrimonioNecessario||m.need;
- dashRetirementWealth.textContent=brl(ret);dashRetirementGoal.textContent=brl(goal);dashRetirementGap.textContent=brl(Math.max(0,goal-ret));dashProjectionYears.textContent=Math.max(0,(a.idadeAposentadoria||m.retAge)-(a.idadeAtual||m.age))+' anos';
- const pr=a.premissas||{};calcAnnual=Number(pr.rentabilidadeAnual??calcAnnual);calcInfl=Number(pr.inflacaoAnual??calcInfl);dashReturnInput.value=(calcAnnual*100).toFixed(1);dashInflationInput.value=(calcInfl*100).toFixed(1);dashReturnLabel.textContent=(calcAnnual*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';dashInflationLabel.textContent=(calcInfl*100).toLocaleString('pt-BR',{minimumFractionDigits:1})+'% a.a.';
+ ensureDashboardMetadata();
+ syncCategorySelects();
+
+ const p=data.perfil?.pessoas?.[0]||'Usuário';
+ dashUser.textContent=p;avatar.textContent=p.charAt(0).toUpperCase();
+
+ const month=currentMonthKey(),t=totals(),a=data.aposentadoria||{},m=retirementModel();
+ dashReferenceMonth.textContent=monthLabelPt(month);
+ dashFixedMonth.value=month;
+ dashFixedDate.value=todayIso();
+ dashVariableDate.value=todayIso();
+
+ const fixedMonth=monthlySum(data.despesasFixas,month);
+ const variableMonth=monthlySum(data.despesasVariaveis,month);
+ const installmentMonth=monthlySum(data.parcelas,month,installmentValue);
+ const revenueMonth=data.receitas.length?monthlySum(data.receitas,month):t.rev;
+ const knownExpenses=fixedMonth+variableMonth+installmentMonth;
+ const futureParcels=futureInstallmentTotal();
+
+ ovRevenue.textContent=brl(revenueMonth);
+ ovRevenueNote.textContent=data.receitas.length?'Com base nos registros disponíveis':'Nenhuma receita cadastrada';
+ ovExpenses.textContent=brl(knownExpenses);
+ ovInstallments.textContent=brl(futureParcels);
+ ovPatrimony.textContent=brl(t.total);
+
+ // gamificação de aporte
+ const expected=Number(a.aporteEstimado||m.monthly||0);
+ const current=Number(data.aporteMesAtual ?? a.aporteAtual ?? 0);
+ const pct=expected?Math.min(100,Math.round(current/expected*100)):0;
+ const gap=Math.max(0,expected-current);
+ dashContributionCurrent.textContent=brl(current);
+ dashContributionExpected.textContent=expected?brl(expected):'—';
+ dashContributionPct.textContent=pct+'%';
+ dashContributionBar.style.width=pct+'%';
+ if(!expected){
+   dashContributionSentence.textContent='Defina sua meta de aposentadoria para acompanhar o aporte esperado.';
+   dashContributionGap.textContent='Meta não definida';
+ }else if(gap>0){
+   dashContributionSentence.textContent='Você está em '+pct+'% do aporte esperado para este mês.';
+   dashContributionGap.textContent='Faltam '+brl(gap);
+ }else{
+   dashContributionSentence.textContent='Meta mensal atingida. O aporte informado já atende ao plano.';
+   dashContributionGap.textContent='Meta atingida';
+ }
+
+ // despesas
  renderDashboardExpenses();
+
+ // receitas
+ renderDashboardRevenues();
+
+ // parcelas
+ renderDashboardInstallments();
+
+ // investimentos
+ const ret=t.ret||a.patrimonioDetalhado||a.patrimonioInicialInformado||0;
+ const goal=a.patrimonioNecessario||m.need||0;
+ dashFinancialWealth.textContent=brl(t.financial);
+ dashRetirementWealth.textContent=brl(ret);
+ dashOtherAssets.textContent=brl(t.assets);
+ dashTotalWealth.textContent=brl(t.total);
+ dashRetirementGoal.textContent=goal?brl(goal):'—';
+ dashRetirementGap.textContent=goal?brl(Math.max(0,goal-ret)):'—';
+ dashProjectionYears.textContent=(a.idadeAposentadoria&&a.idadeAtual)?Math.max(0,a.idadeAposentadoria-a.idadeAtual)+' anos':'—';
+
+ const pr=a.premissas||{};
+ calcAnnual=Number(pr.rentabilidadeAnual??calcAnnual);calcInfl=Number(pr.inflacaoAnual??calcInfl);
+ dashReturnInput.value=(calcAnnual*100).toFixed(1);dashInflationInput.value=(calcInfl*100).toFixed(1);
+ dashReturnLabel.textContent=(calcAnnual*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
+ dashInflationLabel.textContent=(calcInfl*100).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+'% a.a.';
+ renderDashboardInvestments();
 }
 document.querySelectorAll('.nav button').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('.dash-section').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+btn.dataset.tab).classList.add('active');dashTitle.textContent=btn.textContent;setTimeout(drawDashboardCharts,30)});
 backToLanding.onclick=async()=>{
@@ -1145,8 +1534,8 @@ function lineChart(id,series,labels,opts={}){
  const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),L=44,R=16,T=20,B=34,max=Math.max(...series.flatMap(s=>s.data))*1.15,min=0;
  ctx.clearRect(0,0,w,h);ctx.strokeStyle='#eceef2';ctx.lineWidth=1;ctx.fillStyle='#8a9099';ctx.font='10px system-ui';
  for(let i=0;i<5;i++){let y=T+i*(h-T-B)/4;ctx.beginPath();ctx.moveTo(L,y);ctx.lineTo(w-R,y);ctx.stroke();}
- labels.forEach((lab,i)=>{let x=L+i*(w-L-R)/(labels.length-1);ctx.fillText(lab,x-10,h-12)});
- series.forEach((s,si)=>{ctx.strokeStyle=s.color;ctx.lineWidth=2.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();s.data.forEach((v,i)=>{let x=L+i*(w-L-R)/(labels.length-1),y=T+(1-(v-min)/(max-min||1))*(h-T-B);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.setLineDash([])});
+ labels.forEach((lab,i)=>{let x=labels.length===1?(L+(w-L-R)/2):L+i*(w-L-R)/(labels.length-1);ctx.fillText(lab,x-10,h-12)});
+ series.forEach((s,si)=>{ctx.strokeStyle=s.color;ctx.lineWidth=2.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();s.data.forEach((v,i)=>{let x=labels.length===1?(L+(w-L-R)/2):L+i*(w-L-R)/(labels.length-1),y=T+(1-(v-min)/(max-min||1))*(h-T-B);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.setLineDash([])});
 }
 function barChart(id,series,labels){
  const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),L=42,R=14,T=20,B=34,max=Math.max(...series.flatMap(s=>s.data))*1.15,group=(w-L-R)/labels.length,bw=group/(series.length+1);
@@ -1155,86 +1544,171 @@ function barChart(id,series,labels){
  series.forEach((s,si)=>s.data.forEach((v,i)=>{let bh=(v/max)*(h-T-B),x=L+i*group+group*.18+si*bw,y=h-B-bh;ctx.fillStyle=s.color;ctx.fillRect(x,y,bw*.8,bh)}));
 }
 function pieChart(id,vals,colors){
- const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),cx=w/2,cy=h/2,r=Math.min(w,h)*.32,total=vals.reduce((a,b)=>a+b,0);let a=-Math.PI/2;vals.forEach((v,i)=>{let b=a+v/total*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a,b);ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();a=b});
- ctx.beginPath();ctx.arc(cx,cy,r*.58,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.fillStyle='#333';ctx.font='700 18px system-ui';ctx.textAlign='center';ctx.fillText('100%',cx,cy+6);ctx.textAlign='start';
+ const total=vals.reduce((a,b)=>a+Number(b||0),0);
+ if(!total){canvasMessage(id,'Ainda não há dados para exibir.');return}
+ const c=document.getElementById(id);if(!c||c.offsetParent===null)return;const {ctx,w,h}=setupCanvas(c),cx=w/2,cy=h/2,r=Math.min(w,h)*.32;let a=-Math.PI/2;
+ vals.forEach((v,i)=>{let b=a+v/total*Math.PI*2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.arc(cx,cy,r,a,b);ctx.closePath();ctx.fillStyle=colors[i%colors.length];ctx.fill();a=b});
+ ctx.beginPath();ctx.arc(cx,cy,r*.58,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();ctx.fillStyle='#333';ctx.font='700 16px system-ui';ctx.textAlign='center';ctx.fillText('100%',cx,cy+5);ctx.textAlign='start';
 }
 
 let dashExpenseView='fixas',dashFixedStatus='all',dashExpenseEditing=null;
 const pencilSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm17.71-10.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.96 1.96 3.75 3.75 2.13-1.79z"/></svg>';
 const trashSvg='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm3.46-7.12 1.41-1.41L12 11.59l1.12-1.12 1.41 1.41L13.41 13l1.12 1.12-1.41 1.41L12 14.41l-1.12 1.12-1.41-1.41L10.59 13l-1.13-1.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>';
 
-function ensureDashboardExpenseDemo(){
- if(!Array.isArray(data.despesasFixas))data.despesasFixas=[];
- if(!Array.isArray(data.despesasVariaveis))data.despesasVariaveis=[];
- data.despesasFixas.forEach((x,i)=>{if(!x.id)x.id='fx-'+Date.now()+'-'+i;if(!x.data)x.data='2026-09-'+String([10,15,20,25][i%4]).padStart(2,'0');if(x.pago===undefined)x.pago=i%2===0});
- if(data.historicoDemo && data.despesasFixas.length<4){
-   const extras=[
-    {id:'fx-demo-3',data:'2026-09-15',categoria:'Contas da casa',descricao:'Energia elétrica',valor:285,pago:true},
-    {id:'fx-demo-4',data:'2026-09-20',categoria:'Assinaturas',descricao:'Streaming',valor:89,pago:false},
-    {id:'fx-demo-5',data:'2026-09-25',categoria:'Saúde',descricao:'Academia',valor:180,pago:false}
-   ];
-   extras.forEach(x=>{if(!data.despesasFixas.some(y=>y.id===x.id))data.despesasFixas.push(x)});
- }
- if(data.historicoDemo && data.despesasVariaveis.length===0)data.despesasVariaveis=[
-  {id:'var-demo-1',data:'2026-09-03',descricao:'Supermercado',categoria:'Mercado',valor:486},
-  {id:'var-demo-2',data:'2026-09-02',descricao:'Restaurante',categoria:'Alimentação',valor:220},
-  {id:'var-demo-3',data:'2026-08-30',descricao:'Combustível',categoria:'Transporte',valor:260},
-  {id:'var-demo-4',data:'2026-08-28',descricao:'Cinema',categoria:'Lazer',valor:96}
- ];
- data.despesasVariaveis.forEach((x,i)=>{if(!x.id)x.id='var-'+Date.now()+'-'+i});
-}
+function ensureDashboardExpenseDemo(){ ensureDashboardMetadata(); }
+
 
 function dashExpenseActions(kind,id){
  return `<div class="row-actions"><button class="icon-action" data-dash-edit="${kind}" data-id="${id}" title="Editar">${pencilSvg}</button><button class="icon-action danger-icon" data-dash-delete="${kind}" data-id="${id}" title="Excluir">${trashSvg}</button></div>`;
 }
 function monthKeyDash(d){return String(d||'').slice(0,7)}
 function renderDashboardExpenses(){
- ensureDashboardExpenseDemo();
- const month=dashFixedMonth?.value||'2026-09';
- let fixed=data.despesasFixas.filter(x=>monthKeyDash(x.data)===month);
+ ensureDashboardMetadata();syncCategorySelects();
+ const month=dashFixedMonth?.value||currentMonthKey();
+
+ let fixedAll=data.despesasFixas.filter(x=>recordMonth(x)===month);
+ let fixed=fixedAll.slice();
  if(dashFixedStatus==='paid')fixed=fixed.filter(x=>x.pago);
  if(dashFixedStatus==='pending')fixed=fixed.filter(x=>!x.pago);
- dashFixedBody.innerHTML=fixed.map(x=>{
-   const day=Number(String(x.data).slice(8,10))||1;
-   return `<tr class="${x.pago?'fixed-row-paid':'fixed-row-pending'}"><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td><div class="fixed-due"><span>dia</span><input type="number" min="1" max="31" value="${day}" data-due-id="${x.id}" title="Editar dia do vencimento"></div></td><td class="num">${brl(x.valor)}</td><td><span class="pay-status ${x.pago?'paid':'pending'}">${x.pago?'Pago':'Pendente'}</span></td><td class="num"><div class="row-actions"><button class="pay-action" data-pay-id="${x.id}">${x.pago?'Desfazer':'Marcar pago'}</button>${dashExpenseActions('fixas',x.id)}</div></td></tr>`
- }).join('')||'<tr><td colspan="6" style="text-align:center;color:#8a9099">Nenhum gasto fixo para este filtro.</td></tr>';
- dashVariableBody.innerHTML=data.despesasVariaveis.map(x=>`<tr><td>${formatDateDash(x.data)}</td><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td class="num">${brl(x.valor)}</td><td class="num">${dashExpenseActions('variaveis',x.id)}</td></tr>`).join('');
 
- const monthAll=data.despesasFixas.filter(x=>monthKeyDash(x.data)===month),total=monthAll.reduce((a,x)=>a+Number(x.valor||0),0),paid=monthAll.filter(x=>x.pago).reduce((a,x)=>a+Number(x.valor||0),0),pending=total-paid,pct=total?Math.round(paid/total*100):0;
- dashFixedTotal.textContent=brl(total);dashFixedCount.textContent=monthAll.length+' lançamentos';dashFixedPaid.textContent=brl(paid);dashFixedPaidCount.textContent=monthAll.filter(x=>x.pago).length+' pagos';dashFixedPending.textContent=brl(pending);dashFixedPendingCount.textContent=monthAll.filter(x=>!x.pago).length+' pendentes';dashFixedPct.textContent=pct+'%';dashProgressText.textContent=pct+'% pago';dashProgressBar.style.width=pct+'%';dashFixedTableCount.textContent=fixed.length+' registros';
- const variableMonth=data.despesasVariaveis.filter(x=>monthKeyDash(x.data)===month).reduce((a,x)=>a+Number(x.valor||0),0);dashFixedKpi.textContent=brl(total);dashVariableKpi.textContent=brl(variableMonth);dashExpenseTotalKpi.textContent=brl(total+variableMonth);
+ dashFixedBody.innerHTML=fixed.map(x=>{
+   const due=x.data?Number(String(x.data).slice(8,10))||'':'';
+   const dueHtml=due
+     ? `<div class="fixed-due"><span>dia</span><input type="number" min="1" max="31" value="${due}" data-due-id="${x.id}" title="Editar dia do vencimento"></div>`
+     : `<button class="pay-action" data-set-due-id="${x.id}" title="Definir vencimento">Definir</button>`;
+   return `<tr><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td>${dueHtml}</td><td class="num">${brl(x.valor)}</td><td><span class="pay-status ${x.pago?'paid':'pending'}">${x.pago?'Pago':'Pendente'}</span></td><td class="num"><div class="row-actions"><button class="pay-action" data-pay-id="${x.id}">${x.pago?'Desfazer':'Marcar pago'}</button>${dashExpenseActions('fixas',x.id)}</div></td></tr>`
+ }).join('')||'<tr><td colspan="6" class="empty-table">Nenhum gasto fixo para este mês.</td></tr>';
+
+ const vars=data.despesasVariaveis.filter(x=>recordMonth(x)===month);
+ dashVariableBody.innerHTML=vars.map(x=>`<tr><td>${formatDateDash(x.data)||'—'}</td><td class="desc">${escapeHtml(x.descricao)}</td><td>${escapeHtml(x.categoria)}</td><td class="num">${brl(x.valor)}</td><td class="num">${dashExpenseActions('variaveis',x.id)}</td></tr>`).join('')||'<tr><td colspan="5" class="empty-table">Nenhuma despesa variável cadastrada neste mês.</td></tr>';
+
+ const total=fixedAll.reduce((a,x)=>a+Number(x.valor||0),0);
+ const paid=fixedAll.filter(x=>x.pago).reduce((a,x)=>a+Number(x.valor||0),0),pending=total-paid,pct=total?Math.round(paid/total*100):0;
+ dashFixedTotal.textContent=brl(total);dashFixedCount.textContent=fixedAll.length+' lançamentos';
+ dashFixedPaid.textContent=brl(paid);dashFixedPaidCount.textContent=fixedAll.filter(x=>x.pago).length+' pagos';
+ dashFixedPending.textContent=brl(pending);dashFixedPendingCount.textContent=fixedAll.filter(x=>!x.pago).length+' pendentes';
+ dashFixedPct.textContent=pct+'%';dashProgressText.textContent=pct+'% pago';dashProgressBar.style.width=pct+'%';dashFixedTableCount.textContent=fixed.length+' registros';
+
+ const variableMonth=vars.reduce((a,x)=>a+Number(x.valor||0),0);
+ dashFixedKpi.textContent=brl(total);dashVariableKpi.textContent=brl(variableMonth);dashExpenseTotalKpi.textContent=brl(total+variableMonth);
+
+ const months=availableMonths([...data.despesasFixas,...data.despesasVariaveis]);
+ const avg=months.length?months.reduce((a,m)=>a+monthlySum(data.despesasFixas,m)+monthlySum(data.despesasVariaveis,m),0)/months.length:0;
+ dashExpenseAverageKpi.textContent=brl(avg);
+
  bindDashboardExpenseRows();
 }
 
 function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function formatDateDash(d){if(!d)return '—';const [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
 function bindDashboardExpenseRows(){
- document.querySelectorAll('[data-pay-id]').forEach(b=>b.onclick=()=>{const r=data.despesasFixas.find(x=>x.id===b.dataset.payId);if(r){r.pago=!r.pago;saveData(undefined,true);renderDashboardExpenses();showToast(r.pago?'Pagamento marcado como pago':'Pagamento voltou para pendente')}});
- document.querySelectorAll('[data-due-id]').forEach(i=>i.onchange=()=>{const r=data.despesasFixas.find(x=>x.id===i.dataset.dueId);if(!r)return;const day=Math.max(1,Math.min(31,Number(i.value)||1));r.data=monthKeyDash(r.data)+'-'+String(day).padStart(2,'0');saveData(undefined,true);showToast('Vencimento atualizado')});
+ document.querySelectorAll('[data-pay-id]').forEach(b=>b.onclick=()=>{const r=data.despesasFixas.find(x=>x.id===b.dataset.payId);if(r){r.pago=!r.pago;saveData(undefined,true);prepareDashboard();drawDashboardCharts();showToast(r.pago?'Pagamento marcado como pago':'Pagamento voltou para pendente')}});
+ document.querySelectorAll('[data-due-id]').forEach(i=>i.onchange=()=>{const r=data.despesasFixas.find(x=>x.id===i.dataset.dueId);if(!r)return;const day=Math.max(1,Math.min(31,Number(i.value)||1));r.data=(dashFixedMonth.value||currentMonthKey())+'-'+String(day).padStart(2,'0');r.mesReferencia=dashFixedMonth.value||currentMonthKey();saveData(undefined,true);showToast('Vencimento atualizado')});
+ document.querySelectorAll('[data-set-due-id]').forEach(b=>b.onclick=()=>openDashExpenseEditor('fixas',b.dataset.setDueId));
  document.querySelectorAll('[data-dash-edit]').forEach(b=>b.onclick=()=>openDashExpenseEditor(b.dataset.dashEdit,b.dataset.id));
- document.querySelectorAll('[data-dash-delete]').forEach(b=>b.onclick=()=>{const kind=b.dataset.dashDelete,arr=kind==='fixas'?data.despesasFixas:data.despesasVariaveis,idx=arr.findIndex(x=>x.id===b.dataset.id);if(idx<0)return;if(confirm('Excluir somente este lançamento?')){arr.splice(idx,1);saveData(undefined,true);renderDashboardExpenses();showToast('Lançamento excluído')}})
+ document.querySelectorAll('[data-dash-delete]').forEach(b=>b.onclick=()=>{const kind=b.dataset.dashDelete,arr=kind==='fixas'?data.despesasFixas:data.despesasVariaveis,idx=arr.findIndex(x=>x.id===b.dataset.id);if(idx<0)return;if(confirm('Excluir somente este lançamento?')){arr.splice(idx,1);saveData(undefined,true);prepareDashboard();drawDashboardCharts();showToast('Lançamento excluído')}})
 }
 function openDashExpenseEditor(kind,id=null){
+ syncCategorySelects();
  const arr=kind==='fixas'?data.despesasFixas:data.despesasVariaveis,rec=id?arr.find(x=>x.id===id):null;dashExpenseEditing={kind,id:id||null};
- if(kind==='fixas'){dashFixedForm.classList.remove('hidden');dashFixedFormTitle.textContent=rec?'Editar gasto fixo':'Adicionar gasto fixo';dashFixedDate.value=rec?.data||((dashFixedMonth.value||'2026-09')+'-10');dashFixedDesc.value=rec?.descricao||'';dashFixedCat.value=rec?.categoria||'Moradia';dashFixedValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):''}
- else{dashVariableForm.classList.remove('hidden');dashVariableFormTitle.textContent=rec?'Editar despesa variável':'Adicionar despesa variável';dashVariableDate.value=rec?.data||'2026-09-03';dashVariableDesc.value=rec?.descricao||'';dashVariableCat.value=rec?.categoria||'Alimentação';dashVariableValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):''}
+ if(kind==='fixas'){
+   dashFixedForm.classList.remove('hidden');dashFixedFormTitle.textContent=rec?'Editar gasto fixo':'Adicionar gasto fixo';
+   dashFixedDate.value=rec?.data||((dashFixedMonth.value||currentMonthKey())+'-'+String(new Date().getDate()).padStart(2,'0'));
+   dashFixedDesc.value=rec?.descricao||'';setSelectOptions(dashFixedCat,[...getCheckedLabels('fixedCategories'),rec?.categoria].filter(Boolean),false);dashFixedCat.value=rec?.categoria||dashFixedCat.options[0]?.value||'';
+   dashFixedValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):'';
+ }else{
+   dashVariableForm.classList.remove('hidden');dashVariableFormTitle.textContent=rec?'Editar despesa variável':'Adicionar despesa variável';
+   dashVariableDate.value=rec?.data||todayIso();dashVariableDesc.value=rec?.descricao||'';setSelectOptions(dashVariableCat,[...getCheckedLabels('variableCategories'),rec?.categoria].filter(Boolean),false);dashVariableCat.value=rec?.categoria||dashVariableCat.options[0]?.value||'';
+   dashVariableValue.value=rec?Number(rec.valor).toLocaleString('pt-BR'):'';
+ }
 }
 function closeDashExpenseForms(){dashFixedForm.classList.add('hidden');dashVariableForm.classList.add('hidden');dashExpenseEditing=null}
 function saveDashExpense(kind){
  const isFixed=kind==='fixas',arr=isFixed?data.despesasFixas:data.despesasVariaveis,date=isFixed?dashFixedDate.value:dashVariableDate.value,desc=(isFixed?dashFixedDesc.value:dashVariableDesc.value).trim(),cat=isFixed?dashFixedCat.value:dashVariableCat.value,val=parseMoney(isFixed?dashFixedValue.value:dashVariableValue.value);
- if(!date||!desc||!val){alert('Preencha data, descrição e valor.');return}
+ if(!date||!desc||!cat||!val){alert('Preencha data, descrição, categoria e valor.');return}
  let rec=dashExpenseEditing?.kind===kind&&dashExpenseEditing.id?arr.find(x=>x.id===dashExpenseEditing.id):null;
- if(rec){Object.assign(rec,{data:date,descricao:desc,categoria:cat,valor:val})}
- else arr.push({id:(isFixed?'fx':'var')+'-'+Date.now(),data:date,descricao:desc,categoria:cat,valor:val,...(isFixed?{pago:false}:{})});
- saveData(undefined,true);closeDashExpenseForms();renderDashboardExpenses();showToast(rec?'Lançamento editado':'Lançamento adicionado');
+ if(rec){Object.assign(rec,{data:date,mesReferencia:date.slice(0,7),descricao:desc,categoria:cat,valor:val})}
+ else arr.push({id:(isFixed?'fx':'var')+'-'+Date.now(),data:date,mesReferencia:date.slice(0,7),descricao:desc,categoria:cat,valor:val,...(isFixed?{pago:false}:{})});
+ saveData(undefined,true);closeDashExpenseForms();prepareDashboard();drawDashboardCharts();showToast(rec?'Lançamento editado':'Lançamento adicionado');
 }
 document.querySelectorAll('[data-dash-expense-view]').forEach(b=>b.onclick=()=>{dashExpenseView=b.dataset.dashExpenseView;document.querySelectorAll('[data-dash-expense-view]').forEach(x=>x.classList.toggle('active',x===b));dashFixedPane.classList.toggle('hidden',dashExpenseView!=='fixas');dashVariablePane.classList.toggle('hidden',dashExpenseView!=='variaveis')});
 document.querySelectorAll('[data-fixed-status]').forEach(b=>b.onclick=()=>{dashFixedStatus=b.dataset.fixedStatus;document.querySelectorAll('[data-fixed-status]').forEach(x=>x.classList.toggle('active',x===b));renderDashboardExpenses()});
 dashAddFixed.onclick=()=>openDashExpenseEditor('fixas');dashAddVariable.onclick=()=>openDashExpenseEditor('variaveis');dashTopAddVariable.onclick=()=>{document.querySelector('[data-dash-expense-view="variaveis"]').click();openDashExpenseEditor('variaveis')};
 dashSaveFixed.onclick=()=>saveDashExpense('fixas');dashSaveVariable.onclick=()=>saveDashExpense('variaveis');dashCancelFixed.onclick=closeDashExpenseForms;dashCancelVariable.onclick=closeDashExpenseForms;
-dashMonthPrev.onclick=()=>shiftDashMonth(-1);dashMonthNext.onclick=()=>shiftDashMonth(1);dashFixedMonth.onchange=renderDashboardExpenses;
+dashMonthPrev.onclick=()=>shiftDashMonth(-1);dashMonthNext.onclick=()=>shiftDashMonth(1);dashFixedMonth.onchange=()=>{renderDashboardExpenses();drawDashboardCharts()};
 function shiftDashMonth(delta){const [y,m]=dashFixedMonth.value.split('-').map(Number),d=new Date(Date.UTC(y,m-1+delta,1));dashFixedMonth.value=d.toISOString().slice(0,7);renderDashboardExpenses()}
-dashReplicateFixed.onclick=()=>{const source=dashFixedMonth.value,[y,m]=source.split('-').map(Number),d=new Date(Date.UTC(y,m,1)),target=d.toISOString().slice(0,7),sourceRows=data.despesasFixas.filter(x=>monthKeyDash(x.data)===source);if(!sourceRows.length){showToast('Não há gastos fixos para replicar');return}if(!confirm(`Replicar ${sourceRows.length} gastos fixos para ${target}?`))return;sourceRows.forEach(x=>{const day=String(x.data).slice(8,10)||'01';if(!data.despesasFixas.some(z=>monthKeyDash(z.data)===target&&z.descricao===x.descricao))data.despesasFixas.push({...x,id:'fx-'+Date.now()+'-'+Math.random().toString(16).slice(2),data:target+'-'+day,pago:false})});saveData(undefined,true);dashFixedMonth.value=target;renderDashboardExpenses();showToast('Gastos fixos replicados')};
+dashReplicateFixed.onclick=()=>{
+ const source=dashFixedMonth.value||currentMonthKey(),[y,m]=source.split('-').map(Number),d=new Date(Date.UTC(y,m,1)),target=d.toISOString().slice(0,7);
+ const sourceRows=data.despesasFixas.filter(x=>recordMonth(x)===source);
+ if(!sourceRows.length){showToast('Não há gastos fixos para replicar');return}
+ if(!confirm(`Replicar ${sourceRows.length} gastos fixos para ${monthLabelPt(target)}?`))return;
+ sourceRows.forEach(x=>{
+   const day=x.data?String(x.data).slice(8,10):'';
+   if(!data.despesasFixas.some(z=>recordMonth(z)===target&&z.descricao===x.descricao)){
+     data.despesasFixas.push({...x,id:'fx-'+Date.now()+'-'+Math.random().toString(16).slice(2),mesReferencia:target,data:day?(target+'-'+day):null,pago:false});
+   }
+ });
+ saveData(undefined,true);dashFixedMonth.value=target;prepareDashboard();drawDashboardCharts();showToast('Gastos fixos replicados');
+};
+
+
+function renderDashboardRevenues(){
+ const month=currentMonthKey();
+ const rows=(data.receitas||[]).filter(x=>recordMonth(x)===month || !x.mesReferencia && !x.data);
+ const total=rows.reduce((a,x)=>a+Number(x.valor||0),0);
+ const months=availableMonths(data.receitas);
+ const avg=months.length?months.reduce((a,m)=>a+monthlySum(data.receitas,m),0)/months.length:total;
+ dashRevenueMonth.textContent=brl(total);dashRevenueAverage.textContent=brl(avg);
+
+ const people=data.perfil?.pessoas||[];
+ const grouped=groupSum(rows,x=>x.pessoa||'Outras receitas');
+ const p1=people[0]||grouped[0]?.[0]||'Pessoa 1',p2=people[1]||'Pessoa 2';
+ const p1v=rows.filter(x=>(x.pessoa||'')===p1).reduce((a,x)=>a+Number(x.valor||0),0);
+ const p2v=rows.filter(x=>(x.pessoa||'')===p2).reduce((a,x)=>a+Number(x.valor||0),0);
+ dashPerson1Label.textContent=p1;dashPerson1Share.textContent=total?Math.round(p1v/total*100)+'%':'—';
+ dashPerson2Label.textContent=people.length>1?p2:'Outras receitas';
+ dashPerson2Share.textContent=total?Math.round((people.length>1?p2v:Math.max(0,total-p1v))/total*100)+'%':'—';
+
+ dashRevenueBody.innerHTML=rows.map(x=>`<tr><td>${escapeHtml(x.pessoa||'—')}</td><td>${escapeHtml(x.descricao||'—')}</td><td class="num">${brl(x.valor)}</td></tr>`).join('')||'<tr><td colspan="3" class="empty-table">Nenhuma receita cadastrada.</td></tr>';
+
+ const personSelect=document.getElementById('dashRevenuePerson');
+ setSelectOptions(personSelect,people.length?people:['Você'],true);
+}
+dashAddRevenue.onclick=()=>{renderDashboardRevenues();dashRevenueForm.classList.remove('hidden');dashRevenueDesc.value='';dashRevenueValue.value=''};
+dashCancelRevenue.onclick=()=>dashRevenueForm.classList.add('hidden');
+dashSaveRevenue.onclick=()=>{
+ const pessoa=dashRevenuePerson.value,descricao=dashRevenueDesc.value.trim(),valor=parseMoney(dashRevenueValue.value);
+ if(!descricao||!valor){alert('Preencha descrição e valor.');return}
+ data.receitas.push({id:'rec-'+Date.now(),pessoa,descricao,valor,mesReferencia:currentMonthKey()});
+ saveData(undefined,true);dashRevenueForm.classList.add('hidden');prepareDashboard();drawDashboardCharts();showToast('Receita adicionada');
+};
+
+function renderDashboardInstallments(){
+ const month=currentMonthKey(),items=data.parcelas||[];
+ const cur=monthlySum(items,month,installmentValue);
+ const future=futureInstallmentTotal();
+ // Como nem todos os formatos de parcela possuem calendário detalhado,
+ // usa valores efetivamente armazenados quando houver.
+ const val3=items.reduce((a,x)=>a+installmentValue(x)*Math.min(3,Math.max(0,Number(x.parcelasRestantes??x.numeroParcelas??1))),0);
+ const val6=items.reduce((a,x)=>a+installmentValue(x)*Math.min(6,Math.max(0,Number(x.parcelasRestantes??x.numeroParcelas??1))),0);
+ dashInstallmentsMonth.textContent=brl(cur);dashInstallments3.textContent=brl(val3);dashInstallments6.textContent=brl(val6);dashInstallmentsFuture.textContent=brl(future);
+ dashInstallmentBody.innerHTML=items.map(x=>`<tr><td>${escapeHtml(x.descricao||'—')}</td><td>${escapeHtml(x.categoria||'—')}</td><td>${escapeHtml(String(x.parcelasRestantes??x.numeroParcelas??'—'))}</td><td class="num">${brl(installmentValue(x))}</td></tr>`).join('')||'<tr><td colspan="4" class="empty-table">Nenhuma parcela cadastrada.</td></tr>';
+}
+
+function renderDashboardInvestments(){
+ syncCategorySelects();
+ const rows=data.investimentos||[];
+ dashInvestmentBody.innerHTML=rows.map(x=>`<tr><td>${escapeHtml(x.descricao||'—')}</td><td>${escapeHtml(x.categoria||'—')}</td><td><span class="tag">${x.aposentadoria?'Sim':'Não'}</span></td><td class="num">${brl(x.valor)}</td></tr>`).join('')||'<tr><td colspan="4" class="empty-table">Nenhum investimento cadastrado.</td></tr>';
+}
+dashAddInvestment.onclick=()=>{syncCategorySelects();dashInvestmentForm.classList.remove('hidden');dashInvestmentDesc.value='';dashInvestmentValue.value='';dashInvestmentRetirement.value='true'};
+dashCancelInvestment.onclick=()=>dashInvestmentForm.classList.add('hidden');
+dashSaveInvestment.onclick=()=>{
+ const categoria=dashInvestmentCat.value,descricao=dashInvestmentDesc.value.trim(),valor=parseMoney(dashInvestmentValue.value),aposentadoria=dashInvestmentRetirement.value==='true';
+ if(!categoria||!descricao||!valor){alert('Preencha categoria, descrição e valor.');return}
+ data.investimentos.push({id:'inv-'+Date.now(),categoria,descricao,valor,aposentadoria,mesReferencia:currentMonthKey()});
+ if(data.aposentadoria)data.aposentadoria.patrimonioDetalhado=data.investimentos.filter(x=>x.aposentadoria).reduce((a,x)=>a+Number(x.valor||0),0);
+ saveData(undefined,true);dashInvestmentForm.classList.add('hidden');preparePlan();prepareDashboard();drawDashboardCharts();showToast('Investimento adicionado');
+};
 
 /* Ajuste de premissas também disponível na aba Investimentos */
 dashAdjustPremises.onclick=()=>dashPremiseEditor.classList.toggle('hidden');
@@ -1247,23 +1721,90 @@ dashSavePremises.onclick=()=>{
  saveData(undefined,true);preparePlan();prepareDashboard();drawDashboardCharts();showToast('Premissas atualizadas');
 };
 
+function canvasMessage(id,msg){
+ const c=document.getElementById(id);if(!c||c.offsetParent===null)return;
+ const {ctx,w,h}=setupCanvas(c);ctx.clearRect(0,0,w,h);ctx.fillStyle='#8a9099';ctx.font='11px system-ui';ctx.textAlign='center';ctx.fillText(msg,w/2,h/2);ctx.textAlign='start';
+}
+function shades(base,count){
+ const red=['#c41446','#d43a61','#df6984','#e892a5','#efb8c5','#b12149'];
+ const blue=['#3f6fa3','#6285aa','#809ab8','#9badc4','#b5c3d2','#294f76'];
+ const neutral=['#596574','#7a8490','#9aa2ac','#b6bcc4','#d0d4d9','#3f4752'];
+ return (base==='blue'?blue:base==='neutral'?neutral:red).slice(0,Math.max(1,count));
+}
+function drawCategoryBar(id,items,keyFn,base='red'){
+ const grouped=groupSum(items,keyFn);
+ if(!grouped.length||!grouped.some(x=>x[1]>0)){canvasMessage(id,'Ainda não há dados para exibir.');return}
+ const top=grouped.slice(0,6),colors=shades(base,top.length);
+ barChart(id,top.map((x,i)=>({data:[x[1]],color:colors[i]})),['Atual']);
+}
 function drawDashboardCharts(){
- ensureDashboardExpenseDemo();renderDashboardExpenses();
- const labels=['Abr','Mai','Jun','Jul','Ago','Set'];
- lineChart('expenseEvolutionChart',[{data:[4200,4300,4380,4380,4380,4380],color:'#6b7280'},{data:[3450,3600,3720,3890,4010,3920],color:'#dc2626'}],labels);
- barChart('expenseCategoryChart',[{data:[2200,1450,980,760,620,440],color:'#dc2626'}],['Moradia','Mercado','Casa','Transp.','Lazer','Saúde']);
- lineChart('overviewChart',[{data:[13800,14000,14400,14200,14550,14600],color:'#3f6fa3'},{data:[8500,8900,9000,9150,9300,9240],color:'#c91545'}],labels);
- barChart('allocationChart',[{data:[72,75,80,86,94,100],color:'#c91545'},{data:[22,24,25,27,29,30],color:'#6e7682'}],labels);
- lineChart('revenueChart',[{data:[7900,8000,8200,8100,8300,8350],color:'#d995aa'},{data:[5900,6000,6200,6100,6250,6250],color:'#5e83ad'}],labels);
- pieChart('revenuePie',[57,43],['#d995aa','#5e83ad']);
- barChart('installmentChart',[{data:[1180,1050,920,780,540,350],color:'#c91545'}],['Set','Out','Nov','Dez','Jan','Fev']);
- lineChart('investmentAllocation',[{data:[78,82,88,93,97,100],color:'#c91545'},{data:[18,21,23,25,27,30],color:'#64707d'}],labels);
- const rlabels=['Hoje','5a','10a','15a','20a','25a','28a'];lineChart('retirementProjection',[{data:[100,270,510,810,1120,1360,1460],color:'#c91545'},{data:[100,300,560,850,1130,1350,1460],color:'#222',dash:[6,5]}],rlabels);
+ ensureDashboardMetadata();
+ const month=currentMonthKey();
+ const fixed=data.despesasFixas.filter(x=>recordMonth(x)===month),vars=data.despesasVariaveis.filter(x=>recordMonth(x)===month),revs=data.receitas.filter(x=>recordMonth(x)===month || (!x.data&&!x.mesReferencia));
+ const parcels=data.parcelas||[],inv=data.investimentos||[];
+
+ const revenue=revs.reduce((a,x)=>a+Number(x.valor||0),0);
+ const fixedTotal=fixed.reduce((a,x)=>a+Number(x.valor||0),0),variableTotal=vars.reduce((a,x)=>a+Number(x.valor||0),0),parcelMonth=monthlySum(parcels,month,installmentValue);
+ const expenses=fixedTotal+variableTotal+parcelMonth,available=Math.max(0,revenue-expenses);
+
+ if(revenue||expenses)barChart('overviewChart',[{data:[revenue,0,0],color:'#3f6fa3'},{data:[0,expenses,0],color:'#cf3156'},{data:[0,0,available],color:'#aeb6c0'}],['Receitas','Despesas','Disponível']);
+ else canvasMessage('overviewChart','Preencha receitas e despesas para visualizar o consolidado.');
+
+ drawCategoryBar('overviewFixedChart',fixed,x=>x.categoria,'red');
+ drawCategoryBar('overviewVariableChart',vars,x=>x.categoria,'red');
+
+ if(parcels.length){
+   const values=parcels.slice(0,6).map(installmentValue),labels=parcels.slice(0,6).map(x=>(x.categoria||x.descricao||'Parcela').slice(0,10));
+   barChart('overviewInstallmentChart',[{data:values,color:'#cf3156'}],labels);
+ }else canvasMessage('overviewInstallmentChart','Nenhuma parcela cadastrada.');
+
+ drawCategoryBar('allocationChart',inv,x=>x.categoria,'neutral');
+
+ // Despesas: meses efetivamente existentes
+ const expMonths=availableMonths([...data.despesasFixas,...data.despesasVariaveis]);
+ if(expMonths.length){
+   const labels=expMonths.slice(-6).map(m=>monthLabelPt(m).split(' de ')[0].slice(0,3));
+   const fixedVals=expMonths.slice(-6).map(m=>monthlySum(data.despesasFixas,m));
+   const varVals=expMonths.slice(-6).map(m=>monthlySum(data.despesasVariaveis,m));
+   lineChart('expenseEvolutionChart',[{data:fixedVals,color:'#8d96a1'},{data:varVals,color:'#cf3156'}],labels);
+ }else canvasMessage('expenseEvolutionChart','Ainda não há meses registrados.');
+ drawCategoryBar('expenseCategoryChart',[...fixed,...vars],x=>x.categoria,'red');
+
+ // Receitas
+ const revGrouped=groupSum(revs,x=>x.pessoa||x.descricao||'Receita');
+ if(revGrouped.length){
+   barChart('revenueChart',[{data:revGrouped.map(x=>x[1]),color:'#3f6fa3'}],revGrouped.map(x=>x[0].slice(0,10)));
+   pieChart('revenuePie',revGrouped.map(x=>x[1]),shades('blue',revGrouped.length));
+ }else{canvasMessage('revenueChart','Nenhuma receita cadastrada.');canvasMessage('revenuePie','Nenhuma receita cadastrada.');}
+
+ // Parcelas
+ if(parcels.length){
+   const vals=parcels.slice(0,6).map(installmentValue),labs=parcels.slice(0,6).map((x,i)=>x.categoria?.slice(0,8)||('Parc. '+(i+1)));
+   barChart('installmentChart',[{data:vals,color:'#cf3156'}],labs);
+ }else canvasMessage('installmentChart','Nenhuma parcela cadastrada.');
+
+ // Investimentos
+ drawCategoryBar('investmentAllocation',inv,x=>x.categoria,'neutral');
+
+ // Projeção da aposentadoria calculada com os dados do onboarding
+ const a=data.aposentadoria||{};
+ if(a.idadeAtual&&a.idadeAposentadoria&&a.anosUsufruto&&a.rendaMensalHoje){
+   const m=retirementModel();
+   const acc=m.pts.filter(p=>p.age<=m.retAge);
+   if(acc.length>=2){
+     const step=Math.max(1,Math.ceil(acc.length/7)),sample=acc.filter((_,i)=>i%step===0||i===acc.length-1);
+     const labels=sample.map((p,i)=>i===0?'Hoje':Math.round(p.age)+'a');
+     const projected=sample.map(p=>Math.round(p.balance/1000));
+     const goalEnd=(a.patrimonioNecessario||m.need||0)/1000;
+     const goal=sample.map((p,i)=>Math.round(((i)/(Math.max(1,sample.length-1)))*goalEnd));
+     lineChart('retirementProjection',[{data:projected,color:'#c41446'},{data:goal,color:'#22252b',dash:[6,5]}],labels);
+   }else canvasMessage('retirementProjection','Dados insuficientes para a projeção.');
+ }else canvasMessage('retirementProjection','Defina sua meta de aposentadoria para visualizar a projeção.');
 }
 window.addEventListener('resize',()=>{if(!screenDashboard.classList.contains('hidden'))drawDashboardCharts()});
 const screenDashboard=document.getElementById('screen-dashboard');
 
-updateLive();
+syncCategorySelects();updateLive();
 document.getElementById('continueAfterMicrosoft').onclick=async()=>{
  try{
    if(!msalInstance)await initMicrosoftAuth();
