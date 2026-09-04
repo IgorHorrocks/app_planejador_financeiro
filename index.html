@@ -1481,6 +1481,178 @@ body.dashboard-open{
   .mobile-dashboard-nav label{font-size:10px}
 }
 
+
+/* ==========================================================
+   v22 — tabelas no celular iguais ao desktop
+   ========================================================== */
+
+/* No mobile, tabelas do dashboard mantêm exatamente a estrutura desktop.
+   A única adaptação é permitir rolagem horizontal dentro da tabela. */
+@media(max-width:680px){
+  #screen-dashboard .table-container,
+  #screen-dashboard .original-table-wrap{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:auto!important;
+    overflow-y:auto!important;
+    border:1px solid #E7DDDB!important;
+    border-radius:12px!important;
+    background:#FFFDFC!important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  #screen-dashboard .financial-table,
+  #screen-dashboard .financial-table tbody,
+  #screen-dashboard .financial-table thead,
+  #screen-dashboard .financial-table tr{
+    display:table!important;
+  }
+
+  #screen-dashboard .financial-table{
+    width:100%!important;
+    border-collapse:separate!important;
+    border-spacing:0!important;
+    table-layout:fixed!important;
+  }
+
+  #screen-dashboard .financial-table thead{
+    display:table-header-group!important;
+  }
+  #screen-dashboard .financial-table tbody{
+    display:table-row-group!important;
+  }
+  #screen-dashboard .financial-table tr{
+    display:table-row!important;
+    height:auto!important;
+    border:0!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    background:transparent!important;
+  }
+  #screen-dashboard .financial-table th,
+  #screen-dashboard .financial-table td{
+    display:table-cell!important;
+    width:auto!important;
+    min-width:0!important;
+    height:52px!important;
+    padding:11px 12px!important;
+    border-bottom:1px solid #EFE7E5!important;
+    text-align:left!important;
+    vertical-align:middle!important;
+    font-size:10.5px!important;
+    background:#FFFDFC;
+  }
+  #screen-dashboard .financial-table th{
+    height:42px!important;
+    background:#F5E8EB!important;
+    color:#6E3542!important;
+    font-size:9px!important;
+    font-weight:850!important;
+    white-space:nowrap!important;
+  }
+  #screen-dashboard .financial-table td::before{
+    content:none!important;
+    display:none!important;
+  }
+  #screen-dashboard .financial-table .num,
+  #screen-dashboard .financial-table .money-cell{
+    text-align:right!important;
+    white-space:nowrap!important;
+  }
+  #screen-dashboard .financial-table .cell-description{
+    display:block!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    -webkit-line-clamp:unset!important;
+    -webkit-box-orient:initial!important;
+    text-align:left!important;
+  }
+  #screen-dashboard .financial-table .row-actions{
+    display:flex!important;
+    justify-content:flex-end!important;
+    flex-wrap:nowrap!important;
+  }
+  #screen-dashboard .financial-table .icon-action{
+    width:34px!important;
+    height:34px!important;
+  }
+  #screen-dashboard .financial-table .pay-action{
+    min-height:34px!important;
+    font-size:8.5px!important;
+  }
+  #screen-dashboard .financial-table .empty-table{
+    display:table-cell!important;
+    text-align:center!important;
+    height:auto!important;
+    padding:22px!important;
+  }
+
+  /* Mantém largura mínima adequada conforme número de colunas,
+     exatamente como no desktop, com scroll horizontal quando necessário. */
+  #screen-dashboard .fixed-table{min-width:760px!important}
+  #screen-dashboard .variable-table{min-width:700px!important}
+  #screen-dashboard .revenue-table{min-width:820px!important}
+  #screen-dashboard .installment-table{min-width:980px!important}
+  #screen-dashboard .investment-table{min-width:820px!important}
+}
+
+/* Onboarding: linhas de Receita, Despesas e Investimentos mantêm
+   o mesmo formato horizontal do computador. */
+@media(max-width:760px){
+  .screen:not(#screen-dashboard) .rows{
+    width:100%!important;
+    max-width:100%!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:4px;
+  }
+
+  .screen:not(#screen-dashboard) .data-row{
+    display:grid!important;
+    width:auto!important;
+    max-width:none!important;
+    padding:0!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    gap:8px!important;
+  }
+
+  .screen:not(#screen-dashboard) .data-row:not(.income):not(.invest):not(.asset){
+    grid-template-columns:minmax(150px,1fr) minmax(220px,1.4fr) minmax(150px,.8fr) 36px!important;
+    min-width:700px!important;
+  }
+
+  .screen:not(#screen-dashboard) .data-row.income{
+    grid-template-columns:minmax(150px,1fr) minmax(160px,1fr) minmax(220px,1.4fr) minmax(150px,.8fr) 36px!important;
+    min-width:860px!important;
+  }
+
+  .screen:not(#screen-dashboard) .data-row.invest{
+    grid-template-columns:minmax(170px,1fr) minmax(220px,1.3fr) minmax(150px,.8fr) minmax(150px,.9fr) 36px!important;
+    min-width:850px!important;
+  }
+
+  .screen:not(#screen-dashboard) .row-head{
+    display:grid!important;
+  }
+
+  .screen:not(#screen-dashboard) .data-row > *,
+  .screen:not(#screen-dashboard) .data-row.income > *,
+  .screen:not(#screen-dashboard) .data-row.invest > *{
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+  }
+
+  .screen:not(#screen-dashboard) .data-row .del{
+    width:36px!important;
+    justify-self:stretch!important;
+  }
+}
+
 </style>
 </head>
 <body>
