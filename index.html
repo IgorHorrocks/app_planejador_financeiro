@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Organizador Financeiro</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root{
   --brand:#c91545;--brand2:#a90f38;--brand-soft:#fff1f5;--bg:#f6f7fa;--card:#fff;
@@ -2040,63 +2039,6 @@ html.android-mobile #screen-dashboard select{
   }
 }
 
-
-/* ===== v27: Microsoft + Google Drive ===== */
-.auth-provider-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:12px;
-}
-.auth-provider-btn{
-  width:100%;
-  min-height:54px;
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  gap:11px;
-  text-align:left;
-}
-.auth-provider-btn > span:last-child{
-  display:grid;
-  gap:2px;
-}
-.auth-provider-btn b{
-  font-size:12px;
-}
-.auth-provider-btn small{
-  font-size:9.5px;
-  font-weight:600;
-  opacity:.72;
-}
-.google-btn{
-  border:1px solid #DADCE0;
-  background:#fff;
-  color:#3C4043;
-  border-radius:11px;
-  padding:0 14px;
-  font-weight:750;
-  cursor:pointer;
-}
-.google-btn:hover{background:#F8FAFD}
-.google-g{
-  width:25px;
-  height:25px;
-  border-radius:50%;
-  display:grid!important;
-  place-items:center;
-  flex:0 0 25px;
-  font-family:Arial,sans-serif;
-  font-size:18px!important;
-  font-weight:800!important;
-  color:#4285F4;
-  background:#fff;
-  border:1px solid #ECEFF3;
-}
-@media(max-width:560px){
-  .auth-provider-grid{grid-template-columns:1fr}
-}
-
 </style>
 </head>
 <body>
@@ -2120,12 +2062,12 @@ html.android-mobile #screen-dashboard select{
       <div class="choice" id="firstAccessBtn">
         <div class="icon">＋</div>
         <h3>É meu primeiro acesso</h3>
-        <p>Escolha Microsoft ou Google, crie sua base de dados privada e monte seu primeiro plano financeiro.</p>
+        <p>Conecte sua conta Microsoft, crie sua base de dados e monte seu primeiro plano financeiro.</p>
       </div>
       <div class="choice" id="existingAccessBtn">
         <div class="icon">↗</div>
         <h3>Já tenho uma conta</h3>
-        <p>Entre com o mesmo provedor usado anteriormente para carregar seu arquivo e continuar de onde parou.</p>
+        <p>Entre com a Microsoft para carregar seu arquivo e continuar de onde parou.</p>
       </div>
     </div>
     
@@ -2143,25 +2085,16 @@ html.android-mobile #screen-dashboard select{
   <path d="M21.5 18.5 31 9m0 0h-5.8M31 9v5.8" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
 </span>Organizador Financeiro</div>
-    <div class="eyebrow">Escolha onde guardar seus dados</div>
+    <div class="eyebrow">Conexão com seu OneDrive</div>
     <h1 id="loginTitle" style="font-size:28px">Vamos criar sua base financeira.</h1>
-    <p class="lead" id="loginLead" style="font-size:13px;margin-bottom:20px">Escolha Microsoft ou Google. O arquivo <b>organizador_financeiro.json</b> será armazenado na área privada do aplicativo dentro da nuvem da conta escolhida.</p>
-
-    <div class="auth-provider-grid">
-      <button class="ms-btn auth-provider-btn" id="microsoftLoginBtn" type="button">
-        <span class="ms-logo"><i></i><i></i><i></i><i></i></span>
-        <span><b>Entrar com Microsoft</b><small>Salvar no OneDrive</small></span>
-      </button>
-      <button class="google-btn auth-provider-btn" id="googleLoginBtn" type="button">
-        <span class="google-g" aria-hidden="true">G</span>
-        <span><b>Entrar com Google</b><small>Salvar no Google Drive</small></span>
-      </button>
-    </div>
-
+    <p class="lead" id="loginLead" style="font-size:13px;margin-bottom:20px">Sua conta Microsoft será usada para criar um arquivo privado <b>organizador_financeiro.json</b> no seu OneDrive. É esse arquivo que guardará as informações da aplicação.</p>
+    <button class="ms-btn" id="microsoftLoginBtn">
+      <span class="ms-logo"><i></i><i></i><i></i><i></i></span>
+      Entrar com Microsoft
+    </button>
     <div class="login-status" id="loginStatus">
-      Escolha a conta em que deseja manter seus dados financeiros. Use sempre o mesmo provedor nos próximos acessos.
+      Entre com sua conta Microsoft pessoal. No primeiro acesso, o aplicativo criará automaticamente o arquivo <b>organizador_financeiro.json</b> dentro da pasta privada do aplicativo no seu OneDrive.
     </div>
-
     <div class="privacy-trust" id="privacyTrust">
       <div class="privacy-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24">
@@ -2169,16 +2102,12 @@ html.android-mobile #screen-dashboard select{
         </svg>
       </div>
       <div>
-        <strong>Seus dados permanecem na sua própria nuvem.</strong>
-        <p id="privacyProviderText">Com Microsoft, o arquivo fica na pasta privada do aplicativo no OneDrive. Com Google, ele fica na área privada do aplicativo no Google Drive. O Organizador Financeiro não mantém uma cópia central dos seus dados financeiros.</p>
+        <strong>Suas informações permanecem privadas.</strong>
+        <p>Seu arquivo financeiro fica no OneDrive da conta Microsoft conectada. O Organizador Financeiro não mantém uma cópia central dos seus dados financeiros.</p>
       </div>
     </div>
-
     <button id="continueAfterMicrosoft" class="btn btn-secondary hidden" type="button" style="width:100%;margin-top:10px">Continuar conexão com o OneDrive</button>
-    <div class="actions">
-      <button class="btn btn-ghost" id="loginBack">← Voltar</button>
-      <span class="sync-pill"><i class="sync-dot"></i> <span id="loginStoragePill">Sua nuvem</span> · organizador_financeiro.json</span>
-    </div>
+    <div class="actions"><button class="btn btn-ghost" id="loginBack">← Voltar</button><span class="sync-pill"><i class="sync-dot"></i> OneDrive · organizador_financeiro.json</span></div>
   </div>
 </section>
 
@@ -2517,7 +2446,7 @@ html.android-mobile #screen-dashboard select{
    <div class="dash-top">
     <div class="dash-title" id="dashTitle">Visão Geral</div>
     <div class="dash-user">
-     <span id="dashboardCloudStatus" class="cloud-status connected"><i></i><span>Nuvem conectada</span></span>
+     <span id="dashboardCloudStatus" class="cloud-status connected"><i></i><span>OneDrive conectado</span></span>
      <div class="avatar" id="avatar">U</div><span id="dashUser">Usuário</span>
     </div>
     <div class="mobile-dashboard-nav">
@@ -2762,7 +2691,7 @@ html.android-mobile #screen-dashboard select{
      <div class="dash-card category-settings-card">
       <div class="original-chart-head">
        <div><h3>Categorias do organizador</h3><p>Edite, adicione ou remova as categorias que aparecem nos campos de cadastro.</p></div>
-       <span class="original-pill" id="settingsCloudPill">Salvo na nuvem</span>
+       <span class="original-pill">Salvo no OneDrive</span>
       </div>
       <div class="category-settings-tabs">
        <button class="active" data-settings-category="fixas" type="button">Despesas fixas</button>
@@ -2780,15 +2709,15 @@ html.android-mobile #screen-dashboard select{
 
      <div class="split-2 settings-bottom-grid">
       <div class="dash-card">
-       <h3 id="settingsCloudTitle">Armazenamento em nuvem</h3>
+       <h3>Microsoft OneDrive</h3>
        <p class="sub">Origem principal: organizador_financeiro.json</p>
-       <div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Nuvem conectada.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div>
+       <div class="callout good" style="margin-top:0" id="settingsCloudBox"><b>Microsoft OneDrive conectado.</b><br>O arquivo organizador_financeiro.json é a fonte principal desta aplicação.</div>
        <button class="dash-secondary-btn" id="downloadJson" style="margin-top:12px">Baixar cópia do JSON</button>
       </div>
       <div class="dash-card">
        <h3>Seu onboarding</h3>
        <p class="sub">As etapas foram salvas progressivamente.</p>
-       <div class="callout" style="margin-top:0" id="settingsOnboardingCloudText">Cada etapa é salva na nuvem antes de avançar.</div>
+       <div class="callout" style="margin-top:0">Cada etapa é salva no OneDrive antes de avançar.</div>
        <button class="dash-secondary-btn" id="restartOnboarding" style="margin-top:12px">Revisar onboarding</button>
       </div>
      </div>
@@ -2808,80 +2737,29 @@ const AUTH_RETURN_DETECTED =
 const STORE='cf_local_cache_dados_financeiros';
 const LOGIN_INTENT_KEY='cf_microsoft_login_intent';
 const LOGIN_INTENT_SESSION_KEY='cf_microsoft_login_intent_session';
-const MICROSOFT_CLIENT_ID='fd3cc9af-c84d-47c0-9c9a-7f663cfdd94e';
-/*
- * Cole abaixo o OAuth Client ID do Google Cloud (tipo: Aplicação Web).
- * Exemplo de formato: 123456789-abc123.apps.googleusercontent.com
- */
-const GOOGLE_CLIENT_ID='883523235358-suff2kh0d9nq73fdeoge4cnpo7vog21h.apps.googleusercontent.com';
+const CLIENT_ID='fd3cc9af-c84d-47c0-9c9a-7f663cfdd94e';
 const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/app_planejador_financeiro/';
 const GRAPH_SCOPES=['Files.ReadWrite.AppFolder'];
 const GRAPH_BASE='https://graph.microsoft.com/v1.0';
-const GOOGLE_DRIVE_SCOPE='https://www.googleapis.com/auth/drive.appdata';
-const GOOGLE_DRIVE_API='https://www.googleapis.com/drive/v3';
-const GOOGLE_UPLOAD_API='https://www.googleapis.com/upload/drive/v3';
 const JSON_FILENAME='organizador_financeiro.json';
 
 let accessMode='first';
-let activeStorageProvider='microsoft';
 let msalModule=null;
 let msalInstance=null;
 let activeMicrosoftAccount=null;
 let appRootId=null;
 let appRootWebUrl=null;
-
-let googleTokenClient=null;
-let googleAccessToken=null;
-let googleTokenExpiresAt=0;
-let googleDriveFileId=null;
-
 let cloudReady=false;
 let bootstrapGraphToken=null;
 let bootstrapGraphTokenExpiresAt=0;
 let syncChain=Promise.resolve();
 
-function cloudStorageName(){
- return activeStorageProvider==='google'?'Google Drive':'OneDrive';
-}
-function cloudProviderName(){
- return activeStorageProvider==='google'?'Google':'Microsoft';
-}
-function cloudSourceOfTruth(){
- return activeStorageProvider==='google'?'googleDrive':'onedrive';
-}
-function activeCloudUserName(){
- return activeStorageProvider==='microsoft'?(activeMicrosoftAccount?.name||''):'';
-}
-function refreshCloudProviderUI(){
- const storage=cloudStorageName();
- const provider=cloudProviderName();
- const pill=document.getElementById('loginStoragePill');
- if(pill)pill.textContent=storage;
- const title=document.getElementById('settingsCloudTitle');
- if(title)title.textContent=provider+' · '+storage;
- const settingsPill=document.getElementById('settingsCloudPill');
- if(settingsPill)settingsPill.textContent='Salvo no '+storage;
- const box=document.getElementById('settingsCloudBox');
- if(box)box.innerHTML='<b>'+provider+' '+storage+' conectado.</b><br>O arquivo <b>'+JSON_FILENAME+'</b> é a fonte principal desta aplicação.';
- const onboarding=document.getElementById('settingsOnboardingCloudText');
- if(onboarding)onboarding.textContent='Cada etapa é salva no '+storage+' antes de avançar.';
-}
-function setProviderLoginUI(provider){
- activeStorageProvider=provider;
- refreshCloudProviderUI();
- const privacy=document.getElementById('privacyProviderText');
- if(privacy){
-   privacy.innerHTML=provider==='google'
-     ? 'Seu arquivo financeiro fica na <b>área privada do aplicativo no Google Drive</b> da conta conectada. Essa área não aparece entre os arquivos comuns do Drive e não é compartilhada com outros aplicativos.'
-     : 'Seu arquivo financeiro fica na <b>pasta privada do aplicativo no OneDrive</b> da conta Microsoft conectada. O aplicativo usa apenas essa área para ler e atualizar seus próprios dados.';
- }
-}
 function emptyData(){
  return {
   schemaVersion:2,
   tipo:'organizador_financeiro',
   app:'Organizador Financeiro',
-  sourceOfTruth:cloudSourceOfTruth(),
+  sourceOfTruth:'onedrive',
   createdAt:new Date().toISOString(),
   updatedAt:new Date().toISOString(),
   onboarding:{completed:false,lastStep:0},
@@ -2898,7 +2776,7 @@ function emptyData(){
 }
 function defaultData(){
  return {
-  schemaVersion:2, tipo:'organizador_financeiro', app:'Organizador Financeiro', sourceOfTruth:cloudSourceOfTruth(),
+  schemaVersion:2, tipo:'organizador_financeiro', app:'Organizador Financeiro', sourceOfTruth:'onedrive',
   createdAt:new Date().toISOString(), updatedAt:new Date().toISOString(),
   onboarding:{completed:false,lastStep:0},
   perfil:{tipo:'casal',pessoas:['Laura','Victor'],moeda:'BRL'},
@@ -2930,29 +2808,25 @@ function setLoginStatus(type,htmlText){
 }
 function saveData(step, silent=false){
  data.updatedAt=new Date().toISOString();
- data.sourceOfTruth=cloudSourceOfTruth();
  if(step!==undefined && step!==null) data.onboarding.lastStep=step;
  cacheLocal();
  if(cloudReady){
-   syncChain=syncChain.then(()=>uploadJsonToCloud(data)).catch(err=>{
-     console.error(err);
-     setCloudStatus('error','Falha ao sincronizar');
-     if(!silent)showToast('Não foi possível sincronizar com o '+cloudStorageName());
+   syncChain=syncChain.then(()=>uploadJsonToOneDrive(data)).catch(err=>{
+     console.error(err);setCloudStatus('error','Falha ao sincronizar');if(!silent)showToast('Não foi possível sincronizar com o OneDrive');
    });
  }
- if(!silent) showToast(cloudReady?'Salvando no '+cloudStorageName()+'…':'Alterações salvas localmente');
+ if(!silent) showToast(cloudReady?'Salvando no OneDrive…':'Alterações salvas localmente');
  return syncChain;
 }
 async function saveDataAndWait(step){
  data.updatedAt=new Date().toISOString();
- data.sourceOfTruth=cloudSourceOfTruth();
  if(step!==undefined && step!==null) data.onboarding.lastStep=step;
  cacheLocal();
- if(!cloudReady) throw new Error('A conexão com o '+cloudStorageName()+' não está ativa.');
- setCloudStatus('saving','Salvando no '+cloudStorageName()+'…');
- await uploadJsonToCloud(data);
- setCloudStatus('connected',cloudStorageName()+' sincronizado');
- showToast('organizador_financeiro.json atualizado no '+cloudStorageName());
+ if(!cloudReady) throw new Error('A conexão com o OneDrive não está ativa.');
+ setCloudStatus('saving','Salvando no OneDrive…');
+ await uploadJsonToOneDrive(data);
+ setCloudStatus('connected','OneDrive sincronizado');
+ showToast('organizador_financeiro.json atualizado no OneDrive');
 }
 function showToast(msg){
  const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.remove('show'),1900);
@@ -3019,7 +2893,7 @@ async function initMicrosoftAuth(){
    msalModule=await import('https://cdn.jsdelivr.net/npm/@azure/msal-browser@5.21.0/+esm');
    msalInstance=new msalModule.PublicClientApplication({
      auth:{
-       clientId:MICROSOFT_CLIENT_ID,
+       clientId:CLIENT_ID,
        authority:'https://login.microsoftonline.com/consumers',
        redirectUri:authRedirectUri(),
        postLogoutRedirectUri:authRedirectUri()
@@ -3085,7 +2959,6 @@ async function initMicrosoftAuth(){
  }
 }
 async function startMicrosoftLogin(mode){
- setProviderLoginUI('microsoft');
  if(!isRegisteredHost()){
    setLoginStatus('error','<b>O login real precisa ser testado no endereço publicado.</b><br>Abra '+REGISTERED_REDIRECT_URI+' e tente novamente.');
    return;
@@ -3175,227 +3048,60 @@ function normalizeLoadedData(obj){
    outrosPatrimonios:Array.isArray(obj.outrosPatrimonios)?obj.outrosPatrimonios:[]
  };
 }
+async function completeMicrosoftLogin(intent,loginResult){
+ try{
+   showScreen('login');
+   setLoginStatus('working','<b>Microsoft conectada.</b><br>Acessando a pasta privada do aplicativo no seu OneDrive…');
 
-function googleClientConfigured(){
- return !!GOOGLE_CLIENT_ID &&
-   GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com');
-}
-async function waitForGoogleIdentity(){
- for(let i=0;i<80;i++){
-   if(window.google?.accounts?.oauth2)return;
-   await new Promise(r=>setTimeout(r,50));
- }
- throw new Error('A biblioteca de login do Google não foi carregada. Recarregue a página e tente novamente.');
-}
-async function initGoogleAuth(){
- if(googleTokenClient)return googleTokenClient;
- if(!googleClientConfigured()){
-   throw new Error('O login Google ainda precisa do OAuth Client ID do Google Cloud configurado no HTML.');
- }
- await waitForGoogleIdentity();
- googleTokenClient=google.accounts.oauth2.initTokenClient({
-   client_id:GOOGLE_CLIENT_ID,
-   scope:GOOGLE_DRIVE_SCOPE,
-   callback:()=>{}
- });
- return googleTokenClient;
-}
-async function requestGoogleAccessToken({interactive=false}={}){
- const client=await initGoogleAuth();
- return await new Promise((resolve,reject)=>{
-   client.callback=(resp)=>{
-     if(resp?.error){
-       reject(new Error(resp.error_description||resp.error));
+   activeMicrosoftAccount=loginResult?.account||msalInstance.getActiveAccount();
+   if(activeMicrosoftAccount) msalInstance.setActiveAccount(activeMicrosoftAccount);
+   rememberBootstrapToken(loginResult);
+
+   await ensureAppRoot();
+   cloudReady=true;
+   setCloudStatus('connected','OneDrive conectado');
+
+   setLoginStatus('working','<b>OneDrive conectado.</b><br>Verificando <b>'+JSON_FILENAME+'</b>…');
+   const existing=await readJsonFromOneDrive();
+
+   if(intent==='auto') intent=existing?'existing':'first';
+   if(intent==='first'){
+     if(existing){
+       data=normalizeLoadedData(existing);
+       cacheLocal();
+       clearLoginIntent();
+
+       if(data.onboarding?.completed){
+         setLoginStatus('error','<b>Esta conta já possui um organizador financeiro concluído.</b><br>Use “Já tenho uma conta” para acessar seus dados.');
+         return;
+       }
+
+       const last=Math.max(0,Number(data.onboarding?.lastStep||0));
+       setLoginStatus('success','<b>✓ Seu organizador já existe.</b><br>Vamos continuar o cadastro.');
+
+       setTimeout(()=>{
+         try{
+           if(last===0){
+             resetFirstAccessForms();
+             showScreen('step1');
+           }else{
+             resumeFromLoadedData();
+           }
+         }catch(err){
+           console.error('Falha ao abrir onboarding',err);
+           showScreen('step1');
+         }
+       },350);
        return;
      }
-     googleAccessToken=resp.access_token;
-     googleTokenExpiresAt=Date.now()+(Number(resp.expires_in||3600)*1000);
-     resolve(googleAccessToken);
-   };
-   try{
-     client.requestAccessToken({prompt:interactive?'consent':''});
-   }catch(err){
-     reject(err);
-   }
- });
-}
-async function getGoogleAccessToken(interactive=false){
- if(googleAccessToken && Date.now()<googleTokenExpiresAt-60000)return googleAccessToken;
- if(!interactive){
-   throw new Error('Sua sessão do Google expirou. Volte à tela inicial e entre novamente com Google para continuar sincronizando.');
- }
- return await requestGoogleAccessToken({interactive:true});
-}
-async function googleFetch(url,options={}){
- const token=await getGoogleAccessToken(false);
- const headers=new Headers(options.headers||{});
- headers.set('Authorization','Bearer '+token);
- return await fetch(url,{...options,headers});
-}
-async function findGoogleJsonFile(){
- if(googleDriveFileId)return {id:googleDriveFileId,name:JSON_FILENAME};
- const params=new URLSearchParams({
-   spaces:'appDataFolder',
-   q:`name = '${JSON_FILENAME.replace(/'/g,"\\'")}' and trashed = false`,
-   fields:'files(id,name,modifiedTime)',
-   pageSize:'10'
- });
- const res=await googleFetch(GOOGLE_DRIVE_API+'/files?'+params.toString());
- if(!res.ok){
-   const txt=await res.text().catch(()=> '');
-   throw new Error('Não foi possível acessar a área privada do Google Drive ('+res.status+'): '+txt.slice(0,180));
- }
- const payload=await res.json();
- const file=payload.files?.[0]||null;
- if(file)googleDriveFileId=file.id;
- return file;
-}
-async function createGoogleJsonFile(payload){
- const metaRes=await googleFetch(GOOGLE_DRIVE_API+'/files?fields=id,name',{
-   method:'POST',
-   headers:{'Content-Type':'application/json; charset=utf-8'},
-   body:JSON.stringify({
-     name:JSON_FILENAME,
-     mimeType:'application/json',
-     parents:['appDataFolder']
-   })
- });
- if(!metaRes.ok){
-   const txt=await metaRes.text().catch(()=> '');
-   throw new Error('Não foi possível criar o arquivo no Google Drive ('+metaRes.status+'): '+txt.slice(0,180));
- }
- const meta=await metaRes.json();
- googleDriveFileId=meta.id;
 
- const uploadRes=await googleFetch(
-   GOOGLE_UPLOAD_API+'/files/'+encodeURIComponent(googleDriveFileId)+'?uploadType=media',
-   {
-     method:'PATCH',
-     headers:{'Content-Type':'application/json; charset=utf-8'},
-     body:JSON.stringify(payload,null,2)
-   }
- );
- if(!uploadRes.ok){
-   const txt=await uploadRes.text().catch(()=> '');
-   throw new Error('O arquivo foi criado, mas não foi possível gravar os dados no Google Drive ('+uploadRes.status+'): '+txt.slice(0,180));
- }
- return meta;
-}
-async function uploadJsonToGoogleDrive(payload){
- setCloudStatus('saving','Salvando no Google Drive…');
- const existing=await findGoogleJsonFile();
- if(!existing){
-   const created=await createGoogleJsonFile(payload);
-   setCloudStatus('connected','Google Drive sincronizado');
-   return created;
- }
- const res=await googleFetch(
-   GOOGLE_UPLOAD_API+'/files/'+encodeURIComponent(existing.id)+'?uploadType=media',
-   {
-     method:'PATCH',
-     headers:{'Content-Type':'application/json; charset=utf-8'},
-     body:JSON.stringify(payload,null,2)
-   }
- );
- if(!res.ok){
-   const txt=await res.text().catch(()=> '');
-   setCloudStatus('error','Falha ao sincronizar');
-   throw new Error('Falha ao gravar JSON no Google Drive ('+res.status+'): '+txt.slice(0,220));
- }
- setCloudStatus('connected','Google Drive sincronizado');
- return {id:existing.id,name:JSON_FILENAME};
-}
-async function readJsonFromGoogleDrive(){
- const file=await findGoogleJsonFile();
- if(!file)return null;
- const res=await googleFetch(GOOGLE_DRIVE_API+'/files/'+encodeURIComponent(file.id)+'?alt=media');
- if(res.status===404){
-   googleDriveFileId=null;
-   return null;
- }
- if(!res.ok){
-   throw new Error('Não foi possível carregar o JSON do Google Drive ('+res.status+').');
- }
- const text=await res.text();
- return JSON.parse(text);
-}
-async function uploadJsonToCloud(payload){
- return activeStorageProvider==='google'
-   ? await uploadJsonToGoogleDrive(payload)
-   : await uploadJsonToOneDrive(payload);
-}
-async function readJsonFromCloud(){
- return activeStorageProvider==='google'
-   ? await readJsonFromGoogleDrive()
-   : await readJsonFromOneDrive();
-}
-async function completeCloudBootstrap(intent){
- refreshCloudProviderUI();
- setLoginStatus('working','<b>'+cloudStorageName()+' conectado.</b><br>Verificando <b>'+JSON_FILENAME+'</b>…');
- const existing=await readJsonFromCloud();
-
- if(intent==='auto')intent=existing?'existing':'first';
-
- if(intent==='first'){
-   if(existing){
-     data=normalizeLoadedData(existing);
-     data.sourceOfTruth=cloudSourceOfTruth();
+     setLoginStatus('working','<b>Pasta encontrada.</b><br>Criando seu organizador financeiro…');
+     data=emptyData();
+     await uploadJsonToOneDrive(data);
      cacheLocal();
      clearLoginIntent();
 
-     if(data.onboarding?.completed){
-       setLoginStatus('error','<b>Esta conta já possui um organizador financeiro concluído.</b><br>Use “Já tenho uma conta” com o mesmo provedor para acessar seus dados.');
-       return;
-     }
-
-     const last=Math.max(0,Number(data.onboarding?.lastStep||0));
-     setLoginStatus('success','<b>✓ Seu organizador já existe.</b><br>Vamos continuar o cadastro.');
-     setTimeout(()=>{
-       try{
-         if(last===0){
-           resetFirstAccessForms();
-           showScreen('step1');
-         }else{
-           resumeFromLoadedData();
-         }
-       }catch(err){
-         console.error('Falha ao abrir onboarding',err);
-         showScreen('step1');
-       }
-     },350);
-     return;
-   }
-
-   setLoginStatus('working','<b>Área privada encontrada.</b><br>Criando seu organizador financeiro…');
-   data=emptyData();
-   data.sourceOfTruth=cloudSourceOfTruth();
-   await uploadJsonToCloud(data);
-   cacheLocal();
-   clearLoginIntent();
-
-   setLoginStatus('success','<b>✓ Organizador criado com sucesso.</b><br>Abrindo a primeira etapa…');
-   setTimeout(()=>{
-     resetFirstAccessForms();
-     showScreen('step1');
-   },350);
-   return;
- }
-
- if(intent==='existing'||intent==='resume'){
-   if(!existing){
-     clearLoginIntent();
-     setLoginStatus('error','<b>Não encontramos o '+JSON_FILENAME+'.</b><br>Confirme se você entrou com o mesmo provedor usado anteriormente. Se este é seu primeiro acesso, volte e escolha “É meu primeiro acesso”.');
-     return;
-   }
-
-   data=normalizeLoadedData(existing);
-   data.sourceOfTruth=cloudSourceOfTruth();
-   cacheLocal();
-   clearLoginIntent();
-
-   const last=Math.max(0,Number(data.onboarding?.lastStep||0));
-   if(!data.onboarding?.completed&&last===0){
-     setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Seu cadastro ainda não foi iniciado. Abrindo a primeira etapa…');
+     setLoginStatus('success','<b>✓ Organizador criado com sucesso.</b><br>Abrindo a primeira etapa…');
      setTimeout(()=>{
        resetFirstAccessForms();
        showScreen('step1');
@@ -3403,65 +3109,40 @@ async function completeCloudBootstrap(intent){
      return;
    }
 
-   setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Retomando seus dados…');
-   setTimeout(()=>{
-     try{
-       resumeFromLoadedData();
-     }catch(err){
-       console.error('Falha ao retomar onboarding',err);
-       setLoginStatus('error','<b>O arquivo foi encontrado, mas não foi possível abrir a próxima etapa.</b><br>'+escapeHtml(err?.message||String(err)));
+   if(intent==='existing' || intent==='resume'){
+     if(!existing){
+       clearLoginIntent();
+       setLoginStatus('error','<b>Não encontramos o '+JSON_FILENAME+'.</b><br>Se este é seu primeiro acesso, volte e escolha “É meu primeiro acesso”.');
+       return;
      }
-   },350);
-   return;
- }
 
- throw new Error('Não foi possível determinar o tipo de acesso.');
-}
-async function startGoogleLogin(mode){
- setProviderLoginUI('google');
- accessMode=mode;
- rememberLoginIntent(mode);
+     data=normalizeLoadedData(existing);
+     cacheLocal();
+     clearLoginIntent();
 
- if(!isRegisteredHost()){
-   setLoginStatus('error','<b>O login Google precisa ser testado no endereço publicado.</b><br>Abra '+REGISTERED_REDIRECT_URI+' e tente novamente.');
-   return;
- }
- if(!googleClientConfigured()){
-   setLoginStatus('error','<b>O login Google está preparado, mas falta configurar o OAuth Client ID.</b><br>Crie uma credencial OAuth 2.0 do tipo <b>Aplicação Web</b> no Google Cloud e substitua <code>GOOGLE_CLIENT_ID</code> no HTML.');
-   return;
- }
+     const last=Math.max(0,Number(data.onboarding?.lastStep||0));
+     if(!data.onboarding?.completed && last===0){
+       setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Seu cadastro ainda não foi iniciado. Abrindo a primeira etapa…');
+       setTimeout(()=>{
+         resetFirstAccessForms();
+         showScreen('step1');
+       },350);
+       return;
+     }
 
- try{
-   setLoginStatus('working','Abrindo o login do Google…');
-   await requestGoogleAccessToken({interactive:true});
-   cloudReady=true;
-   setCloudStatus('connected','Google Drive conectado');
-   setLoginStatus('working','<b>Google conectado.</b><br>Acessando a área privada do aplicativo no seu Google Drive…');
-   await completeCloudBootstrap(mode);
- }catch(err){
-   console.error('Falha no login Google',err);
-   cloudReady=false;
-   setCloudStatus('error','Google Drive desconectado');
-   showScreen('login');
-   setLoginStatus('error','<b>Não foi possível conectar ao Google Drive.</b><br>'+escapeHtml(err?.message||String(err)));
- }
-}
+     setLoginStatus('success','<b>✓ Arquivo encontrado.</b><br>Retomando seu cadastro…');
+     setTimeout(()=>{
+       try{
+         resumeFromLoadedData();
+       }catch(err){
+         console.error('Falha ao retomar onboarding',err);
+         setLoginStatus('error','<b>O arquivo foi encontrado, mas não foi possível abrir a próxima etapa.</b><br>'+escapeHtml(err?.message||String(err)));
+       }
+     },350);
+     return;
+   }
 
-async function completeMicrosoftLogin(intent,loginResult){
- setProviderLoginUI('microsoft');
- try{
-   showScreen('login');
-   setLoginStatus('working','<b>Microsoft conectada.</b><br>Acessando a pasta privada do aplicativo no seu OneDrive…');
-
-   activeMicrosoftAccount=loginResult?.account||msalInstance.getActiveAccount();
-   if(activeMicrosoftAccount)msalInstance.setActiveAccount(activeMicrosoftAccount);
-   rememberBootstrapToken(loginResult);
-
-   await ensureAppRoot();
-   cloudReady=true;
-   setCloudStatus('connected','OneDrive conectado');
-
-   await completeCloudBootstrap(intent);
+   throw new Error('Não foi possível determinar o tipo de acesso.');
  }catch(err){
    console.error('Falha ao preparar OneDrive',err);
    cloudReady=false;
@@ -3478,7 +3159,7 @@ function resetFirstAccessForms(){
  currency.value='BRL';
  syncCurrencyUI();
  person2Field.classList.add('hidden');
- person1.value=activeCloudUserName()||'';
+ person1.value=activeMicrosoftAccount?.name||'';
  person2.value='';
  age.value='';retAge.value='';useYears.value='';
  retIncome.value='';retCurrent.value='';retMonthlyCurrent.value='';
@@ -3698,24 +3379,19 @@ function addCategory(containerId,inputId){
 document.getElementById('firstAccessBtn').onclick=()=>{
  accessMode='first';
  document.getElementById('loginTitle').textContent='Vamos criar seu espaço financeiro privado.';
- document.getElementById('loginLead').innerHTML='Escolha <b>Microsoft</b> ou <b>Google</b>. O Organizador Financeiro criará o arquivo <b>organizador_financeiro.json</b> na área privada do aplicativo dentro da nuvem da conta escolhida.';
- setLoginStatus('','<b>Escolha onde deseja manter seus dados.</b><br>Depois do primeiro acesso, use o mesmo provedor para encontrar o mesmo arquivo.');
- document.getElementById('privacyProviderText').innerHTML='Com Microsoft, o arquivo fica na pasta privada do aplicativo no OneDrive. Com Google, ele fica na área privada do aplicativo no Google Drive. O Organizador Financeiro não mantém uma cópia central dos seus dados financeiros.';
- document.getElementById('loginStoragePill').textContent='Sua nuvem';
+ document.getElementById('loginLead').innerHTML='Faça login com a Microsoft para criar seu organizador. As informações que você preencher <b>não ficam disponíveis para outros usuários do aplicativo</b> e não são enviadas para um banco de dados central do Organizador Financeiro. Elas ficam salvas no <b>seu próprio OneDrive</b>, dentro da pasta privada usada pelo aplicativo.';
+ setLoginStatus('','<b>Seus dados continuam na sua conta Microsoft.</b><br>O aplicativo acessa apenas a pasta própria dele no seu OneDrive para ler e atualizar o arquivo <b>organizador_financeiro.json</b>.');
  showScreen('login');
 };
 document.getElementById('existingAccessBtn').onclick=()=>{
  accessMode='existing';
  document.getElementById('loginTitle').textContent='Bem-vindo(a) de volta.';
- document.getElementById('loginLead').innerHTML='Entre com o <b>mesmo provedor e a mesma conta</b> usados anteriormente. O aplicativo localizará o <b>organizador_financeiro.json</b> na sua nuvem e continuará a partir dele.';
- setLoginStatus('','Escolha Microsoft ou Google para carregar seus dados.');
- document.getElementById('privacyProviderText').innerHTML='Seu arquivo continua armazenado na nuvem da conta escolhida no primeiro acesso. Microsoft e Google usam áreas separadas; por isso, escolha o mesmo provedor usado anteriormente.';
- document.getElementById('loginStoragePill').textContent='Sua nuvem';
+ document.getElementById('loginLead').innerHTML='Entre com a mesma conta Microsoft usada anteriormente. O aplicativo localizará o <b>organizador_financeiro.json</b> no seu OneDrive e continuará a partir dele.';
+ setLoginStatus('','Entre com sua conta Microsoft para carregar seus dados.');
  showScreen('login');
 };
 document.getElementById('loginBack').onclick=()=>{clearLoginIntent();showScreen('landing')};
 document.getElementById('microsoftLoginBtn').onclick=()=>startMicrosoftLogin(accessMode);
-document.getElementById('googleLoginBtn').onclick=()=>startGoogleLogin(accessMode);
 
 document.querySelectorAll('[data-prev]').forEach(b=>b.onclick=()=>showScreen(b.dataset.prev));
 document.getElementById('profileType').onchange=e=>{
@@ -3732,7 +3408,7 @@ document.getElementById('saveStep1').onclick=async()=>{
  data.perfil={tipo:type,pessoas:type==='individual'?[p1]:[p1,p2],moeda:currency.value||'BRL'};
  syncIncomePersonSelects();
  syncCurrencyUI();
- try{await saveDataAndWait(1);syncIncomePersonSelects();showScreen('step2')}catch(err){alert('Não foi possível salvar esta etapa no '+cloudStorageName()+'. Verifique sua conexão e tente novamente.')}
+ try{await saveDataAndWait(1);syncIncomePersonSelects();showScreen('step2')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 
 let calcAnnual=.10,calcInfl=.04,calcTax=.15;
@@ -3940,7 +3616,7 @@ document.getElementById('saveStep2').onclick=async()=>{
    aporteEstimadoSemImposto:m.monthlyNoTax,
    impactoImpostoNoAporte:m.taxImpact
  };
- try{await saveDataAndWait(2);showScreen('step3')}catch(err){alert('Não foi possível salvar esta etapa no '+cloudStorageName()+'. Verifique sua conexão e tente novamente.')}
+ try{await saveDataAndWait(2);showScreen('step3')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 
 function bindDelete(btn){if(btn.dataset.bound)return;btn.dataset.bound='1';btn.onclick=()=>{btn.closest('.data').remove();updateLive()}}
@@ -3994,7 +3670,7 @@ document.getElementById('saveStep3').onclick=async()=>{
  data.categorias.fixas=getCheckedLabels('fixedCategories');
  data.categorias.variaveis=getCheckedLabels('variableCategories');
  syncCategorySelects();
- try{await saveDataAndWait(3);showScreen('step4')}catch(err){alert('Não foi possível salvar esta etapa no '+cloudStorageName()+'. Verifique sua conexão e tente novamente.')}
+ try{await saveDataAndWait(3);showScreen('step4')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 
 function bindRetFlag(el){if(el.dataset.bound)return;el.dataset.bound='1';el.onchange=()=>{el.closest('.toggle').querySelector('.toggle-label').innerHTML=el.checked?'Sim, faz parte<br>da meta':'Não, outro<br>objetivo';updateLive()}}
@@ -4055,7 +3731,7 @@ document.getElementById('saveStep4').onclick=async()=>{
      aporteProjecao:Number(data.aposentadoria.premissas?.aporteProjecao ?? data.aposentadoria.aporteAtual ?? m.monthly)
    };
  }
- try{await saveDataAndWait(4);preparePlan();showScreen('step5')}catch(err){alert('Não foi possível salvar esta etapa no '+cloudStorageName()+'. Verifique sua conexão e tente novamente.')}
+ try{await saveDataAndWait(4);preparePlan();showScreen('step5')}catch(err){alert('Não foi possível salvar esta etapa no OneDrive. Verifique sua conexão e tente novamente.')}
 };
 function updateLive(){updateRetirementSummary();updateStep3();updateStep4()}
 function totals(){
@@ -4086,7 +3762,7 @@ function preparePlan(){
 }
 finishOnboarding.onclick=async()=>{
  data.onboarding.completed=true;delete data.historicoDemo;
- try{await saveDataAndWait(5);prepareDashboard();showScreen('dashboard')}catch(err){data.onboarding.completed=false;alert('Não foi possível concluir e salvar seu plano no '+cloudStorageName()+'. Tente novamente.')}
+ try{await saveDataAndWait(5);prepareDashboard();showScreen('dashboard')}catch(err){data.onboarding.completed=false;alert('Não foi possível concluir e salvar seu plano no OneDrive. Tente novamente.')}
 };
 
 
@@ -4156,7 +3832,7 @@ function hydrateCategoryChecks(containerId,selected=[]){
 }
 function hydrateFormsFromData(){
  const p=data.perfil||{};
- profileType.value=p.tipo||'individual';currency.value=['BRL','EUR','USD'].includes(p.moeda)?p.moeda:'BRL';person1.value=p.pessoas?.[0]||activeCloudUserName()||'';person2.value=p.pessoas?.[1]||'';person2Field.classList.toggle('hidden',profileType.value==='individual');syncCurrencyUI();
+ profileType.value=p.tipo||'individual';currency.value=['BRL','EUR','USD'].includes(p.moeda)?p.moeda:'BRL';person1.value=p.pessoas?.[0]||activeMicrosoftAccount?.name||'';person2.value=p.pessoas?.[1]||'';person2Field.classList.toggle('hidden',profileType.value==='individual');syncCurrencyUI();
  const a=data.aposentadoria||{};
  age.value=a.idadeAtual||'';retAge.value=a.idadeAposentadoria||'';useYears.value=a.anosUsufruto||'';retIncome.value=a.rendaMensalHoje?Number(a.rendaMensalHoje).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';retCurrent.value=a.patrimonioDetalhado||a.patrimonioInicialInformado?Number(a.patrimonioDetalhado||a.patrimonioInicialInformado).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';retMonthlyCurrent.value=a.aporteAtual?Number(a.aporteAtual).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'';
  if(a.premissas){calcAnnual=Number(a.premissas.rentabilidadeAnual??calcAnnual);calcInfl=Number(a.premissas.inflacaoAnual??calcInfl);calcTax=Number(a.premissas.impostoSobreRendimento??calcTax)}
@@ -4371,7 +4047,6 @@ function nextInstallmentDue(x){
  return installmentSchedule(x).find(o=>!o.pago&&o.mes>=month)||installmentSchedule(x).find(o=>!o.pago)||null;
 }
 function prepareDashboard(){
- refreshCloudProviderUI();
  ensureDashboardMetadata();
  syncCategorySelects();
 
@@ -4492,23 +4167,7 @@ function openDashboardTab(tab){
 document.querySelectorAll('.nav button').forEach(btn=>btn.onclick=()=>openDashboardTab(btn.dataset.tab));
 document.getElementById('mobileDashNav').onchange=e=>openDashboardTab(e.target.value);
 backToLanding.onclick=async()=>{
- try{
-   cloudReady=false;
-   if(activeStorageProvider==='google'){
-     googleAccessToken=null;
-     googleTokenExpiresAt=0;
-     googleDriveFileId=null;
-     showScreen('landing');
-     return;
-   }
-   if(msalInstance&&msalInstance.getActiveAccount()){
-     await msalInstance.logoutRedirect({account:msalInstance.getActiveAccount()});
-   }else{
-     showScreen('landing');
-   }
- }catch(e){
-   showScreen('landing');
- }
+ try{if(msalInstance&&msalInstance.getActiveAccount())await msalInstance.logoutRedirect({account:msalInstance.getActiveAccount()});else showScreen('landing')}catch(e){showScreen('landing')}
 };restartOnboarding.onclick=()=>showScreen('step1');
 downloadJson.onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='organizador_financeiro.json';a.click();URL.revokeObjectURL(a.href);showToast('Cópia local do JSON baixada')};
 
