@@ -2813,7 +2813,7 @@ const MICROSOFT_CLIENT_ID='fd3cc9af-c84d-47c0-9c9a-7f663cfdd94e';
  * Cole abaixo o OAuth Client ID do Google Cloud (tipo: Aplicação Web).
  * Exemplo de formato: 123456789-abc123.apps.googleusercontent.com
  */
-const GOOGLE_CLIENT_ID='COLE_SEU_GOOGLE_CLIENT_ID_AQUI.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID='883523235358-suff2kh0d9nq73fdeoge4cnpo7vog21h.apps.googleusercontent.com';
 const REGISTERED_REDIRECT_URI='https://igorhorrocks.github.io/app_planejador_financeiro/';
 const GRAPH_SCOPES=['Files.ReadWrite.AppFolder'];
 const GRAPH_BASE='https://graph.microsoft.com/v1.0';
@@ -3178,7 +3178,6 @@ function normalizeLoadedData(obj){
 
 function googleClientConfigured(){
  return !!GOOGLE_CLIENT_ID &&
-   !GOOGLE_CLIENT_ID.includes('COLE_SEU_GOOGLE_CLIENT_ID_AQUI') &&
    GOOGLE_CLIENT_ID.endsWith('.apps.googleusercontent.com');
 }
 async function waitForGoogleIdentity(){
